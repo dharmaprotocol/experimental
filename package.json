@@ -1,0 +1,9 @@
+{
+  "name": "experimental",
+  "version": "1.0.0",
+  "description": "Experimental smart contracts that extend Dharma Protocol ",
+  "main": "index.js",
+  "repository": "https://github.com/dharmaprotocol/experimental.git",
+  "author": "Kayvon Tehranian <ktehranian@gmail.com>",
+  "license": "MIT"
+}
