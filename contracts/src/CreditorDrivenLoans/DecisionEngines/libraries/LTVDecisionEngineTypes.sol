@@ -30,14 +30,20 @@ contract LTVDecisionEngineTypes {
 	}
 
 	struct CommitmentValues {
-		address creditor;
-		address repaymentRouter;
-		uint creditorFee;
-		address underwriter;
-		uint underwriterRiskRating;
-		address termsContract;
-		bytes32 termsContractParameters;
-		uint commitmentExpirationTimestampInSec;
-		uint salt;
+		uint maxLTV;
+		address principalToken;
+		uint principalAmount;
+		uint expirationTimestamp;
+
+		// Commenting these out for now, since they are contained in the order.
+		//		address creditor;
+		//		address repaymentRouter;
+		//		uint creditorFee;
+		//		address underwriter;
+		//		uint underwriterRiskRating;
+		//		address termsContract;
+		//		bytes32 termsContractParameters;
+		//		uint commitmentExpirationTimestampInSec;
+		//		uint salt;
 	}
 }
