@@ -2,6 +2,8 @@ pragma solidity 0.4.25;
 
 
 contract SignaturesLibrary {
+	bytes constant internal PREFIX = "\x19Ethereum Signed Message:\n32";
+
 	struct ECDSASignature {
 		uint8 v;
 		bytes32 r;
@@ -10,7 +12,6 @@ contract SignaturesLibrary {
 
 	function isValidSignature(
 		address signer,
-		bytes32 prefix,
 		bytes32 hash,
 		ECDSASignature signature
 	)
@@ -18,7 +19,7 @@ contract SignaturesLibrary {
 		pure
 		returns (bool valid)
 	{
-		bytes32 prefixedHash = keccak256(prefix, hash);
+		bytes32 prefixedHash = keccak256(PREFIX, hash);
 		return ecrecover(prefixedHash, signature.v, signature.r, signature.s) == signer;
 	}
 }
