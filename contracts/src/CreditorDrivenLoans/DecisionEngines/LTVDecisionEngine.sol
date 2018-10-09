@@ -15,9 +15,29 @@ contract LTVDecisionEngine {
 	function evaluateConsent(LTVDecisionEngineTypes.Params params)
 		public view returns (bool signatureValid, bytes32 _id)
 	{
-		// Access the commitment values from the given args.
-		LTVDecisionEngineTypes.CommitmentValues commitmentValues = params.commitmentValues;
+		bool validCommitmentHash = verifyCreditorCommitmentHash(
+			params.creditor,
+			params.commitmentValues,
+			params.order,
+			params.creditorSignature
+		);
 
+		bool validPrices = verifyPrices(
+			params.priceFeedOperator,
+			params.principalPrice,
+			params.collateralPrice
+		);
+
+		return validCommitmentHash && validPrices;
+	}
+
+	function verifyCreditorCommitmentHash(
+		address creditor,
+		LTVDecisionEngineTypes.CommitmentValues commitmentValues,
+		OrderLibrary.DebtOrder order,
+		SignaturesLibrary.ECDSASignature signature
+	)
+	{
 		// Create a hash of the commitment values.
 		bytes32 commitmentHash = keccak256(
 			// LTV specific values.
@@ -26,22 +46,54 @@ contract LTVDecisionEngine {
 			commitmentValues.principalAmount,
 			commitmentValues.expirationTimestamp,
 			// Order specific values.
-			commitmentValues.creditor,
-			commitmentValues.repaymentRouter,
-			commitmentValues.creditorFee,
-			commitmentValues.underwriter,
-			commitmentValues.underwriterRiskRating,
-			commitmentValues.termsContract,
-			commitmentValues.termsContractParameters,
-			commitmentValues.commitmentExpirationTimestampInSec,
-			commitmentValues.salt
+			order.creditor,
+			order.repaymentRouter,
+			order.creditorFee,
+			order.underwriter,
+			order.underwriterRiskRating,
+			order.termsContract,
+			order.termsContractParameters,
+			order.commitmentExpirationTimestampInSec,
+			order.salt
 		);
 
 		return SignaturesLibrary.isValidSignature(
-			params.creditor,
+			creditor,
 			commitmentHash,
-			params.creditorSignature
+			signature
 		);
+	}
+
+	function verifyPrices(
+		address priceFeedOperator,
+		LTVDecisionEngineTypes.Price principalPrice,
+		LTVDecisionEngineTypes.Price collateralPrice
+	)
+		public view returns (bool)
+	{
+		bytes32 principalPriceHash = keccack256(
+			principalPrice.value,
+			principalPrice.timestamp
+		);
+
+		bytes32 collateralPriceHash = keccack256(
+			collateralPrice.value,
+			collateralPrice.timestamp
+		);
+
+		bool principalPriceValid = SignaturesLibrary.isValidSignature(
+			priceFeedOperator,
+			principalPriceHash,
+			principalPrice.signature
+		);
+
+		bool collateralPriceValid = SignaturesLibrary.isValidSignature(
+			priceFeedOperator,
+			collateralPriceHash,
+			collateralPrice.signature
+		);
+
+		return principalPriceValid && collateralPriceValid;
 	}
 
 	// Returns true if the creditor-initiated order has not expired, and the LTV is below the max.
