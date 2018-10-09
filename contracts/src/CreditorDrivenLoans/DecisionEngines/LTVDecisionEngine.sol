@@ -15,20 +15,25 @@ contract LTVDecisionEngine {
 	function evaluateConsent(LTVDecisionEngineTypes.Params params)
 		public view returns (bool signatureValid, bytes32 _id)
 	{
-		bool validCommitmentHash = verifyCreditorCommitmentHash(
+		// Checks that the given creditor values were signed by the creditor.
+		bool validCreditorSignature = verifyCreditorCommitmentHash(
 			params.creditor,
 			params.commitmentValues,
 			params.order,
 			params.creditorSignature
 		);
 
-		bool validPrices = verifyPrices(
+		// We return early if the creditor values were not signed correctly.
+		if (!validCreditorSignature) {
+			return false;
+		}
+
+		// Checks that the given price feed data was signed by the price feed operator.
+		return verifyPrices(
 			params.priceFeedOperator,
 			params.principalPrice,
 			params.collateralPrice
 		);
-
-		return validCommitmentHash && validPrices;
 	}
 
 	function verifyCreditorCommitmentHash(
@@ -87,13 +92,16 @@ contract LTVDecisionEngine {
 			principalPrice.signature
 		);
 
-		bool collateralPriceValid = SignaturesLibrary.isValidSignature(
+		// We return early if the principal price information was not signed correctly.
+		if (!principalPriceValid) {
+			return false;
+		}
+
+		return SignaturesLibrary.isValidSignature(
 			priceFeedOperator,
 			collateralPriceHash,
 			collateralPrice.signature
 		);
-
-		return principalPriceValid && collateralPriceValid;
 	}
 
 	// Returns true if the creditor-initiated order has not expired, and the LTV is below the max.
