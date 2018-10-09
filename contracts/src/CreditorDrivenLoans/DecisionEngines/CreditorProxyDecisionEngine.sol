@@ -13,8 +13,6 @@ contract CreditorProxyDecisionEngine {
 	{
 		// Access the commitment values from the given args.
 		CreditorProxyDecisionEngineTypes.CommitmentValues commitmentValues = params.commitmentValues;
-		// Access the signature of the creditor for the commitment values.
-		SignatureTypes.ECDSASignature signature = params.creditorSignature;
 
 		// Create a hash of the commitment values.
 		bytes32 commitmentHash = keccak256(
@@ -29,16 +27,12 @@ contract CreditorProxyDecisionEngine {
 			commitmentValues.salt
 		);
 
-		// Prefix the hash with a given commitment hash constant.
-		bytes32 prefixedHash = keccak256(COMMITMENT_HASH_PREFIX, hash);
-
-		// Check if the hash recovers the creditor's address.
-		return ecrecover(
-			prefixedHash,
-			creditorSignature.v,
-			creditorSignature.r,
-			creditorSignature.s
-		) == params.creditor;
+		return SignaturesLibrary.isValidSignature(
+			params.creditor,
+			COMMITMENT_HASH_PREFIX,
+			commitmentHash,
+			params.creditorSignature
+		);
 	}
 
 	function evaluateDecision(DecisionEngineTypes.EvaluationParams params)

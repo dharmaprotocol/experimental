@@ -1,13 +1,13 @@
 pragma solidity 0.4.24;
 
-import "../../../shared/libraries/SignatureTypes.sol";
+import "../../../shared/libraries/SignaturesLibrary.sol";
 
 
 contract CreditorProxyDecisionEngineTypes {
 	struct CreditorEvaluationParams {
 		address creditor;
 		CommitmentValues commitmentValues;
-		SignatureTypes.ECDSASignature creditorSignature;
+		SignaturesLibrary.ECDSASignature creditorSignature;
 	}
 
 	struct CommitmentValues {

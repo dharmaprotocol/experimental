@@ -10,6 +10,7 @@ contract SignaturesLibrary {
 
 	function isValidSignature(
 		address signer,
+		bytes32 prefix,
 		bytes32 hash,
 		ECDSASignature signature
 	)
