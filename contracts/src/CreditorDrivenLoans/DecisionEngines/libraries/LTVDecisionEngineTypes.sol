@@ -4,21 +4,26 @@ import "../../../shared/libraries/SignaturesLibrary.sol";
 
 
 contract LTVDecisionEngineTypes {
-	struct EvaluationParams {
+	// The parameters used during the consent and decision evaluations.
+	struct Params {
 		address creditor;
 		address priceFeedOperator;
+		// The values and signature for hte creditor commitment hash.
+		CreditorCommitment creditorCommitment;
 		// Price feed data.
 		Price principalPrice;
 		Price collateralPrice;
-		// Commitment values.
-		CommitmentValues commitmentValues;
-		SignaturesLibrary.ECDSASignature creditorSignature;
 	}
 
 	struct Price {
 		uint price;
 		uint timestamp;
 		SignaturesLibrary.ECDSASignature operatorSignature;
+	}
+
+	struct CreditorCommitment {
+		CommitmentValues values;
+		SignaturesLibrary.ECDSASignature signature;
 	}
 
 	struct CommitmentValues {

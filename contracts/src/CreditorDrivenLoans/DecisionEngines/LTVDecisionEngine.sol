@@ -7,12 +7,12 @@ contract LTVDecisionEngine {
 	bytes constant internal COMMITMENT_HASH_PREFIX = "\x19Ethereum Signed Message:\n32";
 
 	function evaluateConsent(
-		CreditorProxyDecisionEngineTypes.CreditorEvaluationParams params
+		LTVDecisionEngineTypes.Params params
 	)
 	public view returns (bool signatureValid, bytes32 _id)
 	{
 		// Access the commitment values from the given args.
-		CreditorProxyDecisionEngineTypes.CommitmentValues commitmentValues = params.commitmentValues;
+		LTVDecisionEngineTypes.CommitmentValues commitmentValues = params.commitmentValues;
 
 		// Create a hash of the commitment values.
 		bytes32 commitmentHash = keccak256(
@@ -36,7 +36,7 @@ contract LTVDecisionEngine {
 	}
 
 	function evaluateDecision(
-		CreditorProxyDecisionEngineTypes.CreditorEvaluationParams params
+		LTVDecisionEngineTypes.Params params
 	)
 	public view returns (bool _success)
 	{
