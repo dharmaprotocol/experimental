@@ -7,44 +7,75 @@ import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "./libraries/LTVDecisionEngineTypes.sol";
 
 
-contract LTVDecisionEngine {
+contract LTVDecisionEngine is
+	OrderLibrary,
+	LTVDecisionEngineTypes
+{
 	using SafeMath for uint;
 
 	uint public constant PRECISION = 4;
 
-	function evaluateConsent(LTVDecisionEngineTypes.Params params)
+	function evaluateConsent(Params params)
 		public view returns (bool signatureValid, bytes32 _id)
 	{
+		DebtOrder order = params.order;
+		CommitmentValues commitmentValues = params.creditorCommitment.values;
+
+		bytes32 commitmentHash = hashOrder(commitmentValues, order);
+
 		// Checks that the given creditor values were signed by the creditor.
 		bool validCreditorSignature = verifyCreditorCommitmentHash(
 			params.creditor,
-			params.commitmentValues,
-			params.order,
+			commitmentHash,
 			params.creditorSignature
 		);
 
 		// We return early if the creditor values were not signed correctly.
 		if (!validCreditorSignature) {
-			return false;
+			return (false, commitmentHash);
 		}
 
 		// Checks that the given price feed data was signed by the price feed operator.
-		return verifyPrices(
-			params.priceFeedOperator,
-			params.principalPrice,
-			params.collateralPrice
+		return (
+			verifyPrices(
+				params.priceFeedOperator,
+				params.principalPrice,
+				params.collateralPrice
+			),
+			commitmentHash
 		);
 	}
 
-	function verifyCreditorCommitmentHash(
-		address creditor,
-		LTVDecisionEngineTypes.CommitmentValues commitmentValues,
-		OrderLibrary.DebtOrder order,
-		SignaturesLibrary.ECDSASignature signature
-	)
+	// Returns true if the creditor-initiated order has not expired, and the LTV is below the max.
+	function evaluateDecision(Params params)
+		public view returns (bool _success)
 	{
-		// Create a hash of the commitment values.
-		bytes32 commitmentHash = keccak256(
+		LTVDecisionEngineTypes.Price principalTokenPrice = params.principalPrice;
+		LTVDecisionEngineTypes.Price collateralTokenPrice = params.collateralPrice;
+
+		CommitmentValues commitmentValues = params.creditorCommitment.values;
+		DebtOrder order = params.order;
+
+		if (isExpired(commitmentValues.expirationTimestamp)) {
+			return false;
+		}
+
+		uint ltv = computeLTV(
+			principalTokenPrice.value,
+			collateralTokenPrice.value,
+			commitmentValues.principalAmount,
+			order.collateralAmount
+		);
+
+		uint maxLTVWithPrecision = maxLTV.mul(10 ** (PRECISION.sub(2)));
+
+		return computedLTV > maxLTVWithPrecision;
+	}
+
+	function hashOrder(CommitmentValues commitmentValues, DebtOrder order)
+		returns (bytes32)
+	{
+		return keccak256(
 			// LTV specific values.
 			commitmentValues.maxLTV,
 			commitmentValues.principalToken,
@@ -61,7 +92,15 @@ contract LTVDecisionEngine {
 			order.commitmentExpirationTimestampInSec,
 			order.salt
 		);
+	}
 
+	function verifyCreditorCommitmentHash(
+		address creditor,
+		bytes32 commitmentHash,
+		SignaturesLibrary.ECDSASignature signature
+	)
+		internal view returns(bool)
+	{
 		return SignaturesLibrary.isValidSignature(
 			creditor,
 			commitmentHash,
@@ -74,7 +113,7 @@ contract LTVDecisionEngine {
 		LTVDecisionEngineTypes.Price principalPrice,
 		LTVDecisionEngineTypes.Price collateralPrice
 	)
-		public view returns (bool)
+		internal view returns (bool)
 	{
 		bytes32 principalPriceHash = keccack256(
 			principalPrice.value,
@@ -104,39 +143,13 @@ contract LTVDecisionEngine {
 		);
 	}
 
-	// Returns true if the creditor-initiated order has not expired, and the LTV is below the max.
-	function evaluateDecision(LTVDecisionEngineTypes.Params params)
-		public view returns (bool _success)
-	{
-		LTVDecisionEngineTypes.Price principalTokenPrice = params.principalPrice;
-		LTVDecisionEngineTypes.Price collateralTokenPrice = params.collateralPrice;
-
-		LTVDecisionEngineTypes.CommitmentValues commitmentValues = params.creditorCommitment.values;
-		OrderLibrary.DebtOrder order = params.order;
-
-		if (isExpired(commitmentValues.expirationTimestamp)) {
-			return false;
-		}
-
-		uint ltv = computeLTV(
-			principalTokenPrice.value,
-			collateralTokenPrice.value,
-			commitmentValues.principalAmount,
-			order.collateralAmount
-		);
-
-		uint maxLTVWithPrecision = maxLTV.mul(10 ** (PRECISION.sub(2)));
-
-		return computedLTV > maxLTVWithPrecision;
-	}
-
 	function computeLTV(
 		uint principalTokenPrice,
 		uint collateralTokenPrice,
 		uint principalAmount,
 		uint collateralAmount
 	)
-		public constant returns (uint)
+		internal constant returns (uint)
 	{
 		uint principalValue = principalTokenPrice.mul(principalAmount).mul(10 ** PRECISION);
 		uint collateralValue = collateralTokenPrice.mul(collateralAmount);
@@ -145,7 +158,7 @@ contract LTVDecisionEngine {
 	}
 
 	function isExpired(uint expirationTimestampInSec)
-		public view returns (bool expired)
+		internal view returns (bool expired)
 	{
 		return expirationTimestampInSec < block.timestamp;
 	}
