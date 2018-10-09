@@ -4,7 +4,6 @@ import "./libraries/CreditorProxyDecisionEngineTypes.sol";
 
 
 contract CreditorProxyDecisionEngine {
-	bytes constant internal COMMITMENT_HASH_PREFIX = "\x19Ethereum Signed Message:\n32";
 
 	function evaluateConsent(
 		CreditorProxyDecisionEngineTypes.CreditorEvaluationParams params
@@ -29,7 +28,6 @@ contract CreditorProxyDecisionEngine {
 
 		return SignaturesLibrary.isValidSignature(
 			params.creditor,
-			COMMITMENT_HASH_PREFIX,
 			commitmentHash,
 			params.creditorSignature
 		);
