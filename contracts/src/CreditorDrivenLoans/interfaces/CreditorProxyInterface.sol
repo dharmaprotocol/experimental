@@ -4,7 +4,7 @@ import "./CreditorProxyCoreInterface.sol";
 import "./LTVCreditorProxyInterface.sol";
 
 
-contract LTVCreditorProxyInterface is
+contract CreditorProxyInterface is
 	CreditorProxyCoreInterface,
 	LTVCreditorProxyInterface
 {}
