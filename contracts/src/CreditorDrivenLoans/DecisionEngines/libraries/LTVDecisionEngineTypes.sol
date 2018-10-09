@@ -3,11 +3,22 @@ pragma solidity 0.4.24;
 import "../../../shared/libraries/SignaturesLibrary.sol";
 
 
-contract CreditorProxyDecisionEngineTypes {
-	struct CreditorEvaluationParams {
+contract LTVDecisionEngineTypes {
+	struct EvaluationParams {
 		address creditor;
+		address priceFeedOperator;
+		// Price feed data.
+		Price principalPrice;
+		Price collateralPrice;
+		// Commitment values.
 		CommitmentValues commitmentValues;
 		SignaturesLibrary.ECDSASignature creditorSignature;
+	}
+
+	struct Price {
+		uint price;
+		uint timestamp;
+		SignaturesLibrary.ECDSASignature operatorSignature;
 	}
 
 	struct CommitmentValues {
