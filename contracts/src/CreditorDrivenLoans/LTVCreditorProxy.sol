@@ -20,19 +20,16 @@ contract LTVCreditorProxy is
 	{
 		(isConsensual, id) = evaluateConsent(params);
 
-		if (!isConsensual) {
+		if (!(isConsensual && evaluateDecision(params))) {
 			return NULL_ISSUANCE_HASH;
 		}
 
-		if (evaluateDecision(params)) {
-			// The order is consensual and has an acceptable LTV ratio.
-			debtOfferFilled[id] = true;
-		}
-
+		// The order is consensual and has an acceptable LTV ratio.
+		debtOfferFilled[id] = true;
 		return id;
 	}
 
-	function cancelDebtOffer(LTVDecisionEngineTypes.Params params) public whenNotPaused returns (bool) {
+	function cancelDebtOffer(Params params) public whenNotPaused returns (bool) {
 		// sender must be the creditor.
 		require(msg.sender == order.creditor);
 

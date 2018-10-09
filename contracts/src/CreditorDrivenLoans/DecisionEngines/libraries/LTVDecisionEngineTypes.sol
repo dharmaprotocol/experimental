@@ -9,8 +9,9 @@ contract LTVDecisionEngineTypes {
 	struct Params {
 		address creditor;
 		address priceFeedOperator;
-		// The values and signature for hte creditor commitment hash.
+		// The values and signature for the creditor commitment hash.
 		CreditorCommitment creditorCommitment;
+		uint maxLTV;
 		// Price feed data.
 		Price principalPrice;
 		Price collateralPrice;
@@ -30,20 +31,8 @@ contract LTVDecisionEngineTypes {
 	}
 
 	struct CommitmentValues {
-		uint maxLTV;
 		address principalToken;
 		uint principalAmount;
 		uint expirationTimestamp;
-
-		// Commenting these out for now, since they are contained in the order.
-		//		address creditor;
-		//		address repaymentRouter;
-		//		uint creditorFee;
-		//		address underwriter;
-		//		uint underwriterRiskRating;
-		//		address termsContract;
-		//		bytes32 termsContractParameters;
-		//		uint commitmentExpirationTimestampInSec;
-		//		uint salt;
 	}
 }
