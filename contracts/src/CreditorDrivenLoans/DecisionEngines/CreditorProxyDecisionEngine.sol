@@ -35,9 +35,12 @@ contract CreditorProxyDecisionEngine {
 		);
 	}
 
-	function evaluateDecision(DecisionEngineTypes.EvaluationParams params)
+	function evaluateDecision(
+		CreditorProxyDecisionEngineTypes.CreditorEvaluationParams params
+	)
 		public view returns (bool _success)
 	{
-		// STUB.
+		// The CreditorProxyDecisionEngine is naive, and simply returns true.
+		return true;
 	}
 }
