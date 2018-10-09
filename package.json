@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "https://github.com/dharmaprotocol/experimental.git",
   "author": "Kayvon Tehranian <ktehranian@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "solc": "^0.4.25"
+  }
 }
