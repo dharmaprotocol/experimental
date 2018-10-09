@@ -1,4 +1,4 @@
-pragma solidity 0.4.24;
+pragma solidity 0.4.25;
 
 
 contract SignaturesLibrary {
@@ -19,6 +19,6 @@ contract SignaturesLibrary {
 		returns (bool valid)
 	{
 		bytes32 prefixedHash = keccak256(prefix, hash);
-		return ecrecover(prefixedHash, v, r, s) == signer;
+		return ecrecover(prefixedHash, signature.v, signature.r, signature.s) == signer;
 	}
 }
