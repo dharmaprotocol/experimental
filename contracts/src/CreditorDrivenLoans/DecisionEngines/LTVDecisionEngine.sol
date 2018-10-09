@@ -1,7 +1,7 @@
-pragma solidity 0.4.24;
+pragma solidity 0.4.25;
 
 // External dependencies
-import "zeppelin-solidity/contracts/math/SafeMath.sol";
+import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 // Libraries
 import "./libraries/LTVDecisionEngineTypes.sol";
