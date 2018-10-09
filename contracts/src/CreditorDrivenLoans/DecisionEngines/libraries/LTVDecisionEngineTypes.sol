@@ -19,7 +19,7 @@ contract LTVDecisionEngineTypes {
 	}
 
 	struct Price {
-		uint price;
+		uint value;
 		uint timestamp;
 		SignaturesLibrary.ECDSASignature operatorSignature;
 	}
