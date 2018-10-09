@@ -76,7 +76,7 @@ contract LTVDecisionEngine {
 		uint principalAmount,
 		uint collateralAmount
 	)
-		public  constant returns (uint)
+		public constant returns (uint)
 	{
 		uint principalValue = principalTokenPrice.mul(principalAmount).mul(10 ** PRECISION);
 		uint collateralValue = collateralTokenPrice.mul(collateralAmount);
