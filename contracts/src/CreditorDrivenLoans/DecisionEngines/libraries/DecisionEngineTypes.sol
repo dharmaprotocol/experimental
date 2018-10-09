@@ -7,6 +7,6 @@ contract DecisionEngineTypes {
 	struct EvaluationParams {
 		address creditor;
 		bytes32[] data;
-		ECDSASignature[] signatures;
+		SignatureTypes.ECDSASignature[] signatures;
 	}
 }
