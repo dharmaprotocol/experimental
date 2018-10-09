@@ -1,6 +1,7 @@
 pragma solidity 0.4.24;
 
 import "../../../shared/libraries/SignaturesLibrary.sol";
+import "../../../shared/libraries/OrderLibrary.sol";
 
 
 contract LTVDecisionEngineTypes {
@@ -13,6 +14,8 @@ contract LTVDecisionEngineTypes {
 		// Price feed data.
 		Price principalPrice;
 		Price collateralPrice;
+		// A DebtOrderData is required to confirm parity with the submitted order.
+		OrderLibrary.DebtOrder order;
 	}
 
 	struct Price {

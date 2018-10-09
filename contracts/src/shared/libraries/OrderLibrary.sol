@@ -4,7 +4,7 @@ import "./SignaturesLibrary.sol";
 
 
 contract OrderLibrary {
-	struct DebtOrderData {
+	struct DebtOrder {
 		address kernelVersion;
 		address issuanceVersion;
 		uint principalAmount;
