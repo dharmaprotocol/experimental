@@ -4,18 +4,20 @@ import "./libraries/LTVDecisionEngineTypes.sol";
 
 
 contract LTVDecisionEngine {
-	bytes constant internal COMMITMENT_HASH_PREFIX = "\x19Ethereum Signed Message:\n32";
-
-	function evaluateConsent(
-		LTVDecisionEngineTypes.Params params
-	)
-	public view returns (bool signatureValid, bytes32 _id)
+	function evaluateConsent(LTVDecisionEngineTypes.Params params)
+		public view returns (bool signatureValid, bytes32 _id)
 	{
 		// Access the commitment values from the given args.
 		LTVDecisionEngineTypes.CommitmentValues commitmentValues = params.commitmentValues;
 
 		// Create a hash of the commitment values.
 		bytes32 commitmentHash = keccak256(
+			// LTV specific values.
+			commitmentValues.maxLTV,
+			commitmentValues.principalToken,
+			commitmentValues.principalAmount,
+			commitmentValues.expirationTimestamp,
+			// Order specific values.
 			commitmentValues.creditor,
 			commitmentValues.repaymentRouter,
 			commitmentValues.creditorFee,
@@ -29,7 +31,6 @@ contract LTVDecisionEngine {
 
 		return SignaturesLibrary.isValidSignature(
 			params.creditor,
-			COMMITMENT_HASH_PREFIX,
 			commitmentHash,
 			params.creditorSignature
 		);
