@@ -18,7 +18,7 @@ contract LTVCreditorProxy is
 	function fillDebtOffer(Params params)
 		public whenNotPaused returns (bytes32 id)
 	{
-		(isConsensual, id) = evaluateConsent(order);
+		(isConsensual, id) = evaluateConsent(params);
 
 		if (!isConsensual) {
 			return NULL_ISSUANCE_HASH;
