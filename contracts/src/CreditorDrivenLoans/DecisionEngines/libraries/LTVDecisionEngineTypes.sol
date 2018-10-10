@@ -12,7 +12,6 @@ contract LTVDecisionEngineTypes
 		address priceFeedOperator;
 		// The values and signature for the creditor commitment hash.
 		CreditorCommitment creditorCommitment;
-		uint maxLTV;
 		// Price feed data.
 		Price principalPrice;
 		Price collateralPrice;
@@ -23,7 +22,7 @@ contract LTVDecisionEngineTypes
 	struct Price {
 		uint value;
 		uint timestamp;
-		SignaturesLibrary.ECDSASignature operatorSignature;
+		SignaturesLibrary.ECDSASignature signature;
 	}
 
 	struct CreditorCommitment {
@@ -35,5 +34,6 @@ contract LTVDecisionEngineTypes
 		address principalToken;
 		uint principalAmount;
 		uint expirationTimestamp;
+		uint maxLTV;
 	}
 }

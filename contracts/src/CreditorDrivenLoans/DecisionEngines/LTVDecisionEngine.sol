@@ -85,13 +85,13 @@ contract LTVDecisionEngine is
 			commitmentValues.expirationTimestamp,
 			// Order specific values.
 			order.creditor,
-			order.repaymentRouter,
+			order.issuanceVersion,
 			order.creditorFee,
 			order.underwriter,
 			order.underwriterRiskRating,
 			order.termsContract,
 			order.termsContractParameters,
-			order.commitmentExpirationTimestampInSec,
+			order.expirationTimestampInSec,
 			order.salt
 		);
 	}

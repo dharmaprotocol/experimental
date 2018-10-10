@@ -1,6 +1,8 @@
 pragma solidity ^0.4.25;
+pragma experimental ABIEncoderV2
 
-import "../DecisionEngines/libraries/LTVDecisionEngineTypes.sol";
+import "../libraries/LTVDecisionEngineTypes.sol";
+
 
 contract LTVDecisionEngineInterface {
 
@@ -9,4 +11,5 @@ contract LTVDecisionEngineInterface {
 
 	function evaluateDecision(LTVDecisionEngineTypes.Params params)
 		public view returns (bool _success);
+
 }
