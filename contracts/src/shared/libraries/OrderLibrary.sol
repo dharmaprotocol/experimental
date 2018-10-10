@@ -3,12 +3,16 @@ pragma solidity 0.4.25;
 import "./SignaturesLibrary.sol";
 
 
-contract OrderLibrary is SignaturesLibrary {
+contract OrderLibrary is
+	SignaturesLibrary
+{
 	struct DebtOrder {
 		address kernelVersion;
 		address issuanceVersion;
 		uint principalAmount;
 		address principalToken;
+		uint collateralAmount;
+		address collateralToken;
 		address debtor;
 		uint debtorFee;
 		address creditor;

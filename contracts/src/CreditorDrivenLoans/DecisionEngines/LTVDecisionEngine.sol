@@ -10,7 +10,8 @@ import "../../shared/libraries/SignaturesLibrary.sol";
 
 
 contract LTVDecisionEngine is
-	LTVDecisionEngineTypes
+	LTVDecisionEngineTypes,
+	SignaturesLibrary
 {
 	using SafeMath for uint;
 
@@ -25,7 +26,7 @@ contract LTVDecisionEngine is
 		bytes32 commitmentHash = hashOrder(commitmentValues, order);
 
 		// Checks that the given creditor values were signed by the creditor.
-		bool validCreditorSignature = SignaturesLibrary.isValidSignature(
+		bool validCreditorSignature = isValidSignature(
 			params.creditor,
 			commitmentHash,
 			params.creditorCommitment.signature
@@ -84,13 +85,13 @@ contract LTVDecisionEngine is
 			commitmentValues.expirationTimestamp,
 			// Order specific values.
 			order.creditor,
-			order.repaymentRouter,
+			order.issuanceVersion,
 			order.creditorFee,
 			order.underwriter,
 			order.underwriterRiskRating,
 			order.termsContract,
 			order.termsContractParameters,
-			order.commitmentExpirationTimestampInSec,
+			order.expirationTimestampInSec,
 			order.salt
 		);
 	}
@@ -112,7 +113,7 @@ contract LTVDecisionEngine is
 			collateralPrice.timestamp
 		);
 
-		bool principalPriceValid = SignaturesLibrary.isValidSignature(
+		bool principalPriceValid = isValidSignature(
 			priceFeedOperator,
 			principalPriceHash,
 			principalPrice.signature
@@ -123,7 +124,7 @@ contract LTVDecisionEngine is
 			return false;
 		}
 
-		return SignaturesLibrary.isValidSignature(
+		return isValidSignature(
 			priceFeedOperator,
 			collateralPriceHash,
 			collateralPrice.signature
