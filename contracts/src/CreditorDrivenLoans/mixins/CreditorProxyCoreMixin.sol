@@ -17,7 +17,7 @@ contract CreditorProxyCoreMixin is CreditorProxyCoreInterface, OrderLibrary, Pau
         return NULL_ISSUANCE_HASH;
     }
 
-    function cancelDebtOffer(OrderLibrary.DebtOrder memory order) public whenNotPaused returns (bool) {
+    function cancelDebtOffer(OrderLibrary.DebtOrder memory order) public returns (bool) {
         return true;
     }
 }

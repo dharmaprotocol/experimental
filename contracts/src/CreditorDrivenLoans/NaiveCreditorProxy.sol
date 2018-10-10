@@ -27,14 +27,20 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
         return id;
     }
 
-    function cancelDebtOffer(OrderLibrary.DebtOrder memory order) public returns (bool) {
-        // sender must be the creditor.
-        require(msg.sender == order.creditor);
+    function cancelDebtOffer(OrderLibrary.DebtOrder memory order)
+        public returns (bool)
+    {
+        // Sender must be the creditor.
+        if (msg.sender != order.creditor) {
+            return false;
+        }
 
         bytes32 id = hashCreditorCommitmentForOrder(order);
 
-        // debt offer must not already be filled.
-        require(!debtOfferFilled[id]);
+        // Debt offer must not already be filled.
+        if (debtOfferFilled[id]) {
+            return false;
+        }
 
         debtOfferCancelled[id] = true;
 
