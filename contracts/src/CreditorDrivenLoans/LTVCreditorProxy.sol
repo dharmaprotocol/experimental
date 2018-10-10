@@ -1,5 +1,5 @@
 pragma solidity 0.4.25;
-//pragma experimental ABIEncoderV2;
+pragma experimental ABIEncoderV2;
 
 import "./DecisionEngines/LTVDecisionEngine.sol";
 
@@ -17,7 +17,7 @@ contract LTVCreditorProxy is
 		public returns (bytes32 id)
 	{
 		bool isConsensual;
-		
+
 		(isConsensual, id) = evaluateConsent(params);
 
 		if (!(isConsensual && evaluateDecision(params))) {
