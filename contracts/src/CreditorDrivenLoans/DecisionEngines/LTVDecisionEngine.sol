@@ -1,14 +1,15 @@
 pragma solidity 0.4.25;
+pragma experimental ABIEncoderV2;
 
 // External dependencies
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 // Libraries
 import "./libraries/LTVDecisionEngineTypes.sol";
+import "../../shared/libraries/SignaturesLibrary.sol";
 
 
 contract LTVDecisionEngine is
-	OrderLibrary,
 	LTVDecisionEngineTypes
 {
 	using SafeMath for uint;
@@ -18,16 +19,16 @@ contract LTVDecisionEngine is
 	function evaluateConsent(Params params)
 		public view returns (bool signatureValid, bytes32 _id)
 	{
-		DebtOrder memory order = params.order;
+		OrderLibrary.DebtOrder memory order = params.order;
 		CommitmentValues memory commitmentValues = params.creditorCommitment.values;
 
 		bytes32 commitmentHash = hashOrder(commitmentValues, order);
 
 		// Checks that the given creditor values were signed by the creditor.
-		bool validCreditorSignature = isValidSignature(
+		bool validCreditorSignature = SignaturesLibrary.isValidSignature(
 			params.creditor,
 			commitmentHash,
-			commitmentValues.signature
+			params.creditorCommitment.signature
 		);
 
 		// We return early if the creditor values were not signed correctly.
@@ -54,7 +55,7 @@ contract LTVDecisionEngine is
 		LTVDecisionEngineTypes.Price memory collateralTokenPrice = params.collateralPrice;
 
 		CommitmentValues memory commitmentValues = params.creditorCommitment.values;
-		DebtOrder memory order = params.order;
+		OrderLibrary.DebtOrder memory order = params.order;
 
 		if (isExpired(commitmentValues.expirationTimestamp)) {
 			return false;
@@ -72,7 +73,7 @@ contract LTVDecisionEngine is
 		return ltv > maxLTVWithPrecision;
 	}
 
-	function hashOrder(CommitmentValues commitmentValues, DebtOrder order)
+	function hashOrder(CommitmentValues commitmentValues, OrderLibrary.DebtOrder order)
 		returns (bytes32)
 	{
 		return keccak256(
@@ -111,7 +112,7 @@ contract LTVDecisionEngine is
 			collateralPrice.timestamp
 		);
 
-		bool principalPriceValid = isValidSignature(
+		bool principalPriceValid = SignaturesLibrary.isValidSignature(
 			priceFeedOperator,
 			principalPriceHash,
 			principalPrice.signature
@@ -122,7 +123,7 @@ contract LTVDecisionEngine is
 			return false;
 		}
 
-		return isValidSignature(
+		return SignaturesLibrary.isValidSignature(
 			priceFeedOperator,
 			collateralPriceHash,
 			collateralPrice.signature
