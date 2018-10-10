@@ -17,6 +17,7 @@
   },
   "scripts": {
     "compile": "truffle compile",
-    "chain": "ganache-cli --networkId 70 --accounts 20"
+    "chain": "ganache-cli --networkId 70 --accounts 20",
+    "test": "truffle test"
   }
 }
