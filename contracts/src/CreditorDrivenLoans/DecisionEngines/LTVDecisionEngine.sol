@@ -18,8 +18,8 @@ contract LTVDecisionEngine is
 	function evaluateConsent(Params params)
 		public view returns (bool signatureValid, bytes32 _id)
 	{
-		DebtOrder order = params.order;
-		CommitmentValues commitmentValues = params.creditorCommitment.values;
+		DebtOrder memory order = params.order;
+		CommitmentValues memory commitmentValues = params.creditorCommitment.values;
 
 		bytes32 commitmentHash = hashOrder(commitmentValues, order);
 
