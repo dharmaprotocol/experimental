@@ -69,7 +69,7 @@ contract LTVDecisionEngine is
 
 		uint maxLTVWithPrecision = maxLTV.mul(10 ** (PRECISION.sub(2)));
 
-		return computedLTV > maxLTVWithPrecision;
+		return ltv > maxLTVWithPrecision;
 	}
 
 	function hashOrder(CommitmentValues commitmentValues, DebtOrder order)
