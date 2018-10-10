@@ -4,7 +4,8 @@ import "../../../shared/libraries/SignaturesLibrary.sol";
 import "../../../shared/libraries/OrderLibrary.sol";
 
 
-contract LTVDecisionEngineTypes {
+contract LTVDecisionEngineTypes
+{
 	// The parameters used during the consent and decision evaluations.
 	struct Params {
 		address creditor;
