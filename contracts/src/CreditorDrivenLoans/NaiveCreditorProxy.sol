@@ -11,6 +11,10 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
     mapping (bytes32 => bool) public debtOfferCancelled;
     mapping (bytes32 => bool) public debtOfferFilled;
 
+    struct TestStruct {
+        bool test;
+    }
+
     bytes32 constant internal NULL_ISSUANCE_HASH = bytes32(0);
 
     function fillDebtOffer(OrderLibrary.DebtOrder memory order) public returns (bytes32 id) {
@@ -45,6 +49,10 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
         debtOfferCancelled[id] = true;
 
         return true;
+    }
+
+    function testFunction(TestStruct test) public view returns (TestStruct) {
+        return test;
     }
 
 }
