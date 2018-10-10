@@ -2,7 +2,7 @@ pragma solidity 0.4.25;
 pragma experimental ABIEncoderV2;
 
 // External dependencies
-import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "zeppelin-solidity/contracts/math/SafeMath.sol";
 
 // Libraries
 import "./libraries/LTVDecisionEngineTypes.sol";
