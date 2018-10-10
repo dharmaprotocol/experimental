@@ -25,9 +25,9 @@ contract LTVDecisionEngine is
 
 		// Checks that the given creditor values were signed by the creditor.
 		bool validCreditorSignature = isValidSignature(
-			creditor,
+			params.creditor,
 			commitmentHash,
-			signature
+			commitmentValues.signature
 		);
 
 		// We return early if the creditor values were not signed correctly.
@@ -47,14 +47,14 @@ contract LTVDecisionEngine is
 	}
 
 	// Returns true if the creditor-initiated order has not expired, and the LTV is below the max.
-	function evaluateDecision(Params params)
+	function evaluateDecision(Params memory params)
 		public view returns (bool _success)
 	{
-		LTVDecisionEngineTypes.Price principalTokenPrice = params.principalPrice;
-		LTVDecisionEngineTypes.Price collateralTokenPrice = params.collateralPrice;
+		LTVDecisionEngineTypes.Price memory principalTokenPrice = params.principalPrice;
+		LTVDecisionEngineTypes.Price memory collateralTokenPrice = params.collateralPrice;
 
-		CommitmentValues commitmentValues = params.creditorCommitment.values;
-		DebtOrder order = params.order;
+		CommitmentValues memory commitmentValues = params.creditorCommitment.values;
+		DebtOrder memory order = params.order;
 
 		if (isExpired(commitmentValues.expirationTimestamp)) {
 			return false;
