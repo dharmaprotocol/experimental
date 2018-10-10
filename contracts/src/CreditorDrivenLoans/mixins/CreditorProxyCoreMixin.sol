@@ -13,11 +13,11 @@ contract CreditorProxyCoreMixin is CreditorProxyCoreInterface, OrderLibrary, Pau
 
     bytes32 constant internal NULL_ISSUANCE_HASH = bytes32(0);
 
-    function fillDebtOffer(DebtOrder memory order) public  whenNotPaused returns (bytes32) {
+    function fillDebtOffer(OrderLibrary.DebtOrder memory order) public  whenNotPaused returns (bytes32) {
         return NULL_ISSUANCE_HASH;
     }
 
-    function cancelDebtOffer(DebtOrder memory order) public whenNotPaused returns (bool) {
+    function cancelDebtOffer(OrderLibrary.DebtOrder memory order) public whenNotPaused returns (bool) {
         return true;
     }
 }

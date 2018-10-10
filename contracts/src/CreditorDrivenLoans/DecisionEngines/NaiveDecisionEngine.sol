@@ -5,9 +5,9 @@ import "../../shared/libraries/OrderLibrary.sol";
 import "../../shared/libraries/SignaturesLibrary.sol";
 
 
-contract NaiveDecisionEngine is OrderLibrary {
+contract NaiveDecisionEngine is SignaturesLibrary {
 
-	function evaluateConsent(DebtOrder memory order)
+	function evaluateConsent(OrderLibrary.DebtOrder memory order)
 		public
 		view
 		returns (bool signatureValid, bytes32 commitmentHash)
@@ -23,7 +23,7 @@ contract NaiveDecisionEngine is OrderLibrary {
 		return (signatureValid, commitmentHash);
 	}
 
-	function hashCreditorCommitmentForOrder(DebtOrder memory order)
+	function hashCreditorCommitmentForOrder(OrderLibrary.DebtOrder memory order)
         public
         pure
         returns (bytes32 _creditorCommitmentHash)

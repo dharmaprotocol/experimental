@@ -3,8 +3,7 @@ pragma solidity ^0.4.24;
 import "./SignaturesLibrary.sol";
 
 
-contract OrderLibrary is
-	SignaturesLibrary
+contract OrderLibrary
 {
 	struct DebtOrder {
 		address kernelVersion;
@@ -26,8 +25,8 @@ contract OrderLibrary is
 		bytes32 termsContractParameters;
 		uint expirationTimestampInSec;
 		uint salt;
-		ECDSASignature debtorSignature;
-		ECDSASignature creditorSignature;
-		ECDSASignature underwriterSignature;
+		SignaturesLibrary.ECDSASignature debtorSignature;
+		SignaturesLibrary.ECDSASignature creditorSignature;
+		SignaturesLibrary.ECDSASignature underwriterSignature;
 	}
 }

@@ -3,6 +3,7 @@ pragma experimental ABIEncoderV2;
 
 import "./DecisionEngines/NaiveDecisionEngine.sol";
 import "./interfaces/CreditorProxyCoreInterface.sol";
+import "../shared/libraries/OrderLibrary.sol";
 
 
 contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
@@ -12,7 +13,7 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
 
     bytes32 constant internal NULL_ISSUANCE_HASH = bytes32(0);
 
-    function fillDebtOffer(DebtOrder memory order) public returns (bytes32 id) {
+    function fillDebtOffer(OrderLibrary.DebtOrder memory order) public returns (bytes32 id) {
         bool isConsensual;
 
         (isConsensual, id) = evaluateConsent(order);
@@ -26,7 +27,7 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
         return id;
     }
 
-    function cancelDebtOffer(DebtOrder memory order) public returns (bool) {
+    function cancelDebtOffer(OrderLibrary.DebtOrder memory order) public returns (bool) {
         // sender must be the creditor.
         require(msg.sender == order.creditor);
 
