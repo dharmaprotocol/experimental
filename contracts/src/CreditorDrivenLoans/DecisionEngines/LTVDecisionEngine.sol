@@ -23,7 +23,7 @@ contract LTVDecisionEngine is
 		bytes32 commitmentHash = hashOrder(commitmentValues, order);
 
 		// Checks that the given creditor values were signed by the creditor.
-		bool validCreditorSignature = isValidSignature(
+		bool validCreditorSignature = SignaturesLibrary.isValidSignature(
 			params.creditor,
 			commitmentHash,
 			commitmentValues.signature
@@ -110,7 +110,7 @@ contract LTVDecisionEngine is
 			collateralPrice.timestamp
 		);
 
-		bool principalPriceValid = isValidSignature(
+		bool principalPriceValid = SignaturesLibrary.isValidSignature(
 			priceFeedOperator,
 			principalPriceHash,
 			principalPrice.signature
@@ -121,7 +121,7 @@ contract LTVDecisionEngine is
 			return false;
 		}
 
-		return isValidSignature(
+		return SignaturesLibrary.isValidSignature(
 			priceFeedOperator,
 			collateralPriceHash,
 			collateralPrice.signature

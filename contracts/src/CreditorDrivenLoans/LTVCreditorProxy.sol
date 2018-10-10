@@ -5,9 +5,7 @@ import "./DecisionEngines/LTVDecisionEngine.sol";
 
 
 contract LTVCreditorProxy is
-	LTVDecisionEngine,
-	LTVDecisionEngineTypes,
-	OrderLibrary
+	LTVDecisionEngine
 {
 
 	mapping (bytes32 => bool) public debtOfferCancelled;
@@ -15,9 +13,11 @@ contract LTVCreditorProxy is
 
 	bytes32 constant internal NULL_ISSUANCE_HASH = bytes32(0);
 
-	function fillDebtOffer(Params params)
-		public whenNotPaused returns (bytes32 id)
+	function fillDebtOffer(LTVDecisionEngineTypes.Params params)
+		public returns (bytes32 id)
 	{
+		bool isConsensual;
+		
 		(isConsensual, id) = evaluateConsent(params);
 
 		if (!(isConsensual && evaluateDecision(params))) {
@@ -29,12 +29,12 @@ contract LTVCreditorProxy is
 		return id;
 	}
 
-	function cancelDebtOffer(Params params) public whenNotPaused returns (bool) {
+	function cancelDebtOffer(LTVDecisionEngineTypes.Params params) public returns (bool) {
 		// sender must be the creditor.
 		require(msg.sender == order.creditor);
 
-		CommitmentValues commitmentValues = params.creditorCommitment.values;
-		DebtOrder order = params.order;
+		LTVDecisionEngineTypes.CommitmentValues memory commitmentValues = params.creditorCommitment.values;
+		OrderLibrary.DebtOrder memory order = params.order;
 
 		bytes32 id = hashOrder(commitmentValues, order);
 
