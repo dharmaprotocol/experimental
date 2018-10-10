@@ -101,12 +101,12 @@ contract LTVDecisionEngine is
 	)
 		internal view returns (bool)
 	{
-		bytes32 principalPriceHash = keccack256(
+		bytes32 principalPriceHash = keccak256(
 			principalPrice.value,
 			principalPrice.timestamp
 		);
 
-		bytes32 collateralPriceHash = keccack256(
+		bytes32 collateralPriceHash = keccak256(
 			collateralPrice.value,
 			collateralPrice.timestamp
 		);
