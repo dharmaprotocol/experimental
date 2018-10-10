@@ -67,7 +67,7 @@ contract LTVDecisionEngine is
 			order.collateralAmount
 		);
 
-		uint maxLTVWithPrecision = maxLTV.mul(10 ** (PRECISION.sub(2)));
+		uint maxLTVWithPrecision = commitmentValues.maxLTV.mul(10 ** (PRECISION.sub(2)));
 
 		return ltv > maxLTVWithPrecision;
 	}
