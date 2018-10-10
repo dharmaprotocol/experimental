@@ -9,7 +9,7 @@ import "../../contracts/src/shared/libraries/SignaturesLibrary.sol";
 
 
 contract TestNaiveCreditorProxy {
-	function testCancelDebtOffer() {
+	function testCancelDebtOfferWithUnfilledOrder() {
 		// Get the deployed contract.
 		NaiveCreditorProxy proxy = NaiveCreditorProxy(
 			DeployedAddresses.NaiveCreditorProxy()
