@@ -1,4 +1,5 @@
-pragma solidity 0.4.24;
+pragma solidity ^0.4.24;
+pragma experimental ABIEncoderV2;
 
 import "../../../shared/libraries/SignaturesLibrary.sol";
 import "../../../shared/libraries/OrderLibrary.sol";
