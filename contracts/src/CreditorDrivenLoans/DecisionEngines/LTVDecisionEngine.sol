@@ -1,10 +1,12 @@
 pragma solidity 0.4.25;
+pragma experimental ABIEncoderV2;
 
 // External dependencies
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 // Libraries
 import "./libraries/LTVDecisionEngineTypes.sol";
+import "../../shared/libraries/SignaturesLibrary.sol";
 
 
 contract LTVDecisionEngine is
@@ -26,7 +28,7 @@ contract LTVDecisionEngine is
 		bool validCreditorSignature = SignaturesLibrary.isValidSignature(
 			params.creditor,
 			commitmentHash,
-			commitmentValues.signature
+			params.creditorCommitment.signature
 		);
 
 		// We return early if the creditor values were not signed correctly.

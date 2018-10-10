@@ -11,7 +11,9 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
 
     bytes32 constant internal NULL_ISSUANCE_HASH = bytes32(0);
 
-    function fillDebtOffer(DebtOrder memory order) public whenNotPaused returns (bytes32 id) {
+    function fillDebtOffer(DebtOrder memory order) public returns (bytes32 id) {
+        bool isConsensual;
+
         (isConsensual, id) = evaluateConsent(order);
 
         if (!isConsensual) {
@@ -23,7 +25,7 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
         return id;
     }
 
-    function cancelDebtOffer(DebtOrder memory order) public whenNotPaused returns (bool) {
+    function cancelDebtOffer(DebtOrder memory order) public returns (bool) {
         // sender must be the creditor.
         require(msg.sender == order.creditor);
 

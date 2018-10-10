@@ -2,6 +2,7 @@ pragma solidity 0.4.24;
 //pragma experimental ABIEncoderV2;
 
 import "../../shared/libraries/OrderLibrary.sol";
+import "../../shared/libraries/SignaturesLibrary.sol";
 
 
 contract NaiveDecisionEngine is OrderLibrary {
@@ -13,7 +14,7 @@ contract NaiveDecisionEngine is OrderLibrary {
 	{
 		commitmentHash = hashCreditorCommitmentForOrder(order);
 
-		signatureValid = isValidSignature(
+		signatureValid = SignaturesLibrary.isValidSignature(
 			order.creditor,
 			commitmentHash,
 			order.creditorSignature
