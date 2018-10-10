@@ -1,8 +1,8 @@
 pragma solidity ^0.4.25;
-pragma experimental ABIEncoderV2;
 
 import "./DecisionEngines/NaiveDecisionEngine.sol";
 import "./interfaces/CreditorProxyCoreInterface.sol";
+
 
 contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
 

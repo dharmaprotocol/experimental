@@ -1,9 +1,9 @@
 pragma solidity ^0.4.25;
-pragma experimental ABIEncoderV2;
 
 import "../interfaces/CreditorProxyCoreInterface.sol";
 import "../../shared/libraries/OrderLibrary.sol";
 import "zeppelin-solidity/contracts/lifecycle/Pausable.sol";
+
 
 contract CreditorProxyCoreMixin is CreditorProxyCoreInterface, OrderLibrary, Pausable {
 
