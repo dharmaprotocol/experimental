@@ -24,14 +24,15 @@ contract("NaiveCreditorProxy", (accounts) => {
 
     describe("#hashCreditorCommitmentForOrder", () => {
         describe("when given a valid order", () => {
-            it("returns a bytes32 data type", async () => {
+            it("returns the expected bytes32 hash", async () => {
                 const validOrder = await debtOrderFixtures.signedOrder();
+                const expected = debtOrderFixtures.hashForOrder(validOrder);
 
                 const result = await proxy.methods.hashCreditorCommitmentForOrder(
                     validOrder,
                 ).call();
 
-                expect(result).to.be.a("string");
+                expect(result).to.eq(expected);
             });
         });
     });
@@ -111,7 +112,7 @@ contract("NaiveCreditorProxy", (accounts) => {
 
             it("returns a transaction receipt", async () => {
                 const signedOrder = await debtOrderFixtures.signedOrder();
-                
+
                 txReceipt = await proxy.methods.cancelDebtOffer(signedOrder).send(
                     { from: accounts[0] }
                 );
