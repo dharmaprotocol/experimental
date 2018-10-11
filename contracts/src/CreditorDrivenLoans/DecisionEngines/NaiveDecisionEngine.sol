@@ -9,7 +9,7 @@ contract NaiveDecisionEngine is SignaturesLibrary {
 
 	function evaluateConsent(OrderLibrary.DebtOrder memory order)
 		public
-		view
+		pure
 		returns (bool signatureValid, bytes32 commitmentHash)
 	{
 		commitmentHash = hashCreditorCommitmentForOrder(order);
