@@ -2,6 +2,8 @@
 import * as chai from "chai";
 import { BigNumber } from "bignumber.js";
 
+import * as Web3 from "web3";
+
 // Artifacts
 const NaiveCreditorProxy = artifacts.require("./NaiveCreditorProxy.sol");
 
@@ -39,11 +41,14 @@ interface DebtOrder {
     underwriterSignature: ECDSASignature;
 };
 
+const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+
+const proxy = new web3.eth.Contract(NaiveCreditorProxy.abi, NaiveCreditorProxy.address);
+
 contract("NaiveCreditorProxy", (accounts) => {
     describe("#cancelDebtOffer", () => {
        describe("when the order has not been filled", () => {
            it("returns false", async() => {
-               const proxy = await NaiveCreditorProxy.deployed();
 
                const testOrder: DebtOrder = {
                    kernelVersion: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
