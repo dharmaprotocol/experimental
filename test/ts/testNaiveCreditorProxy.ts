@@ -44,10 +44,6 @@ interface DebtOrder {
     underwriterSignature: ECDSASignature;
 };
 
-const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-
-const proxy = new web3.eth.Contract(NaiveCreditorProxy.abi, NaiveCreditorProxy.address);
-
 contract("NaiveCreditorProxy", (accounts) => {
     describe("#cancelDebtOffer", () => {
        describe("when the order has not been filled", () => {
