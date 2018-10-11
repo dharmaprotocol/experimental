@@ -37,7 +37,7 @@ export class DebtOrderFixtures {
             underwriterFee: 0,
             underwriterRiskRating: 0,
             termsContract: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-            termsContractParameters: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
+            termsContractParameters: "0x00000000000000000000000000000000000000200000000de0b6b3a764000001",
             expirationTimestampInSec: 0,
             salt: 0,
             debtorSignature,
@@ -73,7 +73,7 @@ export class DebtOrderFixtures {
         return this.toECDSA(creditorSignature);
     }
 
-    private hashForOrder(order: DebtOrder): string {
+    hashForOrder(order: DebtOrder): string {
         return this.web3.utils.soliditySha3(
             order.creditor,
             order.kernelVersion,
