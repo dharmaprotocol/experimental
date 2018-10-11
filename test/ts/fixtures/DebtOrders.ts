@@ -3,11 +3,11 @@ import * as Web3 from "web3";
 import { DebtOrder } from "../types/DebtOrder";
 
 export class DebtOrderFixtures {
-    constructor(private readonly web3: Web3) {
+    constructor(private readonly web3: Web3, private readonly accounts: string[]) {
 
     }
 
-    validOrder(): DebtOrder {
+    unsignedOrder(): DebtOrder {
         const debtorSignature = {
             r: this.web3.utils.fromAscii(""),
             s: this.web3.utils.fromAscii(""),
@@ -35,7 +35,7 @@ export class DebtOrderFixtures {
             collateralToken: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             debtor: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             debtorFee: 0,
-            creditor: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
+            creditor: this.accounts[0],
             creditorFee: 0,
             relayer: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             relayerFee: 0,
@@ -50,5 +50,10 @@ export class DebtOrderFixtures {
             creditorSignature,
             underwriterSignature,
         }
+    }
+
+    validOrder(): DebtOrder {
+        // TODO: Sign this order.
+        return this.unsignedOrder();
     }
 }

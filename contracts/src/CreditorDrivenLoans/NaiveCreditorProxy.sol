@@ -22,6 +22,7 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
             return NULL_ISSUANCE_HASH;
         }
 
+        // TODO: Log success.
         debtOfferFilled[id] = true;
 
         return id;
