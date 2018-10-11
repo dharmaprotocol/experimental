@@ -28,13 +28,38 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
             return NULL_ISSUANCE_HASH;
         }
 
+        bytes32 agreementId = sendOrderToKernel(order);
+
+        require(agreementId != NULL_ISSUANCE_HASH);
+
         // TODO: Log success.
         debtOfferFilled[id] = true;
 
         return id;
     }
 
-    function cancelDebtOffer(OrderLibrary.DebtOrder memory order)
+    function sendOrderToKernel(DebtOrder memory order) internal returns (bytes32 id) {
+        address[6] memory orderAddresses;
+        uint[8] memory orderValues;
+        bytes32[1] memory orderBytes32;
+        uint8[3] memory signaturesV;
+        bytes32[3] memory signaturesR;
+        bytes32[3] memory signaturesS;
+
+        (orderAddresses, orderValues, orderBytes32, signaturesV, signaturesR, signaturesS) = unpackDebtOrder(order);
+
+        return contractRegistry.debtKernel().fillDebtOrder(
+            address(this),
+            orderAddresses,
+            orderValues,
+            orderBytes32,
+            signaturesV,
+            signaturesR,
+            signaturesS
+        );
+    }
+
+    function cancelDebtOffer(DebtOrder memory order)
         public returns (bool)
     {
         // Sender must be the creditor.
