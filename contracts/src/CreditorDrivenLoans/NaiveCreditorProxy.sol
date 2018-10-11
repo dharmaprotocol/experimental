@@ -15,7 +15,7 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
 
     ContractRegistryInterface public contractRegistry;
 
-    function NaiveCreditorProxy(address _contractRegistry) {
+    function NaiveCreditorProxy(address _contractRegistry) public {
         contractRegistry = ContractRegistryInterface(_contractRegistry);
     }
 
