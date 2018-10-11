@@ -19,7 +19,7 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
         contractRegistry = ContractRegistryInterface(_contractRegistry);
     }
 
-    function fillDebtOffer(OrderLibrary.DebtOrder memory order) public returns (bytes32 id) {
+    function fillDebtOffer(DebtOrder memory order) public returns (bytes32 id) {
         id = hashCreditorCommitmentForOrder(order);
 
         if (!evaluateConsent(order)) {
