@@ -110,7 +110,9 @@ contract("NaiveCreditorProxy", (accounts) => {
             let txReceipt;
 
             it("returns a transaction receipt", async () => {
-                txReceipt = await proxy.methods.cancelDebtOffer(debtOrderFixtures.signedOrder).send(
+                const signedOrder = await debtOrderFixtures.signedOrder();
+                
+                txReceipt = await proxy.methods.cancelDebtOffer(signedOrder).send(
                     { from: accounts[0] }
                 );
 
