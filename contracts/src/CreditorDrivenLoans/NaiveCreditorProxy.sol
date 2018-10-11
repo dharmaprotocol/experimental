@@ -4,7 +4,7 @@ pragma experimental ABIEncoderV2;
 import "./DecisionEngines/NaiveDecisionEngine.sol";
 import "./interfaces/CreditorProxyCoreInterface.sol";
 import "../shared/libraries/OrderLibrary.sol";
-
+import "../shared/interfaces/ContractRegistryInterface.sol";
 
 contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
 
@@ -12,6 +12,12 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
     mapping (bytes32 => bool) public debtOfferFilled;
 
     bytes32 constant internal NULL_ISSUANCE_HASH = bytes32(0);
+
+    ContractRegistryInterface public contractRegistry;
+
+    function NaiveCreditorProxy(address _contractRegistry) {
+        contractRegistry = ContractRegistryInterface(_contractRegistry);
+    }
 
     function fillDebtOffer(OrderLibrary.DebtOrder memory order) public returns (bytes32 id) {
         bool isConsensual;
