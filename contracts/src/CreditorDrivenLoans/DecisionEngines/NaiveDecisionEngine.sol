@@ -5,25 +5,23 @@ import "../../shared/libraries/OrderLibrary.sol";
 import "../../shared/libraries/SignaturesLibrary.sol";
 
 
-contract NaiveDecisionEngine is SignaturesLibrary {
+contract NaiveDecisionEngine is SignaturesLibrary, OrderLibrary {
 
-	function evaluateConsent(OrderLibrary.DebtOrder memory order)
+	function evaluateConsent(DebtOrder memory order)
 		public
-		view
-		returns (bool signatureValid, bytes32 commitmentHash)
+		pure
+		returns (bool)
 	{
-		commitmentHash = hashCreditorCommitmentForOrder(order);
+		bytes32 commitmentHash = hashCreditorCommitmentForOrder(order);
 
-		signatureValid = SignaturesLibrary.isValidSignature(
+		return isValidSignature(
 			order.creditor,
 			commitmentHash,
 			order.creditorSignature
 		);
-
-		return (signatureValid, commitmentHash);
 	}
 
-	function hashCreditorCommitmentForOrder(OrderLibrary.DebtOrder memory order)
+	function hashCreditorCommitmentForOrder(DebtOrder memory order)
         public
         pure
         returns (bytes32 _creditorCommitmentHash)
