@@ -25,7 +25,7 @@ contract("NaiveCreditorProxy", (accounts) => {
     describe("#hashCreditorCommitmentForOrder", () => {
         describe("when given a valid order", () => {
             it("returns a bytes32 data type", async () => {
-                const validOrder = debtOrderFixtures.signedOrder();
+                const validOrder = await debtOrderFixtures.signedOrder();
 
                 const result = await proxy.methods.hashCreditorCommitmentForOrder(
                     validOrder,
@@ -68,12 +68,32 @@ contract("NaiveCreditorProxy", (accounts) => {
         });
 
         describe("when given a signed debt order", () => {
-            it("returns a transaction receipt", () => {
-                // STUB.
+            let signedOrder: DebtOrder;
+            let commitmentHash: string;
+
+            before(async () => {
+                signedOrder = await debtOrderFixtures.signedOrder();
+
+                commitmentHash = await proxy.methods.hashCreditorCommitmentForOrder(
+                    signedOrder,
+                ).call();
             });
 
-            it("sets the index of the debtOfferFilled mapping for the hash of the offer to true", () => {
-                // STUB.
+            it("returns a transaction receipt", async () => {
+                const txReceipt = await proxy.methods.fillDebtOffer(signedOrder).send(
+                    { from: signedOrder.creditor },
+                );
+
+                const txHash = txReceipt.transactionHash;
+
+                // The transaction receipt is valid if it has a string transaction hash.
+                expect(txHash).to.be.a("string");
+            });
+
+            it("adds a mapping in the debtOfferFilled field", async () => {
+                const result = await proxy.methods.debtOfferFilled(commitmentHash).call();
+
+                expect(result).to.eq(true);
             });
         });
     });
