@@ -1,113 +1,73 @@
 // External libraries
 import * as chai from "chai";
-import { BigNumber } from "bignumber.js";
 import * as Web3 from "web3";
+// Types
+import { DebtOrder } from "./types/DebtOrder";
+import { DebtOrderFixtures } from "./fixtures/DebtOrders";
 
 // Artifacts
 const NaiveCreditorProxy = artifacts.require("./NaiveCreditorProxy.sol");
+
+// Configuration
+const expect = chai.expect;
 
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
 const proxy = new web3.eth.Contract(NaiveCreditorProxy.abi, NaiveCreditorProxy.address);
 
-// Configuration
-const expect = chai.expect;
-
-export interface ECDSASignature {
-    r: string;
-    s: string;
-    v: number;
-}
-
-interface DebtOrder {
-    kernelVersion: string;
-    issuanceVersion: string;
-    principalAmount: number;
-    principalToken: string;
-    collateralAmount: number;
-    collateralToken: string;
-    debtor: string;
-    debtorFee: number;
-    creditor: string;
-    creditorFee: number;
-    relayer: string;
-    relayerFee: number;
-    underwriter: string;
-    underwriterFee: number;
-    underwriterRiskRating: number;
-    termsContract: string;
-    termsContractParameters: string;
-    expirationTimestampInSec: number;
-    salt: number;
-    debtorSignature: ECDSASignature;
-    creditorSignature: ECDSASignature;
-    underwriterSignature: ECDSASignature;
-};
+const debtOrderFixtures = new DebtOrderFixtures(web3);
 
 contract("NaiveCreditorProxy", (accounts) => {
-    describe("#cancelDebtOffer", () => {
-       describe("when the order has not been filled", () => {
-           it("returns false", async() => {
+    describe("#hashCreditorCommitmentForOrder", () => {
+        describe("when given a valid order", () => {
+            it("returns a bytes32 data type", async () => {
+                const validOrder = debtOrderFixtures.validOrder();
 
-               const testOrder: DebtOrder = {
-                   kernelVersion: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   issuanceVersion: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   principalAmount: 0,
-                   principalToken: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   collateralAmount: 0,
-                   collateralToken: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   debtor: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   debtorFee: 0,
-                   creditor: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   creditorFee: 0,
-                   relayer: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   relayerFee: 0,
-                   underwriter: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   underwriterFee: 0,
-                   underwriterRiskRating: 0,
-                   termsContract: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   termsContractParameters: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   expirationTimestampInSec: 0,
-                   salt: 0,
-                   debtorSignature: { r: web3.utils.fromAscii(""), s: web3.utils.fromAscii(""), v: 0 },
-                   creditorSignature: { r: web3.utils.fromAscii(""), s: web3.utils.fromAscii(""), v: 0 },
-                   underwriterSignature: { r: web3.utils.fromAscii(""), s: web3.utils.fromAscii(""), v: 0 },
-               };
+                const result = await proxy.methods.hashCreditorCommitmentForOrder(
+                    validOrder,
+                ).call();
+                
+                expect(result).to.be.a("string");
+            });
+        });
+    });
 
-               // console.log(proxy.cancelDebtOffer.sendTransaction.getData());
+    describe("#fillDebtOffer", () => {
+        describe("when given valid arguments for a debt offer", () => {
+            it("returns a transaction receipt", () => {
+                // STUB.
+            });
 
-               // console.log(
-               //     "mappings!",
-               //     proxy.debtOfferCancelled
-               // );
-               //
-               // console.log(
-               //     "returns",
-               //     await proxy.debtOfferCancelled.call(
-               //         "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd"
-               //     ),
-               // );
+            it("sets the index of the debtOfferFilled mapping for the hash of the offer to true", () => {
+                // STUB.
+            });
+        });
+    });
 
-               interface TestStruct {
-                   test: boolean;
-               }
+    describe("when no order has been filled", () => {
+        describe("#debtOfferFilled", () => {
+            it("returns false for some given bytes32 argument", async () => {
+                const bytes32String = web3.utils.fromAscii("test");
+                const result = await proxy.methods.debtOfferFilled(bytes32String).call();
 
-               const test: TestStruct = {
-                   test: true,
-               };
+                expect(result).to.eq(false);
+            });
+        });
 
-               console.log(
-                   await proxy.methods.testFunction(test).call(),
-               );
+        describe("#cancelDebtOffer", () => {
+            let txReceipt;
 
-               // console.log(await proxy.testFunction.call(test));
+            it("returns a transaction receipt", async () => {
+                const testOrder = debtOrderFixtures.validOrder();
 
-               const result = await proxy.methods.cancelDebtOffer(testOrder).send({ from: accounts[0] });
+                txReceipt = await proxy.methods.cancelDebtOffer(testOrder).send(
+                    { from: accounts[0] }
+                );
 
-               console.log(result);
-
-               // expect(cancelled).to.eq(false);
-           });
-       })
+                const txHash = txReceipt.transactionHash;
+                // The transaction receipt is valid if it has a string transaction hash.
+                expect(txHash).to.be.a("string");
+            });
+        });
     });
 });

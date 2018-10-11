@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/bignumber.js": "^5.0.0",
+    "@types/chai": "^4.1.6",
     "@types/mocha": "^5.2.5",
     "bignumber.js": "^7.2.1",
     "chai": "^4.2.0",
