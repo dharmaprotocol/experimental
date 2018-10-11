@@ -14,7 +14,7 @@ export class DebtOrderFixtures {
 
     }
 
-    unsignedOrder(): DebtOrder {
+    get unsignedOrder(): DebtOrder {
         // The signatures will all be empty ECDSA signatures.
         const debtorSignature = this.blankSignature;
         const underwriterSignature = this.blankSignature;
@@ -47,7 +47,7 @@ export class DebtOrderFixtures {
     }
 
     async signedOrder(): Promise<DebtOrder> {
-        const unsignedOrder: DebtOrder = this.unsignedOrder();
+        const unsignedOrder: DebtOrder = this.unsignedOrder;
 
         const commitmentHash = this.hashForOrder(unsignedOrder);
 
