@@ -20,11 +20,20 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
     }
 
     function fillDebtOffer(OrderLibrary.DebtOrder memory order) public returns (bytes32 id) {
-        bool isConsensual;
+        id = hashCreditorCommitmentForOrder(order);
 
-        (isConsensual, id) = evaluateConsent(order);
+        if (!evaluateConsent(order)) {
+            emit CreditorProxyError(uint8(Errors.DEBT_OFFER_NON_CONSENSUAL), order.creditor, id);
+            return NULL_ISSUANCE_HASH;
+        }
 
-        if (!isConsensual) {
+        if (debtOfferFilled[id]) {
+            emit CreditorProxyError(uint8(Errors.DEBT_OFFER_ALREADY_FILLED), order.creditor, id);
+            return NULL_ISSUANCE_HASH;
+        }
+
+        if (debtOfferCancelled[id]) {
+            emit CreditorProxyError(uint8(Errors.DEBT_OFFER_CANCELLED), order.creditor, id);
             return NULL_ISSUANCE_HASH;
         }
 
