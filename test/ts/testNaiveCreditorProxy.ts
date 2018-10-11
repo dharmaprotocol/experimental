@@ -1,9 +1,14 @@
 // External libraries
 import * as chai from "chai";
 import { BigNumber } from "bignumber.js";
+import * as Web3 from "web3";
 
 // Artifacts
 const NaiveCreditorProxy = artifacts.require("./NaiveCreditorProxy.sol");
+
+const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+
+const proxy = new web3.eth.Contract(NaiveCreditorProxy.abi, NaiveCreditorProxy.address);
 
 // Configuration
 const expect = chai.expect;
@@ -11,29 +16,29 @@ const expect = chai.expect;
 export interface ECDSASignature {
     r: string;
     s: string;
-    v: BigNumber;
+    v: number;
 }
 
 interface DebtOrder {
     kernelVersion: string;
     issuanceVersion: string;
-    principalAmount: BigNumber;
+    principalAmount: number;
     principalToken: string;
-    collateralAmount: BigNumber;
+    collateralAmount: number;
     collateralToken: string;
     debtor: string;
-    debtorFee: BigNumber;
+    debtorFee: number;
     creditor: string;
-    creditorFee: BigNumber;
+    creditorFee: number;
     relayer: string;
-    relayerFee: BigNumber;
+    relayerFee: number;
     underwriter: string;
-    underwriterFee: BigNumber;
-    underwriterRiskRating: BigNumber;
+    underwriterFee: number;
+    underwriterRiskRating: number;
     termsContract: string;
     termsContractParameters: string;
-    expirationTimestampInSec: BigNumber;
-    salt: BigNumber;
+    expirationTimestampInSec: number;
+    salt: number;
     debtorSignature: ECDSASignature;
     creditorSignature: ECDSASignature;
     underwriterSignature: ECDSASignature;
@@ -43,46 +48,46 @@ contract("NaiveCreditorProxy", (accounts) => {
     describe("#cancelDebtOffer", () => {
        describe("when the order has not been filled", () => {
            it("returns false", async() => {
-               const proxy = await NaiveCreditorProxy.deployed();
+               // const proxy = await NaiveCreditorProxy.deployed();
 
                const testOrder: DebtOrder = {
                    kernelVersion: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
                    issuanceVersion: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   principalAmount: new BigNumber(0),
+                   principalAmount: 0,
                    principalToken: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   collateralAmount: new BigNumber(0),
+                   collateralAmount: 0,
                    collateralToken: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
                    debtor: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   debtorFee: new BigNumber(0),
+                   debtorFee: 0,
                    creditor: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   creditorFee: new BigNumber(0),
+                   creditorFee: 0,
                    relayer: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   relayerFee: new BigNumber(0),
+                   relayerFee: 0,
                    underwriter: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   underwriterFee: new BigNumber(0),
-                   underwriterRiskRating: new BigNumber(0),
+                   underwriterFee: 0,
+                   underwriterRiskRating: 0,
                    termsContract: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
                    termsContractParameters: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-                   expirationTimestampInSec: new BigNumber(0),
-                   salt: new BigNumber(0),
-                   debtorSignature: { r: "", s: "", v: new BigNumber(0) },
-                   creditorSignature: { r: "", s: "", v: new BigNumber(0) },
-                   underwriterSignature: { r: "", s: "", v: new BigNumber(0) },
+                   expirationTimestampInSec: 0,
+                   salt: 0,
+                   debtorSignature: { r: web3.utils.fromAscii(""), s: web3.utils.fromAscii(""), v: 0 },
+                   creditorSignature: { r: web3.utils.fromAscii(""), s: web3.utils.fromAscii(""), v: 0 },
+                   underwriterSignature: { r: web3.utils.fromAscii(""), s: web3.utils.fromAscii(""), v: 0 },
                };
 
                // console.log(proxy.cancelDebtOffer.sendTransaction.getData());
 
-               console.log(
-                   "mappings!",
-                   proxy.debtOfferCancelled
-               );
-
-               console.log(
-                   "returns",
-                   await proxy.debtOfferCancelled.call(
-                       "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd"
-                   ),
-               );
+               // console.log(
+               //     "mappings!",
+               //     proxy.debtOfferCancelled
+               // );
+               //
+               // console.log(
+               //     "returns",
+               //     await proxy.debtOfferCancelled.call(
+               //         "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd"
+               //     ),
+               // );
 
                interface TestStruct {
                    test: boolean;
@@ -92,11 +97,15 @@ contract("NaiveCreditorProxy", (accounts) => {
                    test: true,
                };
 
-               console.log(await proxy.testFunction.call(test));
+               console.log(
+                   await proxy.methods.testFunction(test).call(),
+               );
 
-               // await proxy.cancelDebtOffer.sendTransaction(
-               //     { value: testOrder, from: testOrder.creditor },
-               // );
+               // console.log(await proxy.testFunction.call(test));
+
+               const result = await proxy.methods.cancelDebtOffer(testOrder).send({ from: accounts[0] });
+
+               console.log(result);
 
                // expect(cancelled).to.eq(false);
            });
