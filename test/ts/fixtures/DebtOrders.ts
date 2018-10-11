@@ -7,7 +7,7 @@ export class DebtOrderFixtures {
 
     }
 
-    unsignedOrder(): DebtOrder {
+    get unsignedOrder(): DebtOrder {
         const debtorSignature = {
             r: this.web3.utils.fromAscii(""),
             s: this.web3.utils.fromAscii(""),
@@ -52,7 +52,7 @@ export class DebtOrderFixtures {
         }
     }
 
-    signedOrder(): DebtOrder {
-        const unsignedOrder = this.unsignedOrder();
+    get signedOrder(): DebtOrder {
+        return this.unsignedOrder;
     }
 }
