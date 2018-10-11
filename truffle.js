@@ -21,6 +21,6 @@ module.exports = {
             gas: 6712390,
             gasPrice: 1,
         },
-    }
+    },
     test_directory: "test/js",
 };
