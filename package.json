@@ -8,11 +8,14 @@
   "license": "MIT",
   "dependencies": {
     "@types/bignumber.js": "^5.0.0",
+    "@types/mocha": "^5.2.5",
     "bignumber.js": "^7.2.1",
     "chai": "^4.2.0",
     "ganache-cli": "^6.1.0",
     "solc": "^0.4.25",
     "truffle": "^4.1.14",
+    "typescript": "^3.1.2",
+    "web3": "1.0.0-beta.36",
     "zeppelin-solidity": "^1.12.0"
   },
   "scripts": {
