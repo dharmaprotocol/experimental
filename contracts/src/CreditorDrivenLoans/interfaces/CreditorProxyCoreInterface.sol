@@ -2,9 +2,9 @@ pragma solidity ^0.4.24;
 pragma experimental ABIEncoderV2;
 
 import "../../shared/libraries/OrderLibrary.sol";
+import "../libraries/CreditorProxyErrors.sol";
 
-
-contract CreditorProxyCoreInterface {
+contract CreditorProxyCoreInterface is CreditorProxyErrors {
 
     function fillDebtOffer(
         OrderLibrary.DebtOrder memory order
