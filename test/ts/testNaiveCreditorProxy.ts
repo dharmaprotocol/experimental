@@ -25,7 +25,7 @@ contract("NaiveCreditorProxy", (accounts) => {
     describe("#hashCreditorCommitmentForOrder", () => {
         describe("when given a valid order", () => {
             it("returns a bytes32 data type", async () => {
-                const validOrder = debtOrderFixtures.validOrder();
+                const validOrder = debtOrderFixtures.signedOrder();
 
                 const result = await proxy.methods.hashCreditorCommitmentForOrder(
                     validOrder,
@@ -67,7 +67,7 @@ contract("NaiveCreditorProxy", (accounts) => {
             });
         });
 
-        describe("when given valid arguments for a debt offer", () => {
+        describe("when given a signed debt order", () => {
             it("returns a transaction receipt", () => {
                 // STUB.
             });
@@ -92,7 +92,7 @@ contract("NaiveCreditorProxy", (accounts) => {
             let txReceipt;
 
             it("returns a transaction receipt", async () => {
-                const testOrder = debtOrderFixtures.validOrder();
+                const testOrder = debtOrderFixtures.signedOrder();
 
                 txReceipt = await proxy.methods.cancelDebtOffer(testOrder).send(
                     { from: accounts[0] }

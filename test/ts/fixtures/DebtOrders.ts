@@ -52,8 +52,7 @@ export class DebtOrderFixtures {
         }
     }
 
-    validOrder(): DebtOrder {
-        // TODO: Sign this order.
-        return this.unsignedOrder();
+    signedOrder(): DebtOrder {
+        const unsignedOrder = this.unsignedOrder();
     }
 }
