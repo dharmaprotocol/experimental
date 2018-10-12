@@ -549,9 +549,9 @@ destroy@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
 
-dharma-chain@^1.0.17:
-  version "1.0.17"
-  resolved "https://registry.yarnpkg.com/dharma-chain/-/dharma-chain-1.0.17.tgz#60898ec809c0a086060f77628d761709b6848496"
+dharma-chain@^1.0.18:
+  version "1.0.18"
+  resolved "https://registry.yarnpkg.com/dharma-chain/-/dharma-chain-1.0.18.tgz#9afeae9d4c15d4701ea9ba46e223b74da525d722"
 
 diff@3.3.1:
   version "3.3.1"
