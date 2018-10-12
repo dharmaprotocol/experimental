@@ -8,7 +8,12 @@ import { InterestRate, TimeInterval, TokenAmount } from "../";
 
 import { Price } from "../../../test/ts/types/LTVDecisionEngineTypes";
 
-import { BigNumber } from "../../../utils/bignumber";
+import BigNumber from "bignumber.js";
+
+// Configure BigNumber
+BigNumber.config({
+    EXPONENTIAL_AT: 1000
+});
 
 const MAX_INTEREST_RATE_PRECISION = 4;
 const FIXED_POINT_SCALING_FACTOR = 10 ** MAX_INTEREST_RATE_PRECISION;
