@@ -53,7 +53,7 @@ contract("LTVCreditorProxy", (accounts) => {
         });
     });
 
-    describe.only("when given params that are signed by the creditor", () => {
+    describe("when given params that are signed by the creditor", () => {
         let order: DebtOrder;
         let commitmentHash: string;
         let params: LTVParams;
