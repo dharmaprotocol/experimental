@@ -4,8 +4,6 @@ import * as singleLineString from "single-line-string";
 
 import { ecSign } from "../../../test/ts/types/ECDSASignature";
 
-import { FIXED_POINT_SCALING_FACTOR } from "../../../src/adapters/simple_interest_loan_terms";
-
 import { Web3Utils } from "../../../utils/web3_utils";
 
 import { SignatureUtils } from "../../../utils/signature_utils";
@@ -17,6 +15,9 @@ import { DebtOrderData, ECDSASignature, EthereumAddress, InterestRate, TimeInter
 import { SignedPrice } from "./signed_price";
 
 import { BigNumber } from "../../../utils/bignumber";
+
+const MAX_INTEREST_RATE_PRECISION = 4;
+const FIXED_POINT_SCALING_FACTOR = 10 ** MAX_INTEREST_RATE_PRECISION;
 
 export const MAX_LTV_LOAN_OFFER_ERRORS = {
     ALREADY_SIGNED_BY_CREDITOR: () => `The creditor has already signed the loan offer.`,
