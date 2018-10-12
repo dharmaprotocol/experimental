@@ -17,6 +17,8 @@ contract LTVDecisionEngine is
 
 	uint public constant PRECISION = 4;
 
+	uint public constant MAX_PRICE_TTL_IN_SECONDS = 600;
+
 	function evaluateConsent(Params params)
 		public view returns (bool signatureValid, bytes32 _id)
 	{
@@ -108,6 +110,13 @@ contract LTVDecisionEngine is
 	)
 		internal view returns (bool)
 	{
+		uint minPriceTimestamp = block.timestamp - MAX_PRICE_TTL_IN_SECONDS;
+
+		if (principalPrice.timestamp < minPriceTimestamp ||
+			collateralPrice.timestamp < minPriceTimestamp) {
+			return false;
+		}
+
 		bytes32 principalPriceHash = keccak256(
 			principalPrice.value,
 			principalPrice.tokenAddress,
