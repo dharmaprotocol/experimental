@@ -12,7 +12,7 @@
     "@types/mocha": "^5.2.5",
     "bignumber.js": "^7.2.1",
     "chai": "^4.2.0",
-    "dharma-chain": "^1.0.17",
+    "dharma-chain": "^1.0.18",
     "solc": "^0.4.25",
     "truffle": "^4.1.14",
     "typescript": "^3.1.2",
