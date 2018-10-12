@@ -6,7 +6,7 @@ import { ecSign, ECDSASignature } from "../../../test/ts/types/ECDSASignature";
 
 import { EthereumAddress, InterestRate, TimeInterval, TokenAmount } from "../";
 
-import { SignedPrice } from "./signed_price";
+import { Price } from "../../../test/ts/types/LTVDecisionEngineTypes";
 
 import { BigNumber } from "../../../utils/bignumber";
 
@@ -174,13 +174,13 @@ export class MaxLTVLoanOffer {
     }
 
     private collateralAmount?: number;
-    private collateralPrice?: SignedPrice;
+    private collateralPrice?: Price;
     private creditor?: string;
     private creditorSignature?: ECDSASignature;
     private debtor?: string;
     private debtorSignature?: ECDSASignature;
     private expirationTimestampInSec?: BigNumber;
-    private principalPrice?: SignedPrice;
+    private principalPrice?: Price;
     private termsContractParameters?: string;
 
     constructor(private readonly web3: Web3, private readonly data: MaxLTVData) {}
@@ -242,7 +242,7 @@ export class MaxLTVLoanOffer {
      * loanOffer.setPrincipalPrice(signedPrincipalPrice);
      *
      */
-    public setPrincipalPrice(principalPrice: SignedPrice) {
+    public setPrincipalPrice(principalPrice: Price) {
         if (principalPrice.tokenAddress !== this.data.principalTokenAddress) {
             throw new Error(
                 MAX_LTV_LOAN_OFFER_ERRORS.PRICE_OF_INCORRECT_TOKEN(
@@ -263,9 +263,9 @@ export class MaxLTVLoanOffer {
      * @example
      * loanOffer.getPrincipalPrice();
      *
-     * @return {SignedPrice}
+     * @return {Price}
      */
-    public getPrincipalPrice(): SignedPrice {
+    public getPrincipalPrice(): Price {
         return this.principalPrice;
     }
 
@@ -278,7 +278,7 @@ export class MaxLTVLoanOffer {
      * loanOffer.setCollateralPrice(signedPrincipalPrice);
      *
      */
-    public setCollateralPrice(collateralPrice: SignedPrice) {
+    public setCollateralPrice(collateralPrice: Price) {
         if (collateralPrice.tokenAddress !== this.data.collateralTokenAddress) {
             throw new Error(
                 MAX_LTV_LOAN_OFFER_ERRORS.PRICE_OF_INCORRECT_TOKEN(
@@ -299,9 +299,9 @@ export class MaxLTVLoanOffer {
      * @example
      * loanOffer.getCollateralPrice();
      *
-     * @return {SignedPrice}
+     * @return {Price}
      */
-    public getCollateralPrice(): SignedPrice {
+    public getCollateralPrice(): Price {
         return this.principalPrice;
     }
 
@@ -335,7 +335,7 @@ export class MaxLTVLoanOffer {
      * @example
      * loanOffer.getCollateralAmount();
      *
-     * @return {SignedPrice}
+     * @return {Price}
      */
     public getCollateralAmount(): number {
         return this.collateralAmount;
