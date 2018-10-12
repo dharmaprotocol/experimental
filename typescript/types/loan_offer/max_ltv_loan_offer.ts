@@ -186,7 +186,6 @@ export class MaxLTVLoanOffer {
     private debtorSignature?: ECDSASignature;
     private expirationTimestampInSec?: BigNumber;
     private principalPrice?: Price;
-    private termsContractParameters?: string;
 
     constructor(private readonly web3: Web3, private readonly data: MaxLTVData) {}
 
@@ -330,8 +329,6 @@ export class MaxLTVLoanOffer {
         }
 
         this.collateralAmount = collateralAmount;
-
-        this.termsContractParameters = this.packTermsContractParameters();
     }
 
     /**
@@ -454,7 +451,6 @@ export class MaxLTVLoanOffer {
             NULL_ADDRESS, // underwriter
             new BigNumber(0), // undwriter risk rating
             this.data.termsContract,
-            this.termsContractParameters,
             this.data.salt
         );
     }
@@ -490,31 +486,5 @@ export class MaxLTVLoanOffer {
         const collateralValue = new BigNumber(collateralAmount).times(this.collateralPrice.value);
 
         return principalValue.div(collateralValue).lte(this.data.maxLTV.div(100));
-    }
-
-    private packTermsContractParameters(): string {
-        if (!this.collateralAmount) {
-            throw new Error(MAX_LTV_LOAN_OFFER_ERRORS.COLLATERAL_AMOUNT_NOT_SET());
-        }
-
-        const { collateralTokenIndex, principalTokenIndex } = this.data;
-
-        const collateralTokenAmount = new TokenAmount(this.collateralAmount, this.data.collateralTokenSymbol);
-
-        const simpleInterestTerms = {
-            principalAmount: this.data.principal.rawAmount,
-            interestRate: this.data.interestRate.raw,
-            amortizationUnit: this.data.termLength.getAmortizationUnit(),
-            termLength: new BigNumber(this.data.termLength.amount),
-            principalTokenIndex
-        };
-        const collateralizedSimpleInterestTerms = {
-            collateralTokenIndex,
-            collateralAmount: collateralTokenAmount.rawAmount,
-            gracePeriodInDays: new BigNumber(0)
-        };
-
-        // TODO: implement pack parameters
-        return packParameters(simpleInterestTerms, collateralizedSimpleInterestTerms);
     }
 }
