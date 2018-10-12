@@ -1,7 +1,7 @@
 import * as Web3 from "web3";
 // Types
-import { DebtOrder } from "../types/DebtOrder";
-import { ECDSASignature, ecSign } from "../types/ECDSASignature";
+import { DebtOrder } from "../../../types/DebtOrder";
+import { ECDSASignature, ecSign } from "../../../types/ECDSASignature";
 
 export class DebtOrderFixtures {
     readonly blankSignature: ECDSASignature = {

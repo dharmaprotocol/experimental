@@ -8,8 +8,8 @@ import {
     CreditorCommitment,
     LTVParams,
     Price
-} from "./types/LTVDecisionEngineTypes";
-import { DebtOrder } from "./types/DebtOrder";
+} from "../../types/LTVTypes";
+import { DebtOrder } from "../../types/DebtOrder";
 import { LTVFixtures } from "./fixtures/LTVFixtures";
 
 // Artifacts

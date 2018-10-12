@@ -55,12 +55,10 @@ contract LTVCreditorProxy is
 		returns (bytes32)
 	{
 		return keccak256(
-			// LTV specific values.
 			commitmentValues.maxLTV,
 			order.principalToken,
 			order.principalAmount,
-//			commitmentValues.expirationTimestamp,
-			// Order specific values.
+			order.kernelVersion,
 			order.creditor,
 			order.issuanceVersion,
 			order.creditorFee,

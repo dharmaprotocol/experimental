@@ -1,13 +1,13 @@
 import * as Web3 from "web3";
 // Types
-import { DebtOrder } from "../types/DebtOrder";
-import { ECDSASignature, ecSign } from "../types/ECDSASignature";
+import { DebtOrder } from "../../../types/DebtOrder";
+import { ECDSASignature, ecSign } from "../../../types/ECDSASignature";
 import {
     CommitmentValues,
     CreditorCommitment,
     LTVParams,
     Price
-} from "../types/LTVDecisionEngineTypes";
+} from "../../../types/LTVTypes";
 import { DebtOrderFixtures } from "./DebtOrders";
 
 export class LTVFixtures {
@@ -112,6 +112,7 @@ export class LTVFixtures {
             // Order specific values.
             order.creditor,
             order.issuanceVersion,
+            order.kernelVersion,
             order.creditorFee,
             order.underwriter,
             order.underwriterRiskRating,

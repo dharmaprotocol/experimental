@@ -93,6 +93,7 @@ contract LTVDecisionEngine is
 			order.principalAmount,
 			order.creditor,
 			order.issuanceVersion,
+			order.kernelVersion,
 			order.creditorFee,
 			order.underwriter,
 			order.underwriterRiskRating,

@@ -3,7 +3,7 @@ import * as chai from "chai";
 import * as Web3 from "web3";
 // Types
 import { DebtOrderFixtures } from "./fixtures/DebtOrders";
-import { DebtOrder } from "./types/DebtOrder";
+import { DebtOrder } from "../../types/DebtOrder";
 
 // Artifacts
 const NaiveCreditorProxy = artifacts.require("./NaiveCreditorProxy.sol");
