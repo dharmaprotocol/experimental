@@ -480,9 +480,9 @@ export class MaxLTVLoanOffer {
         // We do not use the TokenAmount's rawValue here because what matters is the "real world" amount
         // of the principal and collateral, without regard for how many decimals are used in their
         // blockchain representations.
-        const principalValue = new BigNumber(this.data.principal.decimalAmount).times(this.principalPrice.tokenPrice);
+        const principalValue = new BigNumber(this.data.principal.decimalAmount).times(this.principalPrice.value);
 
-        const collateralValue = new BigNumber(collateralAmount).times(this.collateralPrice.tokenPrice);
+        const collateralValue = new BigNumber(collateralAmount).times(this.collateralPrice.value);
 
         return principalValue.div(collateralValue).lte(this.data.maxLTV.div(100));
     }
