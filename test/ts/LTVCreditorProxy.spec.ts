@@ -53,11 +53,11 @@ contract("LTVCreditorProxy", (accounts) => {
         });
     });
 
-    describe.only("when given params that are signed by the creditor but not the price feed operator", () => {
+    describe("when given params that are signed by the creditor but not the price feed operator", () => {
         // STUB.
     });
 
-    describe.only("when given params that are signed by the creditor and the price feed operator", () => {
+    describe("when given params that are signed by the creditor and the price feed operator", () => {
         let order: DebtOrder;
         let commitmentHash: string;
         let params: LTVParams;
