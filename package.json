@@ -10,7 +10,7 @@
     "@types/bignumber.js": "^5.0.0",
     "@types/chai": "^4.1.6",
     "@types/mocha": "^5.2.5",
-    "bignumber.js": "^7.2.1",
+    "bignumber.js": "^5.0.0",
     "chai": "^4.2.0",
     "dharma-chain": "^1.0.18",
     "single-line-string": "^0.0.2",
