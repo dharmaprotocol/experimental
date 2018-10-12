@@ -432,8 +432,18 @@ export class MaxLTVLoanOffer {
 
     private getCreditorCommitmentHash(): string {
         return this.web3.utils.soliditySha3(
-            MaxLTVLoanOffer.decisionEngineAddress,
-            this.getCreditorCommitmentTermsHash()
+            this.data.maxLTV,
+            this.data.principalTokenAddress,
+            this.data.principal.rawAmount,
+            this.creditor,
+            this.data.issuanceVersion,
+            this.data.kernelVersion,
+            this.data.creditorFee,
+            NULL_ADDRESS, // underwriter
+            new BigNumber(0), // underwriter risk rating
+            this.data.termsContract,
+            this.expirationTimestampInSec,
+            this.data.salt
         );
     }
 
