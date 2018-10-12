@@ -19,32 +19,35 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
         contractRegistry = ContractRegistryInterface(_contractRegistry);
     }
 
-    function fillDebtOffer(OrderLibrary.DebtOrder memory order) public returns (bytes32 id) {
-        id = hashCreditorCommitmentForOrder(order);
+    function fillDebtOffer(DebtOrder memory order) public returns (bytes32 agreementId) {
+        bytes32 creditorCommitmentHash = hashCreditorCommitmentForOrder(order);
 
         if (!evaluateConsent(order)) {
-            emit CreditorProxyError(uint8(Errors.DEBT_OFFER_NON_CONSENSUAL), order.creditor, id);
+            emit CreditorProxyError(uint8(Errors.DEBT_OFFER_NON_CONSENSUAL), order.creditor, creditorCommitmentHash);
             return NULL_ISSUANCE_HASH;
         }
 
-        if (debtOfferFilled[id]) {
-            emit CreditorProxyError(uint8(Errors.DEBT_OFFER_ALREADY_FILLED), order.creditor, id);
+        if (debtOfferFilled[creditorCommitmentHash]) {
+            emit CreditorProxyError(uint8(Errors.DEBT_OFFER_ALREADY_FILLED), order.creditor, creditorCommitmentHash);
             return NULL_ISSUANCE_HASH;
         }
 
-        if (debtOfferCancelled[id]) {
-            emit CreditorProxyError(uint8(Errors.DEBT_OFFER_CANCELLED), order.creditor, id);
+        if (debtOfferCancelled[creditorCommitmentHash]) {
+            emit CreditorProxyError(uint8(Errors.DEBT_OFFER_CANCELLED), order.creditor, creditorCommitmentHash);
             return NULL_ISSUANCE_HASH;
         }
 
-        bytes32 agreementId = sendOrderToKernel(order);
+        agreementId = sendOrderToKernel(order);
 
         require(agreementId != NULL_ISSUANCE_HASH);
 
-        // TODO: Log success.
-        debtOfferFilled[id] = true;
+        debtOfferFilled[creditorCommitmentHash] = true;
 
-        return id;
+        contractRegistry.debtToken().transfer(order.creditor, uint256(agreementId));
+
+        emit DebtOfferFilled(order.creditor, creditorCommitmentHash, agreementId);
+
+        return agreementId;
     }
 
     function sendOrderToKernel(DebtOrder memory order) internal returns (bytes32 id) {
