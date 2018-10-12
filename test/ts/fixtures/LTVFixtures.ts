@@ -73,12 +73,14 @@ export class LTVFixtures {
 
         const principalPrice: Price = {
             value: 1,
+            tokenAddress: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             timestamp: await this.currentBlockTimestamp(),
             signature: this.blankSignature,
         };
 
         const collateralPrice: Price = {
             value: 20,
+            tokenAddress: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             timestamp: await this.currentBlockTimestamp(),
             signature: this.blankSignature,
         };
@@ -96,6 +98,7 @@ export class LTVFixtures {
     priceHash(price: Price): string {
         return this.web3.utils.soliditySha3(
             price.value,
+            price.tokenAddress,
             price.timestamp
         );
     }
@@ -104,8 +107,8 @@ export class LTVFixtures {
         return this.web3.utils.soliditySha3(
             // LTV specific values.
             commitmentValues.maxLTV,
-            commitmentValues.principalToken,
-            commitmentValues.principalAmount,
+            order.principalToken,
+            order.principalAmount,
             // Order specific values.
             order.creditor,
             order.issuanceVersion,
