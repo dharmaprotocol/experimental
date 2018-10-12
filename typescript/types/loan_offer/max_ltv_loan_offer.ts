@@ -1,10 +1,5 @@
 import * as singleLineString from "single-line-string";
 
-import {
-    CollateralizedSimpleInterestLoanAdapter,
-    CollateralizedTermsContractParameters,
-} from "../../../src/adapters/collateralized_simple_interest_loan_adapter";
-import { SimpleInterestTermsContractParameters } from "../../../src/adapters/simple_interest_loan_adapter";
 import { FIXED_POINT_SCALING_FACTOR } from "../../../src/adapters/simple_interest_loan_terms";
 
 import { Web3Utils } from "../../../utils/web3_utils";
@@ -44,7 +39,6 @@ export const MAX_LTV_LOAN_OFFER_ERRORS = {
 };
 
 export interface MaxLTVData {
-    adapter: CollateralizedSimpleInterestLoanAdapter;
     collateralTokenAddress: string;
     collateralTokenIndex: BigNumber;
     collateralTokenSymbol: string;
@@ -105,10 +99,6 @@ export class MaxLTVLoanOffer {
             collateralToken,
         );
 
-        const adapter = (await dharma.adapters.getAdapterByTermsContractAddress(
-            termsContract,
-        )) as CollateralizedSimpleInterestLoanAdapter;
-
         const principalTokenIndex = await dharma.contracts.getTokenIndexBySymbolAsync(
             principalToken,
         );
@@ -137,7 +127,6 @@ export class MaxLTVLoanOffer {
         }
 
         const data: MaxLTVData = {
-            adapter,
             collateralTokenAddress,
             collateralTokenIndex,
             collateralTokenSymbol: collateralToken,
@@ -527,26 +516,27 @@ export class MaxLTVLoanOffer {
             throw new Error(MAX_LTV_LOAN_OFFER_ERRORS.COLLATERAL_AMOUNT_NOT_SET());
         }
 
-        const { adapter, collateralTokenIndex, principalTokenIndex } = this.data;
+        const { collateralTokenIndex, principalTokenIndex } = this.data;
 
         const collateralTokenAmount = new TokenAmount(
             this.collateralAmount,
             this.data.collateralTokenSymbol,
         );
 
-        const simpleInterestTerms: SimpleInterestTermsContractParameters = {
+        const simpleInterestTerms = {
             principalAmount: this.data.principal.rawAmount,
             interestRate: this.data.interestRate.raw,
             amortizationUnit: this.data.termLength.getAmortizationUnit(),
             termLength: new BigNumber(this.data.termLength.amount),
             principalTokenIndex,
         };
-        const collateralizedSimpleInterestTerms: CollateralizedTermsContractParameters = {
+        const collateralizedSimpleInterestTerms = {
             collateralTokenIndex,
             collateralAmount: collateralTokenAmount.rawAmount,
             gracePeriodInDays: new BigNumber(0),
         };
 
-        return adapter.packParameters(simpleInterestTerms, collateralizedSimpleInterestTerms);
+        // TODO: implement pack parameters
+        return packParameters(simpleInterestTerms, collateralizedSimpleInterestTerms);
     }
 }
