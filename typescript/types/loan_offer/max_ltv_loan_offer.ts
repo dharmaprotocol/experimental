@@ -2,13 +2,13 @@
 import * as Web3 from "web3";
 import * as singleLineString from "single-line-string";
 
-import { ecSign, ECDSASignature } from "../../../test/ts/types/ECDSASignature";
+import { ecSign, ECDSASignature } from "../../../types/ECDSASignature";
 
 import { InterestRate, TimeInterval, TokenAmount } from "../";
 
-import { Price } from "../../../test/ts/types/LTVDecisionEngineTypes";
+import { Price } from "../../../types/LTVTypes";
 
-import { BigNumber } from "../../utils/bignumber";
+import { BigNumber, getTokenRegistryIndex, TOKEN_REGISTRY_TRACKED_TOKENS } from "../../utils";
 
 // Configure BigNumber
 BigNumber.config({
@@ -114,9 +114,8 @@ export class MaxLTVLoanOffer {
         const principalTokenAddress = "";
         const collateralTokenAddress = "";
 
-        // TODO: hard-code the token indices
-        const principalTokenIndex = "";
-        const collateralTokenIndex = "";
+        const principalTokenIndex = getTokenRegistryIndex(principalToken);
+        const collateralTokenIndex = getTokenRegistryIndex(collateralToken);
 
         let relayer = NULL_ADDRESS;
         let relayerFee = new TokenAmount(0, principalToken);

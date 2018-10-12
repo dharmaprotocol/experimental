@@ -13,7 +13,7 @@ interface CreditorParams {
 // These would be provided by the relayer, and get signed by the creditor as well.
 interface OrderParams {
     issuanceVersion: string;
-    kernelVersion: string,
+    kernelVersion: string;
     creditorFee: number;
     underwriter: string;
     underwriterRiskRating: number;
@@ -40,7 +40,6 @@ interface CreditorCommitmentValues {
     salt: number;
 }
 
-
 class LoanOffer {
     private readonly commitmentValues: CreditorCommitmentValues;
     private readonly commitmentHash: string;
@@ -50,7 +49,7 @@ class LoanOffer {
     private readonly blankSignature: ECDSASignature = {
         r: this.web3.utils.fromAscii(""),
         s: this.web3.utils.fromAscii(""),
-        v: 0,
+        v: 0
     };
 
     private lTVParams: LTVParams;
@@ -60,13 +59,13 @@ class LoanOffer {
         ltvCreditorProxyABI: any[],
         ltvCreditorProxyAddress: string,
         creditorParams: CreditorParams,
-        orderParams: OrderParams,
+        orderParams: OrderParams
     ) {
         this.proxy = new web3.eth.Contract(ltvCreditorProxyABI, ltvCreditorProxyAddress);
 
         this.commitmentValues = {
             ...creditorParams,
-            ...orderParams,
+            ...orderParams
         };
 
         this.commitmentHash = this.generateCommitmentHash();
@@ -88,28 +87,28 @@ class LoanOffer {
                 underwriterSignature: this.blankSignature,
                 // This stays a blank signature forever.
                 creditorSignature: this.blankSignature,
-                ...orderParams,
+                ...orderParams
             },
             priceFeedOperator: "",
             collateralPrice: {
                 value: 0,
                 timestamp: 0,
                 tokenAddress: "",
-                signature: this.blankSignature,
+                signature: this.blankSignature
             },
             principalPrice: {
                 value: 0,
                 timestamp: 0,
                 tokenAddress: creditorParams.principalToken,
-                signature: this.blankSignature,
+                signature: this.blankSignature
             },
             creditorCommitment: {
                 values: {
-                    maxLTV: creditorParams.maxLTV,
+                    maxLTV: creditorParams.maxLTV
                 },
-                signature: this.blankSignature,
+                signature: this.blankSignature
             },
-            creditor: creditorParams.creditor,
+            creditor: creditorParams.creditor
         };
     }
 
@@ -117,7 +116,7 @@ class LoanOffer {
     async fillOffer() {
         return this.proxy.methods.fillDebtOffer(this.lTVParams).send({
             from: this.lTVParams.creditor,
-            gas: 6712390,
+            gas: 6712390
         });
     }
 
@@ -126,7 +125,7 @@ class LoanOffer {
         this.lTVParams.creditorCommitment.signature = await ecSign(
             this.web3,
             this.commitmentHash,
-            this.commitmentValues.creditor,
+            this.commitmentValues.creditor
         );
     }
 
