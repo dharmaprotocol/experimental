@@ -1,6 +1,6 @@
 import * as Web3 from "web3";
-import { ECDSASignature, ecSign } from "../../../types/ECDSASignature";
-import { LTVParams, Price, Price } from "../types/LTVTypes";
+import { ECDSASignature, ecSign } from "../types/ECDSASignature";
+import { LTVParams, Price } from "../types/LTVTypes";
 
 // The interface that the creditor will use.
 interface CreditorParams {
