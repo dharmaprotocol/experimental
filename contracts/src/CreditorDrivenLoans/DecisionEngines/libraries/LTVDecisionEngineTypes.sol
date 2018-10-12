@@ -23,6 +23,7 @@ contract LTVDecisionEngineTypes
 	struct Price {
 		uint value;
 		uint timestamp;
+		address tokenAddress;
 		SignaturesLibrary.ECDSASignature signature;
 	}
 
@@ -32,9 +33,6 @@ contract LTVDecisionEngineTypes
 	}
 
 	struct CommitmentValues {
-		address principalToken;
-		uint principalAmount;
-//		uint expirationTimestamp;
 		uint maxLTV;
 	}
 }

@@ -115,12 +115,14 @@ contract("LTVCreditorProxy", (accounts) => {
 
             const principalPrice: Price = {
                 value: 0,
+                tokenAddress: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
                 timestamp: 0,
                 signature: debtOrderFixtures.blankSignature,
             };
 
             const collateralPrice: Price = {
                 value: 0,
+                tokenAddress: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
                 timestamp: 0,
                 signature: debtOrderFixtures.blankSignature,
             };

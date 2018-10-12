@@ -55,7 +55,7 @@ contract LTVDecisionEngine is
 		LTVDecisionEngineTypes.Price memory principalTokenPrice = params.principalPrice;
 		LTVDecisionEngineTypes.Price memory collateralTokenPrice = params.collateralPrice;
 
-		CommitmentValues memory commitmentValues = params.creditorCommitment.values;
+		uint maxLTV = params.creditorCommitment.values.maxLTV;
 		OrderLibrary.DebtOrder memory order = params.order;
 
 		uint collateralValue = collateralTokenPrice.value;
@@ -71,11 +71,11 @@ contract LTVDecisionEngine is
 		uint ltv = computeLTV(
 			principalTokenPrice.value,
 			collateralTokenPrice.value,
-			commitmentValues.principalAmount,
+			order.principalAmount,
 			order.collateralAmount
 		);
 
-		uint maxLTVWithPrecision = commitmentValues.maxLTV.mul(10 ** (PRECISION.sub(2)));
+		uint maxLTVWithPrecision = maxLTV.mul(10 ** (PRECISION.sub(2)));
 
 		return ltv <= maxLTVWithPrecision;
 	}
@@ -86,11 +86,9 @@ contract LTVDecisionEngine is
 		return keccak256(
 			// LTV specific values.
 			commitmentValues.maxLTV,
-			commitmentValues.principalToken,
-			commitmentValues.principalAmount,
-			// TODO: Evaluate whether this is necessary.
-			// commitmentValues.expirationTimestamp,
 			// Order specific values.
+			order.principalToken,
+			order.principalAmount,
 			order.creditor,
 			order.issuanceVersion,
 			order.creditorFee,
@@ -112,11 +110,13 @@ contract LTVDecisionEngine is
 	{
 		bytes32 principalPriceHash = keccak256(
 			principalPrice.value,
+			principalPrice.tokenAddress,
 			principalPrice.timestamp
 		);
 
 		bytes32 collateralPriceHash = keccak256(
 			collateralPrice.value,
+			collateralPrice.tokenAddress,
 			collateralPrice.timestamp
 		);
 

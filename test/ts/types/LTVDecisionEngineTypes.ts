@@ -4,10 +4,6 @@ import { ECDSASignature } from "./ECDSASignature";
 
 // The set of values that the creditor signs.
 export interface CommitmentValues {
-    // Address of the principal token.
-    principalToken: string;
-    principalAmount: number;
-    // expirationTimestamp: number;
     maxLTV: number;
 }
 
@@ -20,6 +16,7 @@ export interface CreditorCommitment {
 // A price signed by the feed operator.
 export interface Price {
     value: number;
+    tokenAddress: string;
     timestamp: number;
     signature: ECDSASignature;
 }

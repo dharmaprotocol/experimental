@@ -57,8 +57,8 @@ contract LTVCreditorProxy is
 		return keccak256(
 			// LTV specific values.
 			commitmentValues.maxLTV,
-			commitmentValues.principalToken,
-			commitmentValues.principalAmount,
+			order.principalToken,
+			order.principalAmount,
 //			commitmentValues.expirationTimestamp,
 			// Order specific values.
 			order.creditor,
