@@ -4,7 +4,7 @@ import * as singleLineString from "single-line-string";
 
 import { ecSign, ECDSASignature } from "../../../test/ts/types/ECDSASignature";
 
-import { EthereumAddress, InterestRate, TimeInterval, TokenAmount } from "../";
+import { InterestRate, TimeInterval, TokenAmount } from "../";
 
 import { Price } from "../../../test/ts/types/LTVDecisionEngineTypes";
 
@@ -47,7 +47,7 @@ export interface MaxLTVData {
     principal: TokenAmount;
     principalTokenAddress: string;
     principalTokenIndex: BigNumber;
-    relayer: EthereumAddress;
+    relayer: string;
     relayerFee: TokenAmount;
     salt: BigNumber;
     termLength: TimeInterval;
@@ -112,13 +112,13 @@ export class MaxLTVLoanOffer {
         const principalTokenIndex = "";
         const collateralTokenIndex = "";
 
-        let relayer = new EthereumAddress(NULL_ADDRESS);
+        let relayer = NULL_ADDRESS;
         let relayerFee = new TokenAmount(0, principalToken);
         let creditorFee = new BigNumber(0);
         let debtorFee = new BigNumber(0);
 
         if (relayerAddress && relayerFeeAmount) {
-            relayer = new EthereumAddress(relayerAddress);
+            relayer = relayerAddress;
             relayerFee = new TokenAmount(relayerFeeAmount, principalToken);
         }
 
@@ -421,7 +421,7 @@ export class MaxLTVLoanOffer {
             this.data.interestRate.raw.mul(FIXED_POINT_SCALING_FACTOR),
             this.data.debtorFee,
             this.data.creditorFee,
-            this.data.relayer.toString(),
+            this.data.relayer,
             this.data.relayerFee.rawAmount,
             this.expirationTimestampInSec,
             this.data.salt
@@ -466,7 +466,7 @@ export class MaxLTVLoanOffer {
             this.data.principalTokenAddress,
             this.data.debtorFee,
             this.data.creditorFee,
-            this.data.relayer.toString(),
+            this.data.relayer,
             this.data.relayerFee.rawAmount,
             this.expirationTimestampInSec
         );
