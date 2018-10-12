@@ -14,18 +14,21 @@ export class DebtOrderFixtures {
 
     }
 
-    get unsignedOrder(): DebtOrder {
+    async unsignedOrder(): Promise<DebtOrder> {
         // The signatures will all be empty ECDSA signatures.
         const debtorSignature = this.blankSignature;
         const underwriterSignature = this.blankSignature;
         const creditorSignature = this.blankSignature;
 
+        // Some time in seconds, defaulting to an hour past the current block's timestamp.
+        const expirationTimestampInSec = (await this.currentBlockTimestamp()) + 3600;
+
         return {
             kernelVersion: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             issuanceVersion: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-            principalAmount: 0,
+            principalAmount: 1,
             principalToken: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-            collateralAmount: 0,
+            collateralAmount: 1,
             collateralToken: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             debtor: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             debtorFee: 0,
@@ -38,7 +41,7 @@ export class DebtOrderFixtures {
             underwriterRiskRating: 0,
             termsContract: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             termsContractParameters: "0x00000000000000000000000000000000000000200000000de0b6b3a764000001",
-            expirationTimestampInSec: 0,
+            expirationTimestampInSec,
             salt: 0,
             debtorSignature,
             creditorSignature,
@@ -47,7 +50,7 @@ export class DebtOrderFixtures {
     }
 
     async signedOrder(): Promise<DebtOrder> {
-        const unsignedOrder: DebtOrder = this.unsignedOrder;
+        const unsignedOrder = await this.unsignedOrder();
 
         const commitmentHash = this.hashForOrder(unsignedOrder);
 
@@ -76,5 +79,10 @@ export class DebtOrderFixtures {
             order.expirationTimestampInSec,
             order.termsContractParameters,
         );
+    }
+
+
+    async currentBlockTimestamp(): Promise<number> {
+        return (await this.web3.eth.getBlock("latest")).timestamp;
     }
 }

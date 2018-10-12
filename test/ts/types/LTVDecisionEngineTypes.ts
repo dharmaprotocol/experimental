@@ -7,7 +7,7 @@ export interface CommitmentValues {
     // Address of the principal token.
     principalToken: string;
     principalAmount: number;
-    expirationTimestamp: number;
+    // expirationTimestamp: number;
     maxLTV: number;
 }
 

@@ -17,16 +17,18 @@ contract LTVCreditorProxy is
 		public returns (bytes32 id)
 	{
 		bool isConsensual;
+		bool shouldFill;
 
 		(isConsensual, id) = evaluateConsent(params);
+		shouldFill = evaluateDecision(params);
 
-		if (!(isConsensual && evaluateDecision(params))) {
-			return NULL_ISSUANCE_HASH;
+		if (isConsensual && shouldFill) {
+			// The order is consensual and has an acceptable LTV ratio.
+			debtOfferFilled[id] = true;
+			return id;
 		}
 
-		// The order is consensual and has an acceptable LTV ratio.
-		debtOfferFilled[id] = true;
-		return id;
+		return NULL_ISSUANCE_HASH;
 	}
 
 	function cancelDebtOffer(LTVDecisionEngineTypes.Params params) public returns (bool) {
@@ -57,7 +59,7 @@ contract LTVCreditorProxy is
 			commitmentValues.maxLTV,
 			commitmentValues.principalToken,
 			commitmentValues.principalAmount,
-			commitmentValues.expirationTimestamp,
+//			commitmentValues.expirationTimestamp,
 			// Order specific values.
 			order.creditor,
 			order.issuanceVersion,

@@ -34,7 +34,7 @@ contract LTVDecisionEngineTypes
 	struct CommitmentValues {
 		address principalToken;
 		uint principalAmount;
-		uint expirationTimestamp;
+//		uint expirationTimestamp;
 		uint maxLTV;
 	}
 }

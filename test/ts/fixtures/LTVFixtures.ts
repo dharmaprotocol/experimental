@@ -24,7 +24,7 @@ export class LTVFixtures {
     }
 
     async signedParams(): Promise<LTVParams> {
-        const params = this.unsignedParams;
+        const params = await this.unsignedParams();
 
         const commitmentHash = this.commitmentHash(
             params.creditorCommitment.values,
@@ -37,16 +37,32 @@ export class LTVFixtures {
             params.creditor
         );
 
+        const principalPriceHash = this.priceHash(params.principalPrice);
+        const collateralPriceHash = this.priceHash(params.collateralPrice);
+
+        params.priceFeedOperator = this.accounts[2];
+
+        params.collateralPrice.signature = await ecSign(
+            this.web3,
+            collateralPriceHash,
+            params.priceFeedOperator,
+        );
+
+        params.principalPrice.signature = await ecSign(
+            this.web3,
+            principalPriceHash,
+            params.priceFeedOperator,
+        );
+
         return params;
     }
 
-    get unsignedParams(): LTVParams {
-        const order = this.debtOrderFixtures.unsignedOrder;
+    async unsignedParams(): Promise<LTVParams> {
+        const order = await this.debtOrderFixtures.unsignedOrder();
 
         const values = {
             principalToken: order.principalToken,
-            principalAmount: 0,
-            expirationTimestamp: 0,
+            principalAmount: 1,
             maxLTV: 100,
         };
 
@@ -56,14 +72,14 @@ export class LTVFixtures {
         };
 
         const principalPrice: Price = {
-            value: 0,
-            timestamp: 0,
+            value: 1,
+            timestamp: await this.currentBlockTimestamp(),
             signature: this.blankSignature,
         };
 
         const collateralPrice: Price = {
-            value: 0,
-            timestamp: 0,
+            value: 20,
+            timestamp: await this.currentBlockTimestamp(),
             signature: this.blankSignature,
         };
 
@@ -77,13 +93,19 @@ export class LTVFixtures {
         };
     }
 
+    priceHash(price: Price): string {
+        return this.web3.utils.soliditySha3(
+            price.value,
+            price.timestamp
+        );
+    }
+
     commitmentHash(commitmentValues: CommitmentValues, order: DebtOrder): string {
         return this.web3.utils.soliditySha3(
             // LTV specific values.
             commitmentValues.maxLTV,
             commitmentValues.principalToken,
             commitmentValues.principalAmount,
-            commitmentValues.expirationTimestamp,
             // Order specific values.
             order.creditor,
             order.issuanceVersion,
@@ -95,5 +117,9 @@ export class LTVFixtures {
             order.expirationTimestampInSec,
             order.salt
         );
+    }
+
+    async currentBlockTimestamp(): Promise<number> {
+        return (await this.web3.eth.getBlock("latest")).timestamp;
     }
 }

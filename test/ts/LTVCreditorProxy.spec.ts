@@ -34,8 +34,8 @@ contract("LTVCreditorProxy", (accounts) => {
     describe("#hashCreditorCommitmentForOrder", () => {
         describe("when given commitment values and a debt order", () => {
             it("returns the expected bytes32 hash", async () => {
-                const params = await lTVFixtures.unsignedParams;
-                const order = debtOrderFixtures.unsignedOrder;
+                const params = await lTVFixtures.unsignedParams();
+                const order = await debtOrderFixtures.unsignedOrder();
                 const commitmentValues = params.creditorCommitment.values;
 
                 const expected = await lTVFixtures.commitmentHash(
@@ -53,14 +53,18 @@ contract("LTVCreditorProxy", (accounts) => {
         });
     });
 
-    describe.only("when given params that are signed by the creditor", () => {
+    describe.only("when given params that are signed by the creditor but not the price feed operator", () => {
+        // STUB.
+    });
+
+    describe.only("when given params that are signed by the creditor and the price feed operator", () => {
         let order: DebtOrder;
         let commitmentHash: string;
         let params: LTVParams;
 
         before(async () => {
             params = await lTVFixtures.signedParams();
-            const order = params.order;
+            order = params.order;
 
             commitmentHash = await proxy.methods.hashCreditorCommitmentForOrder(
                 params.creditorCommitment.values,
@@ -71,6 +75,7 @@ contract("LTVCreditorProxy", (accounts) => {
         it("returns a transaction receipt", async () => {
             const txReceipt = await proxy.methods.fillDebtOffer(params).send({
                 from: params.creditor,
+                gas: 6712390,
             });
 
             const txHash = txReceipt.transactionHash;
@@ -92,7 +97,7 @@ contract("LTVCreditorProxy", (accounts) => {
         let values: CommitmentValues;
 
         before(async () => {
-            const params = lTVFixtures.unsignedParams;
+            const params = await lTVFixtures.unsignedParams();
 
             unsignedOrder = params.order;
 

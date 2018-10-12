@@ -40,17 +40,19 @@ contract("NaiveCreditorProxy", (accounts) => {
     describe("#fillDebtOffer", () => {
         describe("when given an unsigned debt offer", () => {
             let commitmentHash: string;
+            let unsignedOrder: DebtOrder;
 
             before(async () => {
+                unsignedOrder = await debtOrderFixtures.unsignedOrder();
 
                 commitmentHash = await proxy.methods.hashCreditorCommitmentForOrder(
-                    debtOrderFixtures.unsignedOrder,
+                    unsignedOrder,
                 ).call();
             });
 
             it("returns a transactionReceipt", async () => {
-                const txReceipt = await proxy.methods.fillDebtOffer(debtOrderFixtures.unsignedOrder).send(
-                    { from: debtOrderFixtures.unsignedOrder.creditor },
+                const txReceipt = await proxy.methods.fillDebtOffer(unsignedOrder).send(
+                    { from: unsignedOrder.creditor },
                 );
 
                 const txHash = txReceipt.transactionHash;

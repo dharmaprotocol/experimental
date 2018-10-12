@@ -58,7 +58,13 @@ contract LTVDecisionEngine is
 		CommitmentValues memory commitmentValues = params.creditorCommitment.values;
 		OrderLibrary.DebtOrder memory order = params.order;
 
-		if (isExpired(commitmentValues.expirationTimestamp)) {
+		uint collateralValue = collateralTokenPrice.value;
+
+		if (isExpired(order.expirationTimestampInSec)) {
+			return false;
+		}
+
+		if (order.collateralAmount == 0 || collateralValue == 0) {
 			return false;
 		}
 
@@ -71,7 +77,7 @@ contract LTVDecisionEngine is
 
 		uint maxLTVWithPrecision = commitmentValues.maxLTV.mul(10 ** (PRECISION.sub(2)));
 
-		return ltv > maxLTVWithPrecision;
+		return ltv <= maxLTVWithPrecision;
 	}
 
 	function hashOrder(CommitmentValues commitmentValues, OrderLibrary.DebtOrder order)
@@ -82,7 +88,8 @@ contract LTVDecisionEngine is
 			commitmentValues.maxLTV,
 			commitmentValues.principalToken,
 			commitmentValues.principalAmount,
-			commitmentValues.expirationTimestamp,
+			// TODO: Evaluate whether this is necessary.
+			// commitmentValues.expirationTimestamp,
 			// Order specific values.
 			order.creditor,
 			order.issuanceVersion,
