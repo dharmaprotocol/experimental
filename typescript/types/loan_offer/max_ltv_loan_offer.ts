@@ -4,10 +4,6 @@ import * as singleLineString from "single-line-string";
 
 import { ecSign } from "../../../test/ts/types/ECDSASignature";
 
-import { Web3Utils } from "../../../utils/web3_utils";
-
-import { SignatureUtils } from "../../../utils/signature_utils";
-
 import { NULL_ADDRESS, NULL_ECDSA_SIGNATURE, SALT_DECIMALS } from "../../../utils/constants";
 
 import { DebtOrderData, ECDSASignature, EthereumAddress, InterestRate, TimeInterval, TokenAmount } from "../";
@@ -225,10 +221,8 @@ export class MaxLTVLoanOffer {
      * @return {boolean}
      */
     public isSignedByCreditor(): boolean {
-        if (
-            this.creditorSignature &&
-            SignatureUtils.isValidSignature(this.getCreditorCommitmentHash(), this.creditorSignature, this.creditor)
-        ) {
+        // TODO: check validity of signature
+        if (this.creditorSignature) {
             return true;
         }
 
@@ -399,10 +393,8 @@ export class MaxLTVLoanOffer {
      * @return {boolean}
      */
     public isSignedByDebtor(): boolean {
-        if (
-            this.debtorSignature &&
-            SignatureUtils.isValidSignature(this.getDebtorCommitmentHash(), this.debtorSignature, this.debtor)
-        ) {
+        // TODO: check validity of signature
+        if (this.debtorSignature) {
             return true;
         }
 
@@ -414,7 +406,7 @@ export class MaxLTVLoanOffer {
     }
 
     private getCreditorCommitmentTermsHash(): string {
-        return Web3Utils.soliditySHA3(
+        return this.web3.utils.soliditySha3(
             this.data.kernelVersion,
             this.data.issuanceVersion,
             this.data.termsContract,
@@ -433,7 +425,10 @@ export class MaxLTVLoanOffer {
     }
 
     private getCreditorCommitmentHash(): string {
-        return Web3Utils.soliditySHA3(MaxLTVLoanOffer.decisionEngineAddress, this.getCreditorCommitmentTermsHash());
+        return this.web3.utils.soliditySha3(
+            MaxLTVLoanOffer.decisionEngineAddress,
+            this.getCreditorCommitmentTermsHash()
+        );
     }
 
     private getIssuanceCommitmentHash(): string {
@@ -444,7 +439,7 @@ export class MaxLTVLoanOffer {
         // We remove underwriting as a feature, since the creditor has no mechanism to mandate a maximum
         // underwriter risk rating.
 
-        return Web3Utils.soliditySHA3(
+        return this.web3.utils.soliditySha3(
             this.data.issuanceVersion,
             this.debtor,
             NULL_ADDRESS, // underwriter
@@ -459,7 +454,7 @@ export class MaxLTVLoanOffer {
         // We remove underwriting as a feature, since the creditor has no mechanism to mandate a maximum
         // underwriter risk rating.
 
-        return Web3Utils.soliditySHA3(
+        return this.web3.utils.soliditySha3(
             this.data.kernelVersion,
             this.getIssuanceCommitmentHash(),
             new BigNumber(0), // underwriter fee
