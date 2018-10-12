@@ -98,7 +98,6 @@ contract LTVDecisionEngine is
 			order.underwriter,
 			order.underwriterRiskRating,
 			order.termsContract,
-			order.termsContractParameters,
 			order.expirationTimestampInSec,
 			order.salt
 		);

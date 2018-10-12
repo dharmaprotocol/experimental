@@ -35,7 +35,6 @@ interface CreditorCommitmentValues {
     underwriter: string;
     underwriterRiskRating: number;
     termsContract: string;
-    termsContractParameters: string;
     expirationTimestampInSec: number;
     salt: number;
 }
@@ -144,11 +143,11 @@ class LoanOffer {
             values.principalAmount,
             values.creditor,
             values.issuanceVersion,
+            values.kernelVersion,
             values.creditorFee,
             values.underwriter,
             values.underwriterRiskRating,
             values.termsContract,
-            values.termsContractParameters,
             values.expirationTimestampInSec,
             values.salt
         );
