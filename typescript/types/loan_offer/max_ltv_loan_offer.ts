@@ -8,7 +8,7 @@ import { InterestRate, TimeInterval, TokenAmount } from "../";
 
 import { Price } from "../../../test/ts/types/LTVDecisionEngineTypes";
 
-import BigNumber from "bignumber.js";
+import { BigNumber } from "../../utils/bignumber";
 
 // Configure BigNumber
 BigNumber.config({
