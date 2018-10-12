@@ -6,7 +6,7 @@ import { ecSign, ECDSASignature } from "../../../types/ECDSASignature";
 
 import { InterestRate, TimeInterval, TokenAmount } from "../";
 
-import { Price } from "../../../types/LTVTypes";
+import { LTVParams, Price } from "../../../types/LTVTypes";
 
 import { BigNumber, getTokenRegistryIndex, TOKEN_REGISTRY_TRACKED_TOKENS } from "../../utils";
 
@@ -408,7 +408,64 @@ export class MaxLTVLoanOffer {
     }
 
     public async acceptAsDebtor(): Promise<void> {
-        // TODO: send transaction to CreditorProxyContract
+        const lTVParams: LTVParams = {
+            order: {
+                creditor: this.creditor,
+                principalToken: this.data.principalTokenAddress,
+                principalAmount: this.data.principal.rawAmount.toNumber(),
+                collateralAmount: this.collateralAmount,
+                collateralToken: this.data.collateralTokenAddress,
+                debtor: this.debtor,
+                debtorFee: this.data.debtorFee.toNumber(),
+                relayer: this.data.relayer,
+                relayerFee: this.data.relayerFee.rawAmount.toNumber(),
+                underwriterFee: 0,
+                debtorSignature: this.debtorSignature,
+                underwriterSignature: NULL_ECDSA_SIGNATURE,
+                // This stays a blank signature forever.
+                creditorSignature: this.creditorSignature,
+                // Order params
+                issuanceVersion: this.data.issuanceVersion,
+                kernelVersion: this.data.kernelVersion,
+                creditorFee: this.data.creditorFee.toNumber(),
+                underwriter: NULL_ADDRESS,
+                underwriterRiskRating: 0,
+                termsContract: this.data.termsContract,
+                termsContractParameters: "",
+                expirationTimestampInSec: this.expirationTimestampInSec.toNumber(),
+                salt: this.data.salt.toNumber()
+            },
+            priceFeedOperator: "",
+            collateralPrice: {
+                value: this.collateralPrice.value,
+                timestamp: this.collateralPrice.timestamp,
+                tokenAddress: this.collateralPrice.tokenAddress,
+                signature: this.collateralPrice.signature
+            },
+            principalPrice: {
+                value: this.principalPrice.value,
+                timestamp: this.principalPrice.timestamp,
+                tokenAddress: this.data.collateralTokenAddress,
+                signature: this.principalPrice.signature
+            },
+            creditorCommitment: {
+                values: {
+                    maxLTV: this.data.maxLTV.toNumber()
+                },
+                signature: this.creditorSignature
+            },
+            creditor: this.creditor
+        };
+
+        const ltvCreditorProxyABI = "";
+        const ltvCreditorProxyAddress = "";
+
+        const proxy = new this.web3.eth.Contract(ltvCreditorProxyABI, ltvCreditorProxyAddress);
+
+        return proxy.methods.fillDebtOffer(lTVParams).send({
+            from: this.creditor,
+            gas: 6712390
+        });
     }
 
     private getCreditorCommitmentTermsHash(): string {
