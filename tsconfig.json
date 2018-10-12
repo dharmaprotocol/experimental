@@ -17,5 +17,6 @@
   "include": [
       "test/ts/*.ts",
       "types/*.ts",
+      "typescript/*/*.ts"
   ]
 }
