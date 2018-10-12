@@ -1,7 +1,7 @@
 import * as Web3 from "web3";
 // Types
 import { DebtOrder } from "../types/DebtOrder";
-import { ECDSASignature } from "../types/ECDSASignature";
+import { ECDSASignature, ecSign } from "../types/ECDSASignature";
 
 export class DebtOrderFixtures {
     readonly blankSignature: ECDSASignature = {
@@ -51,7 +51,8 @@ export class DebtOrderFixtures {
 
         const commitmentHash = this.hashForOrder(unsignedOrder);
 
-        const creditorSignature = await this.ecSign(
+        const creditorSignature = await ecSign(
+            this.web3,
             commitmentHash,
             unsignedOrder.creditor
         );
@@ -60,17 +61,6 @@ export class DebtOrderFixtures {
             ...unsignedOrder,
             creditorSignature,
         };
-    }
-
-    private async ecSign(message: string, address: string): Promise<ECDSASignature> {
-        // Sign the message from the address, which returns a string.
-        const creditorSignature = await this.web3.eth.sign(
-            message,
-            address
-        );
-
-        // Convert that signature string to its ECDSA components.
-        return this.toECDSA(creditorSignature);
     }
 
     hashForOrder(order: DebtOrder): string {
@@ -86,20 +76,5 @@ export class DebtOrderFixtures {
             order.expirationTimestampInSec,
             order.termsContractParameters,
         );
-    }
-
-    // Based on https://github.com/obscuren/ethmail/blob/master/client/ethmail.js#L7 by obscuren.
-    private toECDSA(signature): ECDSASignature {
-        const signatureText = signature.substr(2, signature.length);
-
-        const r = '0x' + signatureText.substr(0, 64);
-        const s = '0x' + signatureText.substr(64, 64);
-        const v = this.web3.utils.hexToNumber(signatureText.substr(128, 2)) + 27;
-
-        return {
-            v,
-            r,
-            s
-        };
     }
 }
