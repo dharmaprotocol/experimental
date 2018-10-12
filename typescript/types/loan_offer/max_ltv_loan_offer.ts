@@ -4,8 +4,6 @@ import { FIXED_POINT_SCALING_FACTOR } from "../../../src/adapters/simple_interes
 
 import { Web3Utils } from "../../../utils/web3_utils";
 
-import { DebtOrderParams } from "../../loan/debt_order";
-
 import { SignatureUtils } from "../../../utils/signature_utils";
 
 import { NULL_ADDRESS, NULL_ECDSA_SIGNATURE, SALT_DECIMALS } from "../../../utils/constants";
@@ -58,6 +56,35 @@ export interface MaxLTVData {
     salt: BigNumber;
     termLength: TimeInterval;
     termsContract: string;
+}
+
+export type DurationUnit =
+    | "hour"
+    | "hours"
+    | "day"
+    | "days"
+    | "week"
+    | "weeks"
+    | "month"
+    | "months"
+    | "year"
+    | "years";
+
+export interface DebtOrderParams {
+    principalAmount: number;
+    principalToken: string;
+    interestRate: number;
+    termDuration: number;
+    termUnit: DurationUnit;
+    expiresInDuration: number;
+    expiresInUnit: DurationUnit;
+    relayerAddress?: string;
+    relayerFeeAmount?: number;
+    creditorFeeAmount?: number;
+    underwriterAddress?: string;
+    underwriterRiskRating?: number;
+    underwriterFeeAmount?: number;
+    debtorFeeAmount?: number;
 }
 
 export interface MaxLTVParams extends DebtOrderParams {
