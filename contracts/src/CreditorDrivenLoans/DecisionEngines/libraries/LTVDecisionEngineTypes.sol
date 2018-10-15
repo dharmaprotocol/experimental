@@ -43,4 +43,10 @@ contract LTVDecisionEngineTypes
         uint amortizationUnitType;
         uint termLengthInAmortizationUnits;
 	}
+
+	struct CollateralParameters {
+		uint collateralTokenIndex;
+		uint collateralAmount;
+		uint gracePeriodInDays;
+	}
 }

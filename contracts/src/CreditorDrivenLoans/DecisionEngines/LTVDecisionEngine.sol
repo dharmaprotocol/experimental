@@ -11,7 +11,8 @@ import "../../shared/libraries/SignaturesLibrary.sol";
 
 // Interfaces
 import "../../shared/interfaces/ContractRegistryInterface.sol";
-import "../interfaces/SimpleInterestTermsContractInterface.sol";
+import "../../shared/interfaces/CollateralizerInterface.sol";
+import "../../shared/interfaces/SimpleInterestTermsContractInterface.sol";
 
 contract LTVDecisionEngine is
 	LTVDecisionEngineTypes,
@@ -131,6 +132,23 @@ contract LTVDecisionEngine is
 			interestRate: interestRate,
 			amortizationUnitType: amortizationUnitType,
 			termLengthInAmortizationUnits: termLengthInAmortizationUnits
+		});
+	}
+
+	function unpackCollateralParameters(
+		bytes32 termsContractParameters
+	)
+		public view returns (CollateralParameters)
+	{
+		CollateralizerInterface collateralizer = CollateralizerInterface(contractRegistry.collateralizer());
+
+		var (collateralTokenIndex, collateralAmount, gracePeriodInDays) =
+			collateralizer.unpackCollateralParametersFromBytes(termsContractParameters);
+
+		return CollateralParameters({
+			collateralTokenIndex: collateralTokenIndex,
+			collateralAmount: collateralAmount,
+			gracePeriodInDays: gracePeriodInDays
 		});
 	}
 
