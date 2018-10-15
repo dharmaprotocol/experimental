@@ -80,7 +80,6 @@ contract("LTVCreditorProxy", accounts => {
     describe("when the commitment values were not signed", () => {
         let unsignedOrder: DebtOrder;
         let commitmentHash: string;
-        let values: CommitmentValues;
 
         before(async () => {
             const params = await lTVFixtures.unsignedParams();
@@ -91,6 +90,8 @@ contract("LTVCreditorProxy", accounts => {
         });
 
         it("returns a transaction receipt", async () => {
+            const values: CommitmentValues = { maxLTV: 100 };
+
             const creditorCommitment: CreditorCommitment = {
                 values,
                 signature: debtOrderFixtures.blankSignature
