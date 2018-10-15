@@ -54,8 +54,6 @@ export class DebtOrderFixtures {
             simpleInterestContractTerms
         );
 
-        console.log("packed termsContractParameters: ", termsContractParameters);
-
         return {
             kernelVersion: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             issuanceVersion: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
