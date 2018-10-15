@@ -92,13 +92,15 @@ export class LTVFixtures {
             order.expirationTimestampInSec,
             commitmentValues.maxLTV,
             // unpacked termsContractParameters
-            this.debtOrderFixtures.principalTokenIndex,
-            this.debtOrderFixtures.principalAmount,
-            this.debtOrderFixtures.collateralTokenIndex,
-            this.debtOrderFixtures.interestRateFixedPoint,
-            this.debtOrderFixtures.amortizationUnitType,
-            this.debtOrderFixtures.termLengthUnits,
-            this.debtOrderFixtures.gracePeriodInDays
+            this.web3.utils.soliditySha3(
+                this.debtOrderFixtures.principalTokenIndex,
+                this.debtOrderFixtures.principalAmount,
+                this.debtOrderFixtures.interestRateFixedPoint,
+                this.debtOrderFixtures.amortizationUnitType,
+                this.debtOrderFixtures.termLengthUnits,
+                this.debtOrderFixtures.collateralTokenIndex,
+                this.debtOrderFixtures.gracePeriodInDays
+            )
         );
     }
 
