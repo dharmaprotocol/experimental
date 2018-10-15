@@ -10,6 +10,7 @@ import "./libraries/LTVDecisionEngineTypes.sol";
 import "../../shared/libraries/SignaturesLibrary.sol";
 
 // Interfaces
+import "../../shared/interfaces/ContractRegistryInterface.sol";
 import "../interfaces/SimpleInterestTermsContractInterface.sol";
 
 contract LTVDecisionEngine is
@@ -21,6 +22,12 @@ contract LTVDecisionEngine is
 	uint public constant PRECISION = 4;
 
 	uint public constant MAX_PRICE_TTL_IN_SECONDS = 600;
+
+	ContractRegistryInterface public contractRegistry;
+
+	function LTVDecisionEngine(address _contractRegistry) public {
+        contractRegistry = ContractRegistryInterface(_contractRegistry);
+    }
 
 	function evaluateConsent(Params params)
 		public view returns (bool signatureValid, bytes32 _id)
