@@ -3,12 +3,7 @@ import * as chai from "chai";
 import * as Web3 from "web3";
 // Types
 import { DebtOrderFixtures } from "./fixtures/DebtOrders";
-import {
-    CommitmentValues,
-    CreditorCommitment,
-    LTVParams,
-    Price
-} from "../../types/LTVTypes";
+import { CommitmentValues, CreditorCommitment, LTVParams, Price } from "../../types/LTVTypes";
 import { DebtOrder } from "../../types/DebtOrder";
 import { LTVFixtures } from "./fixtures/LTVFixtures";
 
@@ -25,28 +20,22 @@ const proxy = new web3.eth.Contract(LTVCreditorProxy.abi, LTVCreditorProxy.addre
 let debtOrderFixtures: DebtOrderFixtures;
 let lTVFixtures: LTVFixtures;
 
-contract("LTVCreditorProxy", (accounts) => {
+contract("LTVCreditorProxy", accounts => {
     before(() => {
         debtOrderFixtures = new DebtOrderFixtures(web3, accounts);
         lTVFixtures = new LTVFixtures(web3, accounts);
     });
 
-    describe("#hashCreditorCommitmentForOrder", () => {
+    describe("#hashOrder", () => {
         describe("when given commitment values and a debt order", () => {
             it("returns the expected bytes32 hash", async () => {
                 const params = await lTVFixtures.unsignedParams();
                 const order = await debtOrderFixtures.unsignedOrder();
                 const commitmentValues = params.creditorCommitment.values;
 
-                const expected = await lTVFixtures.commitmentHash(
-                    commitmentValues,
-                    order,
-                );
+                const expected = await lTVFixtures.commitmentHash(commitmentValues, order);
 
-                const result = await proxy.methods.hashCreditorCommitmentForOrder(
-                    commitmentValues,
-                    order,
-                ).call();
+                const result = await proxy.methods.hashOrder(commitmentValues, order).call();
 
                 expect(result).to.eq(expected);
             });
@@ -66,16 +55,13 @@ contract("LTVCreditorProxy", (accounts) => {
             params = await lTVFixtures.signedParams();
             order = params.order;
 
-            commitmentHash = await proxy.methods.hashCreditorCommitmentForOrder(
-                params.creditorCommitment.values,
-                order,
-            ).call();
+            commitmentHash = await proxy.methods.hashOrder(params.creditorCommitment.values, order).call();
         });
 
         it("returns a transaction receipt", async () => {
             const txReceipt = await proxy.methods.fillDebtOffer(params).send({
                 from: params.creditor,
-                gas: 6712390,
+                gas: 6712390
             });
 
             const txHash = txReceipt.transactionHash;
@@ -101,30 +87,27 @@ contract("LTVCreditorProxy", (accounts) => {
 
             unsignedOrder = params.order;
 
-            commitmentHash = await proxy.methods.hashCreditorCommitmentForOrder(
-                params.creditorCommitment.values,
-                unsignedOrder,
-            ).call();
+            commitmentHash = await proxy.methods.hashOrder(params.creditorCommitment.values, unsignedOrder).call();
         });
 
         it("returns a transaction receipt", async () => {
             const creditorCommitment: CreditorCommitment = {
                 values,
-                signature: debtOrderFixtures.blankSignature,
+                signature: debtOrderFixtures.blankSignature
             };
 
             const principalPrice: Price = {
                 value: 0,
                 tokenAddress: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
                 timestamp: 0,
-                signature: debtOrderFixtures.blankSignature,
+                signature: debtOrderFixtures.blankSignature
             };
 
             const collateralPrice: Price = {
                 value: 0,
                 tokenAddress: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
                 timestamp: 0,
-                signature: debtOrderFixtures.blankSignature,
+                signature: debtOrderFixtures.blankSignature
             };
 
             const params: LTVParams = {
@@ -133,11 +116,11 @@ contract("LTVCreditorProxy", (accounts) => {
                 priceFeedOperator: accounts[1],
                 principalPrice,
                 collateralPrice,
-                order: unsignedOrder,
+                order: unsignedOrder
             };
 
             const transactionReceipt = await proxy.methods.fillDebtOffer(params).send({
-                from: unsignedOrder.creditor,
+                from: unsignedOrder.creditor
             });
 
             expect(transactionReceipt.transactionHash).to.be.a("string");
