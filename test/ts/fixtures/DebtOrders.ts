@@ -70,7 +70,7 @@ export class DebtOrderFixtures {
             underwriter: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             underwriterFee: 0,
             underwriterRiskRating: 0,
-            termsContract: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
+            termsContract: "0xcdc99b9c5f3048b307315a9eacb8cbd57449dae4",
             termsContractParameters,
             expirationTimestampInSec,
             salt: 0,
