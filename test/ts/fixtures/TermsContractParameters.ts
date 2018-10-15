@@ -1,11 +1,13 @@
+import BigNumber from "bignumber.js";
+
 import { SimpleInterestContractTerms, CollateralizedContractTerms } from "../../../types/TermsContractParameters";
 
 class TermsContractParameters {
-    public static bitShiftLeft(target: number, numPlaces: number): number {
-        const binaryTargetString = target.toString(2);
+    public static bitShiftLeft(target: number, numPlaces: number): BigNumber {
+        const binaryTargetString = new BigNumber(target).toString(2);
         const binaryTargetStringShifted = binaryTargetString + "0".repeat(numPlaces);
 
-        return parseInt(binaryTargetStringShifted, 2);
+        return new BigNumber(binaryTargetStringShifted, 2);
     }
 }
 
@@ -20,12 +22,11 @@ export class SimpleInterestParameters extends TermsContractParameters {
         const amortizationUnitTypeShifted = TermsContractParameters.bitShiftLeft(terms.amortizationUnitType, 124);
         const termLengthShifted = TermsContractParameters.bitShiftLeft(terms.termLengthUnits, 108);
 
-        const baseTenParameters =
-            principalTokenIndexShifted +
-            principalAmountShifted +
-            interestRateShifted +
-            amortizationUnitTypeShifted +
-            termLengthShifted;
+        const baseTenParameters = principalTokenIndexShifted
+            .plus(principalAmountShifted)
+            .plus(interestRateShifted)
+            .plus(amortizationUnitTypeShifted)
+            .plus(termLengthShifted);
 
         return `0x${baseTenParameters.toString(16).padStart(64, "0")}`;
     }
