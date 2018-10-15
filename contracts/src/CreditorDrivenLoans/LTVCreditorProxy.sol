@@ -47,27 +47,4 @@ contract LTVCreditorProxy is
 
 		return true;
 	}
-
-	function hashCreditorCommitmentForOrder(
-		CommitmentValues commitmentValues,
-		OrderLibrary.DebtOrder order
-	)
-		returns (bytes32)
-	{
-		return keccak256(
-			commitmentValues.maxLTV,
-			order.principalToken,
-			order.principalAmount,
-			order.kernelVersion,
-			order.creditor,
-			order.issuanceVersion,
-			order.creditorFee,
-			order.underwriter,
-			order.underwriterRiskRating,
-			order.termsContract,
-			order.termsContractParameters,
-			order.expirationTimestampInSec,
-			order.salt
-		);
-	}
 }
