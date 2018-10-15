@@ -35,4 +35,12 @@ contract LTVDecisionEngineTypes
 	struct CommitmentValues {
 		uint maxLTV;
 	}
+
+	struct SimpleInterestParameters {
+		uint principalTokenIndex;
+		uint principalAmount;
+        uint interestRate;
+        uint amortizationUnitType;
+        uint termLengthInAmortizationUnits;
+	}
 }

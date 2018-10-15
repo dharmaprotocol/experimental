@@ -1,6 +1,7 @@
 pragma solidity ^0.4.24;
 pragma experimental ABIEncoderV2;
 
+
 // External dependencies
 import "zeppelin-solidity/contracts/math/SafeMath.sol";
 
@@ -8,6 +9,8 @@ import "zeppelin-solidity/contracts/math/SafeMath.sol";
 import "./libraries/LTVDecisionEngineTypes.sol";
 import "../../shared/libraries/SignaturesLibrary.sol";
 
+// Interfaces
+import "../interfaces/SimpleInterestTermsContractInterface.sol";
 
 contract LTVDecisionEngine is
 	LTVDecisionEngineTypes,
@@ -101,6 +104,27 @@ contract LTVDecisionEngine is
 			order.expirationTimestampInSec,
 			order.salt
 		);
+	}
+
+	function unpackSimpleInterestParameters(
+		address termsContract,
+		bytes32 termsContractParameters
+	)
+		public pure returns (SimpleInterestParameters)
+	{
+		// use simple interest terms contract interface to unpack simple interest terms
+		SimpleInterestTermsContractInterface simpleInterestTermsContract = SimpleInterestTermsContractInterface(termsContract);
+
+		var (principalTokenIndex, principalAmount, interestRate, amortizationUnitType, termLengthInAmortizationUnits) =
+			simpleInterestTermsContract.unpackParametersFromBytes(termsContractParameters);
+
+		return SimpleInterestParameters({
+			principalTokenIndex: principalTokenIndex,
+			principalAmount: principalAmount,
+			interestRate: interestRate,
+			amortizationUnitType: amortizationUnitType,
+			termLengthInAmortizationUnits: termLengthInAmortizationUnits
+		});
 	}
 
 	function verifyPrices(
