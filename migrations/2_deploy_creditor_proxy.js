@@ -9,7 +9,7 @@ const NaiveCreditorProxy = artifacts.require("./NaiveCreditorProxy.sol");
 const LTVCreditorProxy = artifacts.require("./LTVCreditorProxy.sol");
 
 module.exports = function(deployer) {
-    deployer.deploy(NaiveCreditorProxy, contractRegistry);
+    deployer.deploy(NaiveCreditorProxy, contractRegistryAddress);
 
-    deployer.deploy(LTVCreditorProxy, contractRegistry);
+    deployer.deploy(LTVCreditorProxy, contractRegistryAddress);
 };
