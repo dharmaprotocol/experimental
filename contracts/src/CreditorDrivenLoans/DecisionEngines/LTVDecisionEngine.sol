@@ -97,7 +97,7 @@ contract LTVDecisionEngine is
 		public view returns (bytes32)
 	{
 		bytes32 termsContractCommitmentHash =
-			hashTermsContractCommitment(order.termsContract, order.termsContractParameters);
+			getTermsContractCommitmentHash(order.termsContract, order.termsContractParameters);
 
 		return keccak256(
 			// order values
@@ -112,11 +112,12 @@ contract LTVDecisionEngine is
 			order.expirationTimestampInSec,
 			// commitment values
 			commitmentValues.maxLTV,
+			// hashed terms contract commitments
 			termsContractCommitmentHash
 		);
 	}
 
-	function hashTermsContractCommitment(
+	function getTermsContractCommitmentHash(
 		address termsContract,
 		bytes32 termsContractParameters
 	) public view returns (bytes32) {
