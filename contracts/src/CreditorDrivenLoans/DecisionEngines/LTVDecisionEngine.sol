@@ -94,23 +94,47 @@ contract LTVDecisionEngine is
 	}
 
 	function hashOrder(CommitmentValues commitmentValues, OrderLibrary.DebtOrder order)
-		returns (bytes32)
+		public view returns (bytes32)
 	{
+		bytes32 termsContractCommitmentHash =
+			hashTermsContractCommitment(order.termsContract, order.termsContractParameters);
+
 		return keccak256(
-			// LTV specific values.
-			commitmentValues.maxLTV,
-			// Order specific values.
-			order.principalToken,
-			order.principalAmount,
+			// order values
 			order.creditor,
-			order.issuanceVersion,
 			order.kernelVersion,
-			order.creditorFee,
-			order.underwriter,
-			order.underwriterRiskRating,
+			order.issuanceVersion,
 			order.termsContract,
+			order.principalToken,
+			order.salt,
+			order.principalAmount,
+			order.creditorFee,
 			order.expirationTimestampInSec,
-			order.salt
+			// commitment values
+			commitmentValues.maxLTV,
+			termsContractCommitmentHash
+		);
+	}
+
+	function hashTermsContractCommitment(
+		address termsContract,
+		bytes32 termsContractParameters
+	) public view returns (bytes32) {
+		SimpleInterestParameters memory simpleInterestParameters =
+			unpackSimpleInterestParameters(termsContract, termsContractParameters);
+
+		CollateralParameters memory collateralParameters =
+			unpackCollateralParameters(termsContractParameters);
+
+		return keccak256(
+			// unpacked termsContractParameters
+			simpleInterestParameters.principalTokenIndex,
+			simpleInterestParameters.principalAmount,
+			simpleInterestParameters.interestRate,
+			simpleInterestParameters.amortizationUnitType,
+			simpleInterestParameters.termLengthInAmortizationUnits,
+			collateralParameters.collateralTokenIndex,
+			collateralParameters.gracePeriodInDays
 		);
 	}
 
