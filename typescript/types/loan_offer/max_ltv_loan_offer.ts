@@ -9,6 +9,11 @@ const TokenRegistry = artifacts.require("./TokenRegistry.sol");
 
 // Types
 import { ecSign, ECDSASignature } from "../../../types/ECDSASignature";
+import {
+    CollateralizedContractTerms,
+    CollateralizedSimpleInterestTermsParameters,
+    SimpleInterestContractTerms
+} from "../../../types/TermsContractParameters";
 import { InterestRate, TimeInterval, TokenAmount } from "../";
 import { LTVParams, Price } from "../../../types/LTVTypes";
 
@@ -424,8 +429,28 @@ export class MaxLTVLoanOffer {
     }
 
     public async acceptAsDebtor(): Promise<void> {
-        // TODO: pack terms contract parameters
-        const termsContractParameters = "";
+        // TODO: calculate raw collateral amount
+        const rawCollateralAmount = 0;
+
+        // Pack terms contract parameters
+        const collateralizedContractTerms: CollateralizedContractTerms = {
+            collateralAmount: rawCollateralAmount,
+            collateralTokenIndex: this.data.collateralTokenIndex.toNumber(),
+            gracePeriodInDays: 0
+        };
+
+        const simpleInterestContractTerms: SimpleInterestContractTerms = {
+            principalTokenIndex: this.data.principalTokenIndex.toNumber(),
+            principalAmount: this.data.principal.rawAmount.toNumber(), // principal of 1
+            interestRateFixedPoint: this.data.interestRate.raw.times(FIXED_POINT_SCALING_FACTOR).toNumber(),
+            amortizationUnitType: this.data.termLength.getAmortizationUnitType(),
+            termLengthUnits: this.data.termLength.amount
+        };
+
+        const termsContractParameters = CollateralizedSimpleInterestTermsParameters.pack(
+            collateralizedContractTerms,
+            simpleInterestContractTerms
+        );
 
         const lTVParams: LTVParams = {
             order: {
