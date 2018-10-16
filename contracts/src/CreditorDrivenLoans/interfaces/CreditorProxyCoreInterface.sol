@@ -5,14 +5,4 @@ import "../../shared/libraries/OrderLibrary.sol";
 import "../libraries/CreditorProxyErrors.sol";
 import "../libraries/CreditorProxyEvents.sol";
 
-contract CreditorProxyCoreInterface is CreditorProxyErrors, CreditorProxyEvents {
-
-    function fillDebtOffer(
-        OrderLibrary.DebtOrder memory order
-    ) public returns (bytes32 agreementId);
-
-    function cancelDebtOffer(
-        OrderLibrary.DebtOrder memory order
-    ) public returns (bool success);
-
-}
+contract CreditorProxyCoreInterface is CreditorProxyErrors, CreditorProxyEvents { }

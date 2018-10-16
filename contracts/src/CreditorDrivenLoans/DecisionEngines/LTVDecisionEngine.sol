@@ -1,22 +1,20 @@
 pragma solidity ^0.4.24;
 pragma experimental ABIEncoderV2;
 
-
 // External dependencies
 import "zeppelin-solidity/contracts/math/SafeMath.sol";
 
 // Libraries
 import "./libraries/LTVDecisionEngineTypes.sol";
 import "../../shared/libraries/SignaturesLibrary.sol";
+import "../../shared/libraries/OrderLibrary.sol";
 
 // Interfaces
 import "../../shared/interfaces/ContractRegistryInterface.sol";
 import "../../shared/interfaces/CollateralizerInterface.sol";
 import "../../shared/interfaces/SimpleInterestTermsContractInterface.sol";
 
-contract LTVDecisionEngine is
-	LTVDecisionEngineTypes,
-	SignaturesLibrary
+contract LTVDecisionEngine is LTVDecisionEngineTypes, SignaturesLibrary, OrderLibrary
 {
 	using SafeMath for uint;
 

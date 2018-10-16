@@ -4,10 +4,10 @@ pragma experimental ABIEncoderV2;
 
 import "../shared/interfaces/ContractRegistryInterface.sol";
 import "./DecisionEngines/LTVDecisionEngine.sol";
+import "./interfaces/CreditorProxyCoreInterface.sol";
 
-contract LTVCreditorProxy is
-	LTVDecisionEngine
-{
+
+contract LTVCreditorProxy is LTVDecisionEngine, CreditorProxyCoreInterface {
 
 	mapping (bytes32 => bool) public debtOfferCancelled;
 	mapping (bytes32 => bool) public debtOfferFilled;
@@ -32,6 +32,28 @@ contract LTVCreditorProxy is
 		}
 
 		return NULL_ISSUANCE_HASH;
+	}
+
+	function sendOrderToKernel(DebtOrder memory order) internal returns (bytes32 id)
+	{
+		address[6] memory orderAddresses;
+		uint[8] memory orderValues;
+		bytes32[1] memory orderBytes32;
+		uint8[3] memory signaturesV;
+		bytes32[3] memory signaturesR;
+		bytes32[3] memory signaturesS;
+
+		(orderAddresses, orderValues, orderBytes32, signaturesV, signaturesR, signaturesS) = unpackDebtOrder(order);
+
+		return contractRegistry.debtKernel().fillDebtOrder(
+			address(this),
+			orderAddresses,
+			orderValues,
+			orderBytes32,
+			signaturesV,
+			signaturesR,
+			signaturesS
+		);
 	}
 
 	function cancelDebtOffer(LTVDecisionEngineTypes.Params params) public returns (bool) {

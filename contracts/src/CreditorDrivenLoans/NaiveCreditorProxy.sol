@@ -9,6 +9,7 @@ import "./interfaces/CreditorProxyCoreInterface.sol";
 import "../shared/libraries/OrderLibrary.sol";
 import "../shared/interfaces/ContractRegistryInterface.sol";
 
+
 contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
     using SafeMath for uint;
 
@@ -140,11 +141,7 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
         );
     }
 
-    function cancelDebtOffer(
-        DebtOrder memory order
-    )
-        public
-        returns (bool succeeded)
+    function cancelDebtOffer(DebtOrder memory order) public returns (bool succeeded)
     {
         // Sender must be the creditor.
         if (msg.sender != order.creditor) {
