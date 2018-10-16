@@ -4,42 +4,58 @@ import * as Web3 from "web3";
  * Handles saving snapshots and reverting -- for use during tests.
  */
 export default class SnapshotManager {
-    constructor(private readonly web3: Web3) { }
+    readonly jsonRpcVersion = "2.0";
+
+    readonly evmCommands = {
+        mine: "evm_mine",
+        snapshot: "evm_snapshot",
+        revert: "evm_revert",
+    };
+
+    constructor(private readonly web3: Web3) {}
 
     async saveTestSnapshot(): Promise<number> {
-        const response = await this.sendJsonRpcRequestAsync("evm_snapshot", []);
+        const response = await this.sendJsonRpcRequestAsync(this.evmCommands.snapshot, []);
+
+        await this.mineBlock();
+
         return parseInt(response.result, 16);
     }
 
     async revertToSnapshot(snapshotId: number): Promise<boolean> {
-        const response = await this.sendJsonRpcRequestAsync("evm_revert", [snapshotId]);
+        const response = await this.sendJsonRpcRequestAsync(
+            this.evmCommands.revert,
+            [snapshotId],
+        );
+
+        await this.mineBlock();
+
         return response.result;
     }
 
-    // A helper function for sending an RPC request to ganache-cli.
-    private async sendJsonRpcRequestAsync (
+    private mineBlock() {
+        const id = new Date().getTime() + 1;
+        return this.sendJsonRpcRequestAsync(this.evmCommands.mine, [], id);
+    }
+
+    // A helper function for sending an RPC request to the chain.
+    private async sendJsonRpcRequestAsync(
         method: string,
         params: any[],
+        id = new Date().getTime(),
     ): Promise<Web3.JSONRPCResponsePayload> {
-        const id = new Date().getTime();
-
         return new Promise((resolve, reject) => {
             this.web3.currentProvider.send({
-                jsonrpc: '2.0',
+                jsonrpc: this.jsonRpcVersion,
                 method,
                 params,
                 id,
-            }, (err1) => {
-                if (err1) {
-                    return reject(err1);
+            }, (error, response) => {
+                if (error) {
+                    return reject(error);
                 }
 
-                // Mine a new block so that the update persists.
-                this.web3.currentProvider.send({
-                    jsonrpc: '2.0',
-                    method: 'evm_mine',
-                    id: id + 1,
-                }, (err2, res) => (err2 ? reject(err2) : resolve(res)));
+                resolve(response);
             });
         });
     };

@@ -117,10 +117,14 @@ contract("NaiveCreditorProxy", (accounts) => {
             let snapshotId: number;
 
             before(async () => {
+                ABIDecoder.addABI(DebtKernel.abi);
+
                 snapshotId = await snapshotManager.saveTestSnapshot();
             });
 
-            afterEach(async () => {
+            after(async () => {
+                ABIDecoder.removeABI(DebtKernel.abi);
+
                 await snapshotManager.revertToSnapshot(snapshotId);
             });
 
@@ -143,7 +147,6 @@ contract("NaiveCreditorProxy", (accounts) => {
 
                     const txHash = txReceipt.transactionHash;
 
-                    // The transaction receipt is valid if it has a string transaction hash.
                     expect(txHash).to.be.a("string");
                 });
 
@@ -160,17 +163,11 @@ contract("NaiveCreditorProxy", (accounts) => {
                 let txReceipt: any;
 
                 before(async () => {
-                    ABIDecoder.addABI(DebtKernel.abi);
-
                     signedOrder = await debtOrderFixtures.signedOrder();
 
                     commitmentHash = await proxy.methods.hashCreditorCommitmentForOrder(
                         signedOrder,
                     ).call();
-                });
-
-                after(() => {
-                    ABIDecoder.removeABI(DebtKernel.abi);
                 });
 
                 it("returns a transaction receipt", async () => {
@@ -180,7 +177,6 @@ contract("NaiveCreditorProxy", (accounts) => {
 
                     const txHash = txReceipt.transactionHash;
 
-                    // The transaction receipt is valid if it has a string transaction hash.
                     expect(txHash).to.be.a("string");
                 });
 
@@ -190,16 +186,15 @@ contract("NaiveCreditorProxy", (accounts) => {
                     expect(result).to.eq(true);
                 });
 
-                it("emits a 'LogDebtOrderFilled' event from the DebtKernel", () => {
-                    web3.eth.getTransactionReceipt(txReceipt.transactionHash, function (e, receipt) {
-                        const logs = _.compact(ABIDecoder.decodeLogs(receipt.logs));
-                        const successLog = logs[0];
+                it("emits a 'LogDebtOrderFilled' event from the DebtKernel", async () => {
+                    const receipt = await web3.eth.getTransactionReceipt(txReceipt.transactionHash);
+                    const logs = _.compact(ABIDecoder.decodeLogs(receipt.logs));
+                    const successLog = logs[0];
 
-                        expect(successLog.name).to.eq("LogDebtOrderFilled");
-                        expect(successLog.address.toUpperCase()).to.eq(
-                            addresses.DebtKernel.toUpperCase(),
-                        );
-                    });
+                    expect(successLog.name).to.eq("LogDebtOrderFilled");
+                    expect(successLog.address.toUpperCase()).to.eq(
+                        addresses.DebtKernel.toUpperCase(),
+                    );
                 });
             });
         });
