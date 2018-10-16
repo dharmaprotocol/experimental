@@ -79,15 +79,25 @@ contract("LTVCreditorProxy", (accounts) => {
             principalToken = new web3.eth.Contract(DummyToken.abi, principalTokenAddress);
             collateralToken = new web3.eth.Contract(DummyToken.abi, collateralTokenAddress);
 
+            await principalToken.methods.setBalance(
+                creditor,
+                1000000000000,
+            ).send({ from: creditor });
+
             await principalToken.methods.approve(
-                addresses.TokenTransferProxy,
-                100,
-            ).send({ from: accounts[0] });
+                LTVCreditorProxy.address,
+                1000000000000,
+            ).send({ from: creditor });
+
+            await collateralToken.methods.setBalance(
+                debtor,
+                100000000,
+            ).send({ from: creditor });
 
             await collateralToken.methods.approve(
                 addresses.TokenTransferProxy,
-                100,
-            ).send({ from: accounts[0] });
+                100000000,
+            ).send({ from: debtor });
         };
 
         describe("#hashCreditorCommitmentForOrder", () => {
@@ -228,7 +238,6 @@ contract("LTVCreditorProxy", (accounts) => {
                     const receipt = await web3.eth.getTransactionReceipt(txReceipt.transactionHash);
                     const logs = _.compact(ABIDecoder.decodeLogs(receipt.logs));
 
-                    console.log(logs);
                     const successLog = logs[0];
 
                     expect(successLog.name).to.eq("LogDebtOrderFilled");

@@ -48,20 +48,4 @@ contract CreditorProxyCore is CreditorProxyCoreInterface {
 			granter
 		);
 	}
-
-	/**
-     * Helper function for approving this address' allowance to Dharma's token transfer proxy.
-     */
-	function setTokenTransferAllowance(
-		address token,
-		uint amount
-	)
-		internal
-		returns (bool _success)
-	{
-		return ERC20(token).approve(
-			address(contractRegistry.tokenTransferProxy()),
-			amount
-		);
-	}
 }

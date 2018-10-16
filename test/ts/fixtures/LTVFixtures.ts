@@ -43,6 +43,8 @@ export class LTVFixtures {
     async signedParams(): Promise<LTVParams> {
         const params = await this.unsignedParams();
 
+        params.order = await this.debtOrderFixtures.signedOrder();
+
         const commitmentHash = this.commitmentHash(params.creditorCommitment.values, params.order);
 
         params.creditorCommitment.signature = await ecSign(this.web3, commitmentHash, params.creditor);
