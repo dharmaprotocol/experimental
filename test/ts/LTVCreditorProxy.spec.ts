@@ -48,9 +48,7 @@ contract("LTVCreditorProxy", (accounts) => {
 
         principalToken = new web3.eth.Contract(DummyToken.abi, principalTokenAddress);
         collateralToken = new web3.eth.Contract(DummyToken.abi, collateralTokenAddress);
-
-        console.log(principalToken.methods.approve);
-
+        
         await principalToken.methods.approve(
             addresses.TokenTransferProxy,
             100,
