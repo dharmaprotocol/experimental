@@ -8,6 +8,11 @@ import { ECDSASignature, ecSign } from "../../../types/ECDSASignature";
 // Fixtures
 import { CollateralizedSimpleInterestTermsParameters } from "./TermsContractParameters";
 
+interface Tokens {
+    principalAddress: string;
+    collateralAddress: string;
+}
+
 export class DebtOrderFixtures {
     readonly blankSignature: ECDSASignature = {
         r: this.web3.utils.fromAscii(""),
@@ -24,7 +29,11 @@ export class DebtOrderFixtures {
     public principalTokenIndex: number = 0;
     public termLengthUnits: number = 4; // Term length in amortization units.
 
-    constructor(private readonly web3: Web3, private readonly accounts: string[]) {}
+    constructor(
+        private readonly web3: Web3,
+        private readonly accounts: string[],
+        private readonly tokens: Tokens,
+    ) {}
 
     async unsignedOrder(): Promise<DebtOrder> {
         // The signatures will all be empty ECDSA signatures.
@@ -58,9 +67,9 @@ export class DebtOrderFixtures {
             kernelVersion: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             issuanceVersion: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             principalAmount: 1,
-            principalToken: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
+            principalToken: this.tokens.principalAddress,
             collateralAmount: 1,
-            collateralToken: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
+            collateralToken: this.tokens.collateralAddress,
             debtor: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             debtorFee: 0,
             creditor: this.accounts[0],

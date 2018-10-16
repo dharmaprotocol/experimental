@@ -5,6 +5,11 @@ import { ECDSASignature, ecSign } from "../../../types/ECDSASignature";
 import { CommitmentValues, CreditorCommitment, LTVParams, Price } from "../../../types/LTVTypes";
 import { DebtOrderFixtures } from "./DebtOrders";
 
+interface Tokens {
+    principalAddress: string;
+    collateralAddress: string;
+}
+
 export class LTVFixtures {
     readonly debtOrderFixtures: DebtOrderFixtures;
 
@@ -14,8 +19,12 @@ export class LTVFixtures {
         v: 0
     };
 
-    constructor(private readonly web3: Web3, private readonly accounts: string[]) {
-        this.debtOrderFixtures = new DebtOrderFixtures(web3, accounts);
+    constructor(
+        private readonly web3: Web3,
+        private readonly accounts: string[],
+        private readonly tokens: Tokens,
+    ) {
+        this.debtOrderFixtures = new DebtOrderFixtures(web3, accounts, tokens);
     }
 
     async signedParams(): Promise<LTVParams> {
@@ -53,14 +62,14 @@ export class LTVFixtures {
 
         const principalPrice: Price = {
             value: 1,
-            tokenAddress: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
+            tokenAddress: this.tokens.principalAddress,
             timestamp: await this.currentBlockTimestamp(),
             signature: this.blankSignature
         };
 
         const collateralPrice: Price = {
             value: 20,
-            tokenAddress: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
+            tokenAddress: this.tokens.collateralAddress,
             timestamp: await this.currentBlockTimestamp(),
             signature: this.blankSignature
         };

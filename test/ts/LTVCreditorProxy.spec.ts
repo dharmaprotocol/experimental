@@ -36,10 +36,15 @@ let collateralToken: any;
 
 contract("LTVCreditorProxy", (accounts) => {
     before(async () => {
-        debtOrderFixtures = new DebtOrderFixtures(web3, accounts);
-        lTVFixtures = new LTVFixtures(web3, accounts);
-
         await setupBalancesAndAllowances();
+
+        const tokens = {
+            principalAddress: principalTokenAddress,
+            collateralAddress: collateralTokenAddress,
+        };
+
+        debtOrderFixtures = new DebtOrderFixtures(web3, accounts, tokens);
+        lTVFixtures = new LTVFixtures(web3, accounts, tokens);
     });
 
     const setupBalancesAndAllowances = async (): Promise<void> => {
@@ -48,7 +53,7 @@ contract("LTVCreditorProxy", (accounts) => {
 
         principalToken = new web3.eth.Contract(DummyToken.abi, principalTokenAddress);
         collateralToken = new web3.eth.Contract(DummyToken.abi, collateralTokenAddress);
-        
+
         await principalToken.methods.approve(
             addresses.TokenTransferProxy,
             100,
@@ -133,14 +138,14 @@ contract("LTVCreditorProxy", (accounts) => {
 
             const principalPrice: Price = {
                 value: 0,
-                tokenAddress: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
+                tokenAddress: principalTokenAddress,
                 timestamp: 0,
                 signature: debtOrderFixtures.blankSignature
             };
 
             const collateralPrice: Price = {
                 value: 0,
-                tokenAddress: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
+                tokenAddress: collateralTokenAddress,
                 timestamp: 0,
                 signature: debtOrderFixtures.blankSignature
             };
