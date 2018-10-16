@@ -5,4 +5,6 @@ contract DebtTokenInterface {
 
     function transfer(address _to, uint _tokenId) public;
 
+    function exists(uint256 _tokenId) public view returns (bool);
+
 }
