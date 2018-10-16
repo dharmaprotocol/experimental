@@ -3,7 +3,7 @@ import * as Web3 from "web3";
 import { VALID_MAX_LTV_LOAN_ORDER_PARAMS } from "./scenarios/valid_max_ltv_loan_order_params";
 
 import { testConstructor } from "./runners/constructor";
-// import { testCreateAndSignAsCreditor } from "./runners/create_and_sign_as_creditor";
+import { testCreateAndSignAsCreditor } from "./runners/create_and_sign_as_creditor";
 // import { testSignAsCreditor } from "./runners/sign_as_creditor";
 // import { testSignAsDebtor } from "./runners/sign_as_debtor";
 
@@ -14,10 +14,10 @@ describe("Max LTV Loan Offer (Integration)", () => {
         testConstructor(web3, VALID_MAX_LTV_LOAN_ORDER_PARAMS);
     });
 
-    // describe("createAndSignAsCreditor", async () => {
-    //     await testCreateAndSignAsCreditor(dharma, VALID_MAX_LTV_LOAN_ORDER_PARAMS);
-    // });
-    //
+    describe("createAndSignAsCreditor", async () => {
+        await testCreateAndSignAsCreditor(web3, VALID_MAX_LTV_LOAN_ORDER_PARAMS);
+    });
+
     // describe("signAsCreditor", async () => {
     //     await testSignAsCreditor(dharma, VALID_MAX_LTV_LOAN_ORDER_PARAMS);
     // });
