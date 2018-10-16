@@ -90,9 +90,6 @@ export interface MaxLTVParams extends DebtOrderParams {
 }
 
 export class MaxLTVLoanOffer {
-    // TODO: replace with decision engine address (async function?)
-    public static decisionEngineAddress = "test";
-
     public static async create(web3: Web3, params: MaxLTVParams): Promise<MaxLTVLoanOffer> {
         const {
             collateralToken,
@@ -486,39 +483,31 @@ export class MaxLTVLoanOffer {
         });
     }
 
-    private getCreditorCommitmentTermsHash(): string {
+    private getTermsContractCommitmentHash(): string {
         return this.web3.utils.soliditySha3(
-            this.data.kernelVersion,
-            this.data.issuanceVersion,
-            this.data.termsContract,
+            this.data.principalTokenIndex,
             this.data.principal.rawAmount,
-            this.data.principalTokenAddress,
-            this.data.collateralTokenAddress,
-            this.data.maxLTV,
-            this.data.interestRate.raw.mul(FIXED_POINT_SCALING_FACTOR),
-            this.data.debtorFee,
-            this.data.creditorFee,
-            this.data.relayer,
-            this.data.relayerFee.rawAmount,
-            this.expirationTimestampInSec,
-            this.data.salt
+            this.data.interestRate.raw.times(FIXED_POINT_SCALING_FACTOR).toNumber(),
+            this.data.termLength.getAmortizationUnit(),
+            this.data.termLength.amount,
+            this.data.collateralTokenIndex,
+            0 // grace period in days
         );
     }
 
     private getCreditorCommitmentHash(): string {
         return this.web3.utils.soliditySha3(
-            this.data.maxLTV,
-            this.data.principalTokenAddress,
-            this.data.principal.rawAmount,
             this.creditor,
-            this.data.issuanceVersion,
             this.data.kernelVersion,
-            this.data.creditorFee,
-            NULL_ADDRESS, // underwriter
-            new BigNumber(0), // underwriter risk rating
+            this.data.issuanceVersion,
             this.data.termsContract,
+            this.data.principalTokenAddress,
+            this.data.salt,
+            this.data.principal.rawAmount,
+            this.data.creditorFee,
             this.expirationTimestampInSec,
-            this.data.salt
+            this.data.maxLTV,
+            this.getTermsContractCommitmentHash()
         );
     }
 
