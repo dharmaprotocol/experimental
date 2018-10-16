@@ -2,6 +2,7 @@
 import * as chai from "chai";
 import * as Web3 from "web3";
 import * as ABIDecoder from "abi-decoder";
+import * as _ from "lodash";
 // Types
 import { DebtOrderFixtures } from "./fixtures/DebtOrders";
 import { CommitmentValues, CreditorCommitment, LTVParams, Price } from "../../types/LTVTypes";
@@ -89,7 +90,7 @@ contract("LTVCreditorProxy", (accounts) => {
             ).send({ from: accounts[0] });
         };
 
-        describe("#hashOrder", () => {
+        describe("#hashCreditorCommitmentForOrder", () => {
             describe("when given commitment values and a debt order", () => {
                 it("returns the expected bytes32 hash", async () => {
                     const params = await lTVFixtures.unsignedParams();
@@ -98,7 +99,10 @@ contract("LTVCreditorProxy", (accounts) => {
 
                     const expected = await lTVFixtures.commitmentHash(commitmentValues, order);
 
-                    const result = await proxy.methods.hashOrder(commitmentValues, order).call();
+                    const result = await proxy.methods.hashCreditorCommitmentForOrder(
+                        commitmentValues,
+                        order,
+                    ).call();
 
                     expect(result).to.eq(expected);
                 });
@@ -114,12 +118,14 @@ contract("LTVCreditorProxy", (accounts) => {
 
             before(async () => {
                 ABIDecoder.addABI(DebtKernel.abi);
+                ABIDecoder.addABI(LTVCreditorProxy.abi);
 
                 snapshotId = await snapshotManager.saveTestSnapshot();
             });
 
             after(async () => {
                 ABIDecoder.removeABI(DebtKernel.abi);
+                ABIDecoder.removeABI(LTVCreditorProxy.abi);
 
                 await snapshotManager.revertToSnapshot(snapshotId);
             });
@@ -133,7 +139,10 @@ contract("LTVCreditorProxy", (accounts) => {
 
                     unsignedOrder = params.order;
 
-                    commitmentHash = await proxy.methods.hashOrder(params.creditorCommitment.values, unsignedOrder).call();
+                    commitmentHash = await proxy.methods.hashCreditorCommitmentForOrder(
+                        params.creditorCommitment.values,
+                        unsignedOrder
+                    ).call();
                 });
 
                 it("returns a transaction receipt", async () => {
@@ -185,16 +194,20 @@ contract("LTVCreditorProxy", (accounts) => {
                 let order: DebtOrder;
                 let commitmentHash: string;
                 let params: LTVParams;
+                let txReceipt: any;
 
                 before(async () => {
                     params = await lTVFixtures.signedParams();
                     order = params.order;
 
-                    commitmentHash = await proxy.methods.hashOrder(params.creditorCommitment.values, order).call();
+                    commitmentHash = await proxy.methods.hashCreditorCommitmentForOrder(
+                        params.creditorCommitment.values,
+                        order,
+                    ).call();
                 });
 
                 it("returns a transaction receipt", async () => {
-                    const txReceipt = await proxy.methods.fillDebtOffer(params).send({
+                    txReceipt = await proxy.methods.fillDebtOffer(params).send({
                         from: params.creditor,
                         gas: 6712390
                     });
@@ -209,6 +222,19 @@ contract("LTVCreditorProxy", (accounts) => {
                     const result = await proxy.methods.debtOfferFilled(commitmentHash).call();
 
                     expect(result).to.eq(true);
+                });
+
+                it("emits a 'LogDebtOrderFilled' event from the DebtKernel", async () => {
+                    const receipt = await web3.eth.getTransactionReceipt(txReceipt.transactionHash);
+                    const logs = _.compact(ABIDecoder.decodeLogs(receipt.logs));
+
+                    console.log(logs);
+                    const successLog = logs[0];
+
+                    expect(successLog.name).to.eq("LogDebtOrderFilled");
+                    expect(successLog.address.toUpperCase()).to.eq(
+                        addresses.DebtKernel.toUpperCase(),
+                    );
                 });
             });
         });

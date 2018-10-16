@@ -43,7 +43,7 @@ let creditor: string;
 let debtor: string;
 
 contract("NaiveCreditorProxy", (accounts) => {
-    describe("implementation", () => {
+    describe.only("implementation", () => {
         before(async () => {
             // To keep things simple, they're just the same for now.
             creditor = accounts[0];

@@ -7,13 +7,11 @@ import "../../shared/libraries/SignaturesLibrary.sol";
 
 contract NaiveDecisionEngine is SignaturesLibrary, OrderLibrary {
 
-	function evaluateConsent(DebtOrder memory order)
+	function evaluateConsent(DebtOrder memory order, bytes32 commitmentHash)
 		public
 		pure
 		returns (bool)
 	{
-		bytes32 commitmentHash = hashCreditorCommitmentForOrder(order);
-
 		return isValidSignature(
 			order.creditor,
 			commitmentHash,

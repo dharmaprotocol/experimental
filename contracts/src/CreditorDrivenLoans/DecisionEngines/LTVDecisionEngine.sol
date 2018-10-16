@@ -28,24 +28,17 @@ contract LTVDecisionEngine is LTVDecisionEngineTypes, SignaturesLibrary, OrderLi
         contractRegistry = ContractRegistryInterface(_contractRegistry);
     }
 
-	function evaluateConsent(Params params)
-		public view returns (bool signatureValid, bytes32 _id)
+	function evaluateConsent(Params params, bytes32 commitmentHash)
+		public view returns (bool)
 	{
-		OrderLibrary.DebtOrder memory order = params.order;
-		CommitmentValues memory commitmentValues = params.creditorCommitment.values;
-
-		bytes32 commitmentHash = hashOrder(commitmentValues, order);
-
 		// Checks that the given creditor values were signed by the creditor.
-		bool validCreditorSignature = isValidSignature(
+		if (!isValidSignature(
 			params.creditor,
 			commitmentHash,
 			params.creditorCommitment.signature
-		);
-
-		// We return early if the creditor values were not signed correctly.
-		if (!validCreditorSignature) {
-			return (false, commitmentHash);
+		)) {
+			// We return early if the creditor values were not signed correctly.
+			return false;
 		}
 
 		// Checks that the given price feed data was signed by the price feed operator.
@@ -54,8 +47,7 @@ contract LTVDecisionEngine is LTVDecisionEngineTypes, SignaturesLibrary, OrderLi
 				params.priceFeedOperator,
 				params.principalPrice,
 				params.collateralPrice
-			),
-			commitmentHash
+			)
 		);
 	}
 
@@ -91,8 +83,8 @@ contract LTVDecisionEngine is LTVDecisionEngineTypes, SignaturesLibrary, OrderLi
 		return ltv <= maxLTVWithPrecision;
 	}
 
-	function hashOrder(CommitmentValues commitmentValues, OrderLibrary.DebtOrder order)
-		public view returns (bytes32)
+	function hashCreditorCommitmentForOrder(CommitmentValues commitmentValues, OrderLibrary.DebtOrder order)
+	public view returns (bytes32)
 	{
 		bytes32 termsContractCommitmentHash =
 			getTermsContractCommitmentHash(order.termsContract, order.termsContractParameters);

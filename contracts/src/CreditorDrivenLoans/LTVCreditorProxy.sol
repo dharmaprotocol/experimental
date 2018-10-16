@@ -1,37 +1,99 @@
 pragma solidity ^0.4.24;
 pragma experimental ABIEncoderV2;
 
-
+// Internal interfaces
 import "../shared/interfaces/ContractRegistryInterface.sol";
+// Internal mixins
 import "./DecisionEngines/LTVDecisionEngine.sol";
-import "./interfaces/CreditorProxyCoreInterface.sol";
+import "./CreditorProxyCore.sol";
 
 
-contract LTVCreditorProxy is LTVDecisionEngine, CreditorProxyCoreInterface {
+contract LTVCreditorProxy is CreditorProxyCore, LTVDecisionEngine {
 
 	mapping (bytes32 => bool) public debtOfferCancelled;
 	mapping (bytes32 => bool) public debtOfferFilled;
 
 	bytes32 constant internal NULL_ISSUANCE_HASH = bytes32(0);
 
-	function LTVCreditorProxy(address _contractRegistry) LTVDecisionEngine(_contractRegistry) {}
+//	function LTVCreditorProxy(address _contractRegistry) LTVDecisionEngine(_contractRegistry) {}
+
+	function LTVCreditorProxy(address _contractRegistry) LTVDecisionEngine(_contractRegistry)
+		public
+	{
+		contractRegistry = ContractRegistryInterface(_contractRegistry);
+	}
 
 	function fillDebtOffer(LTVDecisionEngineTypes.Params params)
-		public returns (bytes32 id)
+		public returns (bytes32 agreementId)
 	{
-		bool isConsensual;
-		bool shouldFill;
+		OrderLibrary.DebtOrder memory order = params.order;
+		CommitmentValues memory commitmentValues = params.creditorCommitment.values;
 
-		(isConsensual, id) = evaluateConsent(params);
-		shouldFill = evaluateDecision(params);
+		bytes32 creditorCommitmentHash = hashCreditorCommitmentForOrder(commitmentValues, order);
 
-		if (isConsensual && shouldFill) {
-			// The order is consensual and has an acceptable LTV ratio.
-			debtOfferFilled[id] = true;
-			return id;
+		if (!evaluateConsent(params, creditorCommitmentHash)) {
+			emit CreditorProxyError(uint8(Errors.DEBT_OFFER_NON_CONSENSUAL), order.creditor, creditorCommitmentHash);
+			return NULL_ISSUANCE_HASH;
 		}
 
-		return NULL_ISSUANCE_HASH;
+		if (debtOfferFilled[creditorCommitmentHash]) {
+			emit CreditorProxyError(uint8(Errors.DEBT_OFFER_ALREADY_FILLED), order.creditor, creditorCommitmentHash);
+			return NULL_ISSUANCE_HASH;
+		}
+
+		if (debtOfferCancelled[creditorCommitmentHash]) {
+			emit CreditorProxyError(uint8(Errors.DEBT_OFFER_CANCELLED), order.creditor, creditorCommitmentHash);
+			return NULL_ISSUANCE_HASH;
+		}
+
+		if (!evaluateDecision(params)) {
+			emit CreditorProxyError(
+				uint8(Errors.DEBT_OFFER_CRITERIA_NOT_MET),
+				order.creditor,
+				creditorCommitmentHash
+			);
+			return NULL_ISSUANCE_HASH;
+		}
+
+		address principalToken = order.principalToken;
+
+		// The allowance that the token transfer proxy has for this contract's tokens.
+		uint tokenTransferAllowance = getAllowance(
+			principalToken,
+			address(this),
+			contractRegistry.tokenTransferProxy()
+		);
+
+		uint totalCreditorPayment = order.principalAmount.add(order.creditorFee);
+
+		// Ensure the token transfer proxy can transfer tokens from the creditor proxy
+		if (tokenTransferAllowance < totalCreditorPayment) {
+			require(setTokenTransferAllowance(principalToken, totalCreditorPayment));
+		}
+
+		// Transfer principal from creditor to CreditorProxy
+		if (totalCreditorPayment > 0) {
+			require(
+				transferTokensFrom(
+					principalToken,
+					order.creditor,
+					address(this),
+					totalCreditorPayment
+				)
+			);
+		}
+
+		agreementId = sendOrderToKernel(order);
+
+		require(agreementId != NULL_ISSUANCE_HASH);
+
+		debtOfferFilled[creditorCommitmentHash] = true;
+
+		contractRegistry.debtToken().transfer(order.creditor, uint256(agreementId));
+
+		emit DebtOfferFilled(order.creditor, creditorCommitmentHash, agreementId);
+
+		return agreementId;
 	}
 
 	function sendOrderToKernel(DebtOrder memory order) internal returns (bytes32 id)
@@ -63,12 +125,12 @@ contract LTVCreditorProxy is LTVDecisionEngine, CreditorProxyCoreInterface {
 		LTVDecisionEngineTypes.CommitmentValues memory commitmentValues = params.creditorCommitment.values;
 		OrderLibrary.DebtOrder memory order = params.order;
 
-		bytes32 id = hashOrder(commitmentValues, order);
+		bytes32 creditorCommitmentHash = hashCreditorCommitmentForOrder(commitmentValues, order);
 
 		// debt offer must not already be filled.
-		require(!debtOfferFilled[id]);
+		require(!debtOfferFilled[creditorCommitmentHash]);
 
-		debtOfferCancelled[id] = true;
+		debtOfferCancelled[creditorCommitmentHash] = true;
 
 		return true;
 	}

@@ -5,7 +5,8 @@ contract CreditorProxyErrors {
             DEBT_OFFER_CANCELLED,
             DEBT_OFFER_ALREADY_FILLED,
             DEBT_OFFER_NON_CONSENSUAL,
-            CREDITOR_BALANCE_OR_ALLOWANCE_INSUFFICIENT
+            CREDITOR_BALANCE_OR_ALLOWANCE_INSUFFICIENT,
+            DEBT_OFFER_CRITERIA_NOT_MET
         }
 
     event CreditorProxyError(
