@@ -8,6 +8,22 @@ import { ECDSASignature, ecSign } from "../../../types/ECDSASignature";
 // Fixtures
 import { CollateralizedSimpleInterestTermsParameters } from "./TermsContractParameters";
 
+interface Tokens {
+    principalAddress: string;
+    collateralAddress: string;
+}
+
+interface Participants {
+    creditor: string;
+    debtor: string;
+}
+
+interface Contracts {
+    debtKernelAddress: string;
+    repaymentRouterAddress: string;
+    termsContractAddress: string;
+}
+
 export class DebtOrderFixtures {
     readonly blankSignature: ECDSASignature = {
         r: this.web3.utils.fromAscii(""),
@@ -24,7 +40,13 @@ export class DebtOrderFixtures {
     public principalTokenIndex: number = 0;
     public termLengthUnits: number = 4; // Term length in amortization units.
 
-    constructor(private readonly web3: Web3, private readonly accounts: string[]) {}
+    constructor(
+        private readonly web3: Web3,
+        private readonly accounts: string[],
+        private readonly tokens: Tokens,
+        private readonly participants: Participants,
+        private readonly contracts: Contracts,
+    ) {}
 
     async unsignedOrder(): Promise<DebtOrder> {
         // The signatures will all be empty ECDSA signatures.
@@ -55,22 +77,22 @@ export class DebtOrderFixtures {
         );
 
         return {
-            kernelVersion: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-            issuanceVersion: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
+            kernelVersion: this.contracts.debtKernelAddress,
+            issuanceVersion: this.contracts.repaymentRouterAddress,
             principalAmount: 1,
-            principalToken: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
+            principalToken: this.tokens.principalAddress,
             collateralAmount: 1,
-            collateralToken: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-            debtor: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
+            collateralToken: this.tokens.collateralAddress,
+            debtor: this.participants.debtor,
             debtorFee: 0,
-            creditor: this.accounts[0],
+            creditor: this.participants.creditor,
             creditorFee: 0,
             relayer: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             relayerFee: 0,
             underwriter: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             underwriterFee: 0,
             underwriterRiskRating: 0,
-            termsContract: "0xcdc99b9c5f3048b307315a9eacb8cbd57449dae4",
+            termsContract: this.contracts.termsContractAddress,
             termsContractParameters,
             expirationTimestampInSec,
             salt: 0,

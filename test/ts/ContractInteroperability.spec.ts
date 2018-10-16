@@ -1,7 +1,7 @@
 // External libraries
 import * as chai from "chai";
 import * as Web3 from "web3";
-// Types
+
 import * as addressBook from "dharma-address-book";
 
 const addresses = addressBook.latest.development;
