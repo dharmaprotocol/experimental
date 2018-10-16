@@ -34,8 +34,15 @@ let collateralTokenAddress: string;
 let principalToken: any;
 let collateralToken: any;
 
+let creditor: string;
+let debtor: string;
+
 contract("LTVCreditorProxy", (accounts) => {
     before(async () => {
+        // To keep things simple, they're just the same for now.
+        creditor = accounts[0];
+        debtor = accounts[0];
+
         await setupBalancesAndAllowances();
 
         const tokens = {
@@ -43,8 +50,19 @@ contract("LTVCreditorProxy", (accounts) => {
             collateralAddress: collateralTokenAddress,
         };
 
-        debtOrderFixtures = new DebtOrderFixtures(web3, accounts, tokens);
-        lTVFixtures = new LTVFixtures(web3, accounts, tokens);
+        const participants = {
+            creditor,
+            debtor,
+        };
+
+        const contracts = {
+            debtKernelAddress: addresses.DebtKernel,
+            repaymentRouterAddress: addresses.RepaymentRouter,
+            termsContractAddress: addresses.CollateralizedSimpleInterestTermsContract,
+        };
+
+        debtOrderFixtures = new DebtOrderFixtures(web3, accounts, tokens, participants, contracts);
+        lTVFixtures = new LTVFixtures(web3, accounts, tokens, participants, contracts);
     });
 
     const setupBalancesAndAllowances = async (): Promise<void> => {

@@ -13,6 +13,17 @@ interface Tokens {
     collateralAddress: string;
 }
 
+interface Participants {
+    creditor: string;
+    debtor: string;
+}
+
+interface Contracts {
+    debtKernelAddress: string;
+    repaymentRouterAddress: string;
+    termsContractAddress: string;
+}
+
 export class DebtOrderFixtures {
     readonly blankSignature: ECDSASignature = {
         r: this.web3.utils.fromAscii(""),
@@ -33,6 +44,8 @@ export class DebtOrderFixtures {
         private readonly web3: Web3,
         private readonly accounts: string[],
         private readonly tokens: Tokens,
+        private readonly participants: Participants,
+        private readonly contracts: Contracts,
     ) {}
 
     async unsignedOrder(): Promise<DebtOrder> {
@@ -64,22 +77,22 @@ export class DebtOrderFixtures {
         );
 
         return {
-            kernelVersion: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
-            issuanceVersion: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
+            kernelVersion: this.contracts.debtKernelAddress,
+            issuanceVersion: this.contracts.repaymentRouterAddress,
             principalAmount: 1,
             principalToken: this.tokens.principalAddress,
             collateralAmount: 1,
             collateralToken: this.tokens.collateralAddress,
-            debtor: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
+            debtor: this.participants.debtor,
             debtorFee: 0,
-            creditor: this.accounts[0],
+            creditor: this.participants.creditor,
             creditorFee: 0,
             relayer: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             relayerFee: 0,
             underwriter: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             underwriterFee: 0,
             underwriterRiskRating: 0,
-            termsContract: "0xcdc99b9c5f3048b307315a9eacb8cbd57449dae4",
+            termsContract: this.contracts.termsContractAddress,
             termsContractParameters,
             expirationTimestampInSec,
             salt: 0,

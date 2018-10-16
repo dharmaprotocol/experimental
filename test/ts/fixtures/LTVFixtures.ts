@@ -10,6 +10,17 @@ interface Tokens {
     collateralAddress: string;
 }
 
+interface Participants {
+    creditor: string;
+    debtor: string;
+}
+
+interface Contracts {
+    debtKernelAddress: string;
+    repaymentRouterAddress: string;
+    termsContractAddress: string;
+}
+
 export class LTVFixtures {
     readonly debtOrderFixtures: DebtOrderFixtures;
 
@@ -23,8 +34,10 @@ export class LTVFixtures {
         private readonly web3: Web3,
         private readonly accounts: string[],
         private readonly tokens: Tokens,
+        private readonly participants: Participants,
+        private readonly contracts: Contracts,
     ) {
-        this.debtOrderFixtures = new DebtOrderFixtures(web3, accounts, tokens);
+        this.debtOrderFixtures = new DebtOrderFixtures(web3, accounts, tokens, participants, contracts);
     }
 
     async signedParams(): Promise<LTVParams> {
