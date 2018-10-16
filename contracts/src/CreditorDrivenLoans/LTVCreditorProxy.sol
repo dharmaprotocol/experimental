@@ -1,8 +1,9 @@
 pragma solidity ^0.4.24;
 pragma experimental ABIEncoderV2;
 
-import "./DecisionEngines/LTVDecisionEngine.sol";
 
+import "../shared/interfaces/ContractRegistryInterface.sol";
+import "./DecisionEngines/LTVDecisionEngine.sol";
 
 contract LTVCreditorProxy is
 	LTVDecisionEngine
@@ -12,6 +13,8 @@ contract LTVCreditorProxy is
 	mapping (bytes32 => bool) public debtOfferFilled;
 
 	bytes32 constant internal NULL_ISSUANCE_HASH = bytes32(0);
+
+	function LTVCreditorProxy(address _contractRegistry) LTVDecisionEngine(_contractRegistry) {}
 
 	function fillDebtOffer(LTVDecisionEngineTypes.Params params)
 		public returns (bytes32 id)
@@ -46,28 +49,5 @@ contract LTVCreditorProxy is
 		debtOfferCancelled[id] = true;
 
 		return true;
-	}
-
-	function hashCreditorCommitmentForOrder(
-		CommitmentValues commitmentValues,
-		OrderLibrary.DebtOrder order
-	)
-		returns (bytes32)
-	{
-		return keccak256(
-			commitmentValues.maxLTV,
-			order.principalToken,
-			order.principalAmount,
-			order.kernelVersion,
-			order.creditor,
-			order.issuanceVersion,
-			order.creditorFee,
-			order.underwriter,
-			order.underwriterRiskRating,
-			order.termsContract,
-			order.termsContractParameters,
-			order.expirationTimestampInSec,
-			order.salt
-		);
 	}
 }

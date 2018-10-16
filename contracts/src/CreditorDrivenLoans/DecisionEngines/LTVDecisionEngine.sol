@@ -1,6 +1,7 @@
 pragma solidity ^0.4.24;
 pragma experimental ABIEncoderV2;
 
+
 // External dependencies
 import "zeppelin-solidity/contracts/math/SafeMath.sol";
 
@@ -8,6 +9,10 @@ import "zeppelin-solidity/contracts/math/SafeMath.sol";
 import "./libraries/LTVDecisionEngineTypes.sol";
 import "../../shared/libraries/SignaturesLibrary.sol";
 
+// Interfaces
+import "../../shared/interfaces/ContractRegistryInterface.sol";
+import "../../shared/interfaces/CollateralizerInterface.sol";
+import "../../shared/interfaces/SimpleInterestTermsContractInterface.sol";
 
 contract LTVDecisionEngine is
 	LTVDecisionEngineTypes,
@@ -18,6 +23,12 @@ contract LTVDecisionEngine is
 	uint public constant PRECISION = 4;
 
 	uint public constant MAX_PRICE_TTL_IN_SECONDS = 600;
+
+	ContractRegistryInterface public contractRegistry;
+
+	function LTVDecisionEngine(address _contractRegistry) public {
+        contractRegistry = ContractRegistryInterface(_contractRegistry);
+    }
 
 	function evaluateConsent(Params params)
 		public view returns (bool signatureValid, bytes32 _id)
@@ -83,24 +94,87 @@ contract LTVDecisionEngine is
 	}
 
 	function hashOrder(CommitmentValues commitmentValues, OrderLibrary.DebtOrder order)
-		returns (bytes32)
+		public view returns (bytes32)
 	{
+		bytes32 termsContractCommitmentHash =
+			getTermsContractCommitmentHash(order.termsContract, order.termsContractParameters);
+
 		return keccak256(
-			// LTV specific values.
-			commitmentValues.maxLTV,
-			// Order specific values.
-			order.principalToken,
-			order.principalAmount,
+			// order values
 			order.creditor,
-			order.issuanceVersion,
 			order.kernelVersion,
-			order.creditorFee,
-			order.underwriter,
-			order.underwriterRiskRating,
+			order.issuanceVersion,
 			order.termsContract,
+			order.principalToken,
+			order.salt,
+			order.principalAmount,
+			order.creditorFee,
 			order.expirationTimestampInSec,
-			order.salt
+			// commitment values
+			commitmentValues.maxLTV,
+			// hashed terms contract commitments
+			termsContractCommitmentHash
 		);
+	}
+
+	function getTermsContractCommitmentHash(
+		address termsContract,
+		bytes32 termsContractParameters
+	) public view returns (bytes32) {
+		SimpleInterestParameters memory simpleInterestParameters =
+			unpackSimpleInterestParameters(termsContract, termsContractParameters);
+
+		CollateralParameters memory collateralParameters =
+			unpackCollateralParameters(termsContractParameters);
+
+		return keccak256(
+			// unpacked termsContractParameters
+			simpleInterestParameters.principalTokenIndex,
+			simpleInterestParameters.principalAmount,
+			simpleInterestParameters.interestRate,
+			simpleInterestParameters.amortizationUnitType,
+			simpleInterestParameters.termLengthInAmortizationUnits,
+			collateralParameters.collateralTokenIndex,
+			collateralParameters.gracePeriodInDays
+		);
+	}
+
+	function unpackSimpleInterestParameters(
+		address termsContract,
+		bytes32 termsContractParameters
+	)
+		public pure returns (SimpleInterestParameters)
+	{
+		// use simple interest terms contract interface to unpack simple interest terms
+		SimpleInterestTermsContractInterface simpleInterestTermsContract = SimpleInterestTermsContractInterface(termsContract);
+
+		var (principalTokenIndex, principalAmount, interestRate, amortizationUnitType, termLengthInAmortizationUnits) =
+			simpleInterestTermsContract.unpackParametersFromBytes(termsContractParameters);
+
+		return SimpleInterestParameters({
+			principalTokenIndex: principalTokenIndex,
+			principalAmount: principalAmount,
+			interestRate: interestRate,
+			amortizationUnitType: amortizationUnitType,
+			termLengthInAmortizationUnits: termLengthInAmortizationUnits
+		});
+	}
+
+	function unpackCollateralParameters(
+		bytes32 termsContractParameters
+	)
+		public view returns (CollateralParameters)
+	{
+		CollateralizerInterface collateralizer = CollateralizerInterface(contractRegistry.collateralizer());
+
+		var (collateralTokenIndex, collateralAmount, gracePeriodInDays) =
+			collateralizer.unpackCollateralParametersFromBytes(termsContractParameters);
+
+		return CollateralParameters({
+			collateralTokenIndex: collateralTokenIndex,
+			collateralAmount: collateralAmount,
+			gracePeriodInDays: gracePeriodInDays
+		});
 	}
 
 	function verifyPrices(
