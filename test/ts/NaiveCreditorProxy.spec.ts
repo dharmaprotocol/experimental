@@ -162,20 +162,8 @@ contract("NaiveCreditorProxy", (accounts) => {
             });
 
             it("returns a transaction receipt", async () => {
-                console.log("creditor", signedOrder.creditor, accounts[0]);
-
-                console.log(
-                    await proxy.methods.fillDebtOffer(signedOrder).estimateGas(
-                        { from: signedOrder.creditor, gas: MAX_GAS },
-                    ),
-                );
-
-                console.log(
-                    await web3.eth.getBalance(signedOrder.creditor),
-                );
-
                 const txReceipt = await proxy.methods.fillDebtOffer(signedOrder).send(
-                    { from: signedOrder.creditor },
+                    { from: signedOrder.creditor, gas: MAX_GAS },
                 );
 
                 web3.eth.getTransactionReceipt(txReceipt.transactionHash, function(e, receipt) {
