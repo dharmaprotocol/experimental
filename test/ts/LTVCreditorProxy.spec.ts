@@ -7,8 +7,14 @@ import { CommitmentValues, CreditorCommitment, LTVParams, Price } from "../../ty
 import { DebtOrder } from "../../types/DebtOrder";
 import { LTVFixtures } from "./fixtures/LTVFixtures";
 
+import * as addressBook from "dharma-address-book";
+
 // Artifacts
 const LTVCreditorProxy = artifacts.require("./LTVCreditorProxy.sol");
+const TokenRegistry = artifacts.require("./TokenRegistry.sol");
+const DummyToken = artifacts.require("./DummyToken.sol");
+
+const addresses = addressBook.latest.development;
 
 // Configuration
 const expect = chai.expect;
@@ -16,15 +22,45 @@ const expect = chai.expect;
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
 const proxy = new web3.eth.Contract(LTVCreditorProxy.abi, LTVCreditorProxy.address);
+const registry = new web3.eth.Contract(TokenRegistry.abi, addresses.TokenRegistry);
 
 let debtOrderFixtures: DebtOrderFixtures;
 let lTVFixtures: LTVFixtures;
 
-contract("LTVCreditorProxy", accounts => {
-    before(() => {
+let principalTokenAddress: string;
+let collateralTokenAddress: string;
+
+// DummyToken types - not yet defined.
+let principalToken: any;
+let collateralToken: any;
+
+contract("LTVCreditorProxy", (accounts) => {
+    before(async () => {
         debtOrderFixtures = new DebtOrderFixtures(web3, accounts);
         lTVFixtures = new LTVFixtures(web3, accounts);
+
+        await setupBalancesAndAllowances();
     });
+
+    const setupBalancesAndAllowances = async (): Promise<void> => {
+        principalTokenAddress = await registry.methods.getTokenAddressByIndex(0).call();
+        collateralTokenAddress = await registry.methods.getTokenAddressByIndex(1).call();
+
+        principalToken = new web3.eth.Contract(DummyToken.abi, principalTokenAddress);
+        collateralToken = new web3.eth.Contract(DummyToken.abi, collateralTokenAddress);
+
+        console.log(principalToken.methods.approve);
+
+        await principalToken.methods.approve(
+            addresses.TokenTransferProxy,
+            100,
+        ).send({ from: accounts[0] });
+
+        await collateralToken.methods.approve(
+            addresses.TokenTransferProxy,
+            100,
+        ).send({ from: accounts[0] });
+    };
 
     describe("#hashOrder", () => {
         describe("when given commitment values and a debt order", () => {
