@@ -1,6 +1,8 @@
 pragma solidity ^0.4.24;
 pragma experimental ABIEncoderV2;
 
+import "zeppelin-solidity/contracts/token/ERC20/ERC20.sol";
+
 import "./DecisionEngines/NaiveDecisionEngine.sol";
 import "./interfaces/CreditorProxyCoreInterface.sol";
 import "../shared/libraries/OrderLibrary.sol";
@@ -13,6 +15,8 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
 
     bytes32 constant internal NULL_ISSUANCE_HASH = bytes32(0);
 
+    uint16 constant public EXTERNAL_QUERY_GAS_LIMIT = 8000;
+
     ContractRegistryInterface public contractRegistry;
 
     function NaiveCreditorProxy(address _contractRegistry) public {
@@ -21,20 +25,36 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
 
     function fillDebtOffer(DebtOrder memory order) public returns (bytes32 agreementId) {
         bytes32 creditorCommitmentHash = hashCreditorCommitmentForOrder(order);
+//
+//        if (!evaluateConsent(order)) {
+//            emit CreditorProxyError(uint8(Errors.DEBT_OFFER_NON_CONSENSUAL), order.creditor, creditorCommitmentHash);
+//            return NULL_ISSUANCE_HASH;
+//        }
+//
+//        if (debtOfferFilled[creditorCommitmentHash]) {
+//            emit CreditorProxyError(uint8(Errors.DEBT_OFFER_ALREADY_FILLED), order.creditor, creditorCommitmentHash);
+//            return NULL_ISSUANCE_HASH;
+//        }
+//
+//        if (debtOfferCancelled[creditorCommitmentHash]) {
+//            emit CreditorProxyError(uint8(Errors.DEBT_OFFER_CANCELLED), order.creditor, creditorCommitmentHash);
+//            return NULL_ISSUANCE_HASH;
+//        }
 
-        if (!evaluateConsent(order)) {
-            emit CreditorProxyError(uint8(Errors.DEBT_OFFER_NON_CONSENSUAL), order.creditor, creditorCommitmentHash);
-            return NULL_ISSUANCE_HASH;
-        }
+        address principalToken = order.principalToken;
 
-        if (debtOfferFilled[creditorCommitmentHash]) {
-            emit CreditorProxyError(uint8(Errors.DEBT_OFFER_ALREADY_FILLED), order.creditor, creditorCommitmentHash);
-            return NULL_ISSUANCE_HASH;
-        }
+        // The allowance that the token transfer proxy has for this contract's tokens.
+        uint tokenTransferAllowance = getAllowance(
+            principalToken,
+            address(this),
+            contractRegistry.tokenTransferProxy()
+        );
 
-        if (debtOfferCancelled[creditorCommitmentHash]) {
-            emit CreditorProxyError(uint8(Errors.DEBT_OFFER_CANCELLED), order.creditor, creditorCommitmentHash);
-            return NULL_ISSUANCE_HASH;
+        uint totalCreditorPayment = order.creditorFee + order.principalAmount;
+
+        // Ensure the token transfer proxy can transfer tokens from the creditor proxy
+        if (tokenTransferAllowance < totalCreditorPayment) {
+            require(setTokenTransferAllowance(principalToken, totalCreditorPayment));
         }
 
         agreementId = sendOrderToKernel(order);
@@ -68,6 +88,41 @@ contract NaiveCreditorProxy is NaiveDecisionEngine, CreditorProxyCoreInterface {
             signaturesV,
             signaturesR,
             signaturesS
+        );
+    }
+
+    /**
+     * Helper function for approving this address' allowance to Dharma's token transfer proxy.
+     */
+    function setTokenTransferAllowance(
+        address token,
+        uint amount
+    )
+        internal
+        returns (bool _success)
+    {
+        return ERC20(token).approve(
+            address(contractRegistry.tokenTransferProxy()),
+            amount
+        );
+    }
+
+    /**
+     * Helper function for querying this contract's allowance for transferring the given token.
+     */
+    function getAllowance(
+        address token,
+        address owner,
+        address granter
+    )
+        internal
+        view
+        returns (uint _allowance)
+    {
+        // Limit gas to prevent reentrancy.
+        return ERC20(token).allowance.gas(EXTERNAL_QUERY_GAS_LIMIT)(
+            owner,
+            granter
         );
     }
 

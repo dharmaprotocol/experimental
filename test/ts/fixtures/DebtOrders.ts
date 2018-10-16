@@ -1,10 +1,11 @@
 import * as Web3 from "web3";
-
 // Types
 import { DebtOrder } from "../../../types/DebtOrder";
-import { SimpleInterestContractTerms, CollateralizedContractTerms } from "../../../types/TermsContractParameters";
+import {
+    CollateralizedContractTerms,
+    SimpleInterestContractTerms
+} from "../../../types/TermsContractParameters";
 import { ECDSASignature, ecSign } from "../../../types/ECDSASignature";
-
 // Fixtures
 import { CollateralizedSimpleInterestTermsParameters } from "./TermsContractParameters";
 
@@ -32,11 +33,11 @@ export class DebtOrderFixtures {
     };
 
     public amortizationUnitType: number = 1; // The amortization unit type (weekly)
-    public collateralAmount: number = 1 * 10 ** 18;
+    public collateralAmount: number = 1;
     public collateralTokenIndex: number = 1;
     public gracePeriodInDays: number = 0;
     public interestRateFixedPoint: number = 2.5 * 10 ** 4; // interest rate of 2.5%
-    public principalAmount: number = 1 * 10 ** 18; // principal of 1
+    public principalAmount: number = 1; // principal of 1
     public principalTokenIndex: number = 0;
     public termLengthUnits: number = 4; // Term length in amortization units.
 
@@ -46,7 +47,8 @@ export class DebtOrderFixtures {
         private readonly tokens: Tokens,
         private readonly participants: Participants,
         private readonly contracts: Contracts,
-    ) {}
+    ) {
+    }
 
     async unsignedOrder(): Promise<DebtOrder> {
         // The signatures will all be empty ECDSA signatures.
@@ -89,7 +91,7 @@ export class DebtOrderFixtures {
             creditorFee: 0,
             relayer: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
             relayerFee: 0,
-            underwriter: "0x601e6e7711b9e3b1b20e1e8016038a32dfc86ddd",
+            underwriter: "0x0000000000000000000000000000000000000000",
             underwriterFee: 0,
             underwriterRiskRating: 0,
             termsContract: this.contracts.termsContractAddress,
@@ -105,17 +107,24 @@ export class DebtOrderFixtures {
     async signedOrder(): Promise<DebtOrder> {
         const unsignedOrder = await this.unsignedOrder();
 
-        const commitmentHash = this.hashForOrder(unsignedOrder);
+        const commitmentHash = this.creditorHashForOrder(unsignedOrder);
 
         const creditorSignature = await ecSign(this.web3, commitmentHash, unsignedOrder.creditor);
 
+        const debtorSignature = await ecSign(
+            this.web3,
+            this.debtorHashForOrder(unsignedOrder),
+            unsignedOrder.debtor
+        );
+
         return {
             ...unsignedOrder,
-            creditorSignature
+            creditorSignature,
+            debtorSignature,
         };
     }
 
-    hashForOrder(order: DebtOrder): string {
+    creditorHashForOrder(order: DebtOrder): string {
         return this.web3.utils.soliditySha3(
             order.creditor,
             order.kernelVersion,
@@ -127,6 +136,33 @@ export class DebtOrderFixtures {
             order.creditorFee,
             order.expirationTimestampInSec,
             order.termsContractParameters
+        );
+    }
+
+    debtorHashForOrder(order: DebtOrder): string {
+        return this.web3.utils.soliditySha3(
+            this.contracts.debtKernelAddress,
+            this.getAgreementId(order),
+            order.underwriterFee,
+            order.principalAmount,
+            order.principalToken,
+            order.debtorFee,
+            order.creditorFee,
+            order.relayer,
+            order.relayerFee,
+            order.expirationTimestampInSec,
+        );
+    }
+
+    getAgreementId(order: DebtOrder): string {
+        return this.web3.utils.soliditySha3(
+            this.contracts.debtKernelAddress, // version
+            this.participants.debtor, // debtor
+            "0x0000000000000000000000000000000000000000", // underwriter
+            order.underwriterRiskRating,
+            order.termsContract,
+            order.termsContractParameters,
+            order.salt,
         );
     }
 

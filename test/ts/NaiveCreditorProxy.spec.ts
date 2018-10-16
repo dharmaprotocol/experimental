@@ -1,17 +1,22 @@
 // External libraries
 import * as chai from "chai";
 import * as Web3 from "web3";
+import * as ABIDecoder from "abi-decoder";
+import * as _ from "lodash";
+
 // Types
 import { DebtOrderFixtures } from "./fixtures/DebtOrders";
 import { DebtOrder } from "../../types/DebtOrder";
 
 // Artifacts
 import * as addressBook from "dharma-address-book";
+import BigNumber from "bignumber.js";
 
 // Artifacts
 const NaiveCreditorProxy = artifacts.require("./NaiveCreditorProxy.sol");
 const TokenRegistry = artifacts.require("./TokenRegistry.sol");
 const DummyToken = artifacts.require("./DummyToken.sol");
+const DebtKernel = artifacts.require("./DebtKernelInterface.sol");
 
 const addresses = addressBook.latest.development;
 
@@ -22,6 +27,8 @@ const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
 const proxy = new web3.eth.Contract(NaiveCreditorProxy.abi, NaiveCreditorProxy.address);
 const registry = new web3.eth.Contract(TokenRegistry.abi, addresses.TokenRegistry);
+
+const MAX_GAS = 6712390;
 
 let debtOrderFixtures: DebtOrderFixtures;
 
@@ -69,22 +76,32 @@ contract("NaiveCreditorProxy", (accounts) => {
         principalToken = new web3.eth.Contract(DummyToken.abi, principalTokenAddress);
         collateralToken = new web3.eth.Contract(DummyToken.abi, collateralTokenAddress);
 
+        await principalToken.methods.setBalance(
+            creditor,
+            1000000000000,
+        ).send({ from: creditor });
+
         await principalToken.methods.approve(
-            addresses.TokenTransferProxy,
-            100,
-        ).send({ from: accounts[0] });
+            NaiveCreditorProxy.address,
+            1000000000000,
+        ).send({ from: creditor });
+
+        await collateralToken.methods.setBalance(
+            debtor,
+            100000000,
+        ).send({ from: creditor });
 
         await collateralToken.methods.approve(
             addresses.TokenTransferProxy,
-            100,
-        ).send({ from: accounts[0] });
+            100000000,
+        ).send({ from: debtor });
     };
 
     describe("#hashCreditorCommitmentForOrder", () => {
         describe("when given a valid order", () => {
             it("returns the expected bytes32 hash", async () => {
                 const validOrder = await debtOrderFixtures.signedOrder();
-                const expected = debtOrderFixtures.hashForOrder(validOrder);
+                const expected = debtOrderFixtures.creditorHashForOrder(validOrder);
 
                 const result = await proxy.methods.hashCreditorCommitmentForOrder(
                     validOrder,
@@ -110,7 +127,7 @@ contract("NaiveCreditorProxy", (accounts) => {
 
             it("returns a transactionReceipt", async () => {
                 const txReceipt = await proxy.methods.fillDebtOffer(unsignedOrder).send(
-                    { from: unsignedOrder.creditor },
+                    { from: unsignedOrder.creditor, gas: MAX_GAS },
                 );
 
                 const txHash = txReceipt.transactionHash;
@@ -126,11 +143,13 @@ contract("NaiveCreditorProxy", (accounts) => {
             });
         });
 
-        describe("when given a signed debt order", () => {
+        describe.only("when given a signed debt order", () => {
             let signedOrder: DebtOrder;
             let commitmentHash: string;
 
             before(async () => {
+                ABIDecoder.addABI(DebtKernel.abi);
+
                 signedOrder = await debtOrderFixtures.signedOrder();
 
                 commitmentHash = await proxy.methods.hashCreditorCommitmentForOrder(
@@ -138,10 +157,31 @@ contract("NaiveCreditorProxy", (accounts) => {
                 ).call();
             });
 
+            after(() => {
+                ABIDecoder.removeABI(DebtKernel.abi);
+            });
+
             it("returns a transaction receipt", async () => {
+                console.log("creditor", signedOrder.creditor, accounts[0]);
+
+                console.log(
+                    await proxy.methods.fillDebtOffer(signedOrder).estimateGas(
+                        { from: signedOrder.creditor, gas: MAX_GAS },
+                    ),
+                );
+
+                console.log(
+                    await web3.eth.getBalance(signedOrder.creditor),
+                );
+
                 const txReceipt = await proxy.methods.fillDebtOffer(signedOrder).send(
                     { from: signedOrder.creditor },
                 );
+
+                web3.eth.getTransactionReceipt(txReceipt.transactionHash, function(e, receipt) {
+                    const [errorLog] = _.compact(ABIDecoder.decodeLogs(receipt.logs));
+                    console.log(errorLog);
+                });
 
                 const txHash = txReceipt.transactionHash;
 
