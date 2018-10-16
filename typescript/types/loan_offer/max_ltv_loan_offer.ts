@@ -4,6 +4,7 @@ import * as singleLineString from "single-line-string";
 import * as addressBook from "dharma-address-book";
 
 // Artifacts
+const LTVCreditorProxy = artifacts.require("./LTVCreditorProxy.sol");
 const TokenRegistry = artifacts.require("./TokenRegistry.sol");
 
 // Types
@@ -423,6 +424,9 @@ export class MaxLTVLoanOffer {
     }
 
     public async acceptAsDebtor(): Promise<void> {
+        // TODO: pack terms contract parameters
+        const termsContractParameters = "";
+
         const lTVParams: LTVParams = {
             order: {
                 creditor: this.creditor,
@@ -437,7 +441,6 @@ export class MaxLTVLoanOffer {
                 underwriterFee: 0,
                 debtorSignature: this.debtorSignature,
                 underwriterSignature: NULL_ECDSA_SIGNATURE,
-                // This stays a blank signature forever.
                 creditorSignature: this.creditorSignature,
                 // Order params
                 issuanceVersion: this.data.issuanceVersion,
@@ -446,11 +449,11 @@ export class MaxLTVLoanOffer {
                 underwriter: NULL_ADDRESS,
                 underwriterRiskRating: 0,
                 termsContract: this.data.termsContract,
-                termsContractParameters: "",
+                termsContractParameters,
                 expirationTimestampInSec: this.expirationTimestampInSec.toNumber(),
                 salt: this.data.salt.toNumber()
             },
-            priceFeedOperator: "",
+            priceFeedOperator: this.data.priceProvider,
             collateralPrice: {
                 value: this.collateralPrice.value,
                 timestamp: this.collateralPrice.timestamp,
@@ -472,12 +475,13 @@ export class MaxLTVLoanOffer {
             creditor: this.creditor
         };
 
-        const ltvCreditorProxyABI = "";
-        const ltvCreditorProxyAddress = "";
+        const networkId = await this.web3.eth.net.getId();
 
-        const proxy = new this.web3.eth.Contract(ltvCreditorProxyABI, ltvCreditorProxyAddress);
+        const addresses = addressBook.latest[NETWORK_ID_TO_NAME[networkId]];
 
-        return proxy.methods.fillDebtOffer(lTVParams).send({
+        const lTVCreditorProxyContract = new this.web3.eth.Contract(LTVCreditorProxy.abi, addresses.LTVCreditorProxy);
+
+        return lTVCreditorProxyContract.methods.fillDebtOffer(lTVParams).send({
             from: this.creditor,
             gas: 6712390
         });
