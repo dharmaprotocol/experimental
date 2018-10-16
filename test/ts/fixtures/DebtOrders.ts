@@ -3,11 +3,10 @@ import * as Web3 from "web3";
 import { DebtOrder } from "../../../types/DebtOrder";
 import {
     CollateralizedContractTerms,
+    CollateralizedSimpleInterestTermsParameters,
     SimpleInterestContractTerms
 } from "../../../types/TermsContractParameters";
 import { ECDSASignature, ecSign } from "../../../types/ECDSASignature";
-// Fixtures
-import { CollateralizedSimpleInterestTermsParameters } from "./TermsContractParameters";
 
 interface Tokens {
     principalAddress: string;
@@ -46,9 +45,8 @@ export class DebtOrderFixtures {
         private readonly accounts: string[],
         private readonly tokens: Tokens,
         private readonly participants: Participants,
-        private readonly contracts: Contracts,
-    ) {
-    }
+        private readonly contracts: Contracts
+    ) {}
 
     async unsignedOrder(): Promise<DebtOrder> {
         // The signatures will all be empty ECDSA signatures.
@@ -111,16 +109,12 @@ export class DebtOrderFixtures {
 
         const creditorSignature = await ecSign(this.web3, commitmentHash, unsignedOrder.creditor);
 
-        const debtorSignature = await ecSign(
-            this.web3,
-            this.debtorHashForOrder(unsignedOrder),
-            unsignedOrder.debtor
-        );
+        const debtorSignature = await ecSign(this.web3, this.debtorHashForOrder(unsignedOrder), unsignedOrder.debtor);
 
         return {
             ...unsignedOrder,
             creditorSignature,
-            debtorSignature,
+            debtorSignature
         };
     }
 
@@ -150,7 +144,7 @@ export class DebtOrderFixtures {
             order.creditorFee,
             order.relayer,
             order.relayerFee,
-            order.expirationTimestampInSec,
+            order.expirationTimestampInSec
         );
     }
 
@@ -162,7 +156,7 @@ export class DebtOrderFixtures {
             order.underwriterRiskRating,
             order.termsContract,
             order.termsContractParameters,
-            order.salt,
+            order.salt
         );
     }
 
