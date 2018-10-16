@@ -1,6 +1,7 @@
 // External libraries
 import * as Web3 from "web3";
 import * as singleLineString from "single-line-string";
+import * as addressBook from "dharma-address-book";
 
 import { ecSign, ECDSASignature } from "../../../types/ECDSASignature";
 
@@ -8,7 +9,7 @@ import { InterestRate, TimeInterval, TokenAmount } from "../";
 
 import { LTVParams, Price } from "../../../types/LTVTypes";
 
-import { BigNumber, getTokenRegistryIndex, TOKEN_REGISTRY_TRACKED_TOKENS } from "../../utils";
+import { BigNumber, getTokenRegistryIndex, NETWORK_ID_TO_NAME, TOKEN_REGISTRY_TRACKED_TOKENS } from "../../utils";
 
 // Configure BigNumber
 BigNumber.config({
@@ -107,15 +108,20 @@ export class MaxLTVLoanOffer {
             termUnit
         } = params;
 
-        // TODO: use address book to get appropriate addresses
-        const kernelVersion = "";
-        const issuanceVersion = "";
-        const termsContract = "";
+        const networkId = await web3.eth.net.getId();
+
+        const addresses = addressBook.latest[NETWORK_ID_TO_NAME[networkId]];
+
+        const kernelVersion = addresses.DebtKernel;
+        const issuanceVersion = addresses.RepaymentRouter;
+        const termsContract = addresses.CollateralizedSimpleInterestTermsContract;
+
+        // TODO: use token registry to get token addresses and indices
         const principalTokenAddress = "";
         const collateralTokenAddress = "";
 
-        const principalTokenIndex = getTokenRegistryIndex(principalToken);
-        const collateralTokenIndex = getTokenRegistryIndex(collateralToken);
+        const principalTokenIndex = new BigNumber(0);
+        const collateralTokenIndex = new BigNumber(0);
 
         let relayer = NULL_ADDRESS;
         let relayerFee = new TokenAmount(0, principalToken);
