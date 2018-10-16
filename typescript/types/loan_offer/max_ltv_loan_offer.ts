@@ -30,8 +30,8 @@ const FIXED_POINT_SCALING_FACTOR = 10 ** MAX_INTEREST_RATE_PRECISION;
 const SALT_DECIMALS = 20;
 const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 const NULL_ECDSA_SIGNATURE = {
-    r: "",
-    s: "",
+    r: "0x0",
+    s: "0x0",
     v: 0
 };
 
@@ -207,6 +207,7 @@ export class MaxLTVLoanOffer {
     private debtorSignature?: ECDSASignature;
     private expirationTimestampInSec?: BigNumber;
     private principalPrice?: Price;
+    private termsContractParameters?: string;
 
     constructor(private readonly web3: Web3, private readonly data: MaxLTVData) {}
 
@@ -478,18 +479,8 @@ export class MaxLTVLoanOffer {
                 salt: this.data.salt.toNumber()
             },
             priceFeedOperator: this.data.priceProvider,
-            collateralPrice: {
-                value: this.collateralPrice.value,
-                timestamp: this.collateralPrice.timestamp,
-                tokenAddress: this.collateralPrice.tokenAddress,
-                signature: this.collateralPrice.signature
-            },
-            principalPrice: {
-                value: this.principalPrice.value,
-                timestamp: this.principalPrice.timestamp,
-                tokenAddress: this.data.collateralTokenAddress,
-                signature: this.principalPrice.signature
-            },
+            collateralPrice: this.collateralPrice,
+            principalPrice: this.principalPrice,
             creditorCommitment: {
                 values: {
                     maxLTV: this.data.maxLTV.toNumber()
@@ -503,7 +494,7 @@ export class MaxLTVLoanOffer {
 
         const addresses = addressBook.latest[NETWORK_ID_TO_NAME[networkId]];
 
-        const lTVCreditorProxyContract = new this.web3.eth.Contract(LTVCreditorProxy.abi, addresses.LTVCreditorProxy);
+        const lTVCreditorProxyContract = new this.web3.eth.Contract(LTVCreditorProxy.abi, LTVCreditorProxy.address);
 
         return lTVCreditorProxyContract.methods.fillDebtOffer(lTVParams).send({
             from: this.creditor,
@@ -516,7 +507,7 @@ export class MaxLTVLoanOffer {
             this.data.principalTokenIndex,
             this.data.principal.rawAmount,
             this.data.interestRate.raw.times(FIXED_POINT_SCALING_FACTOR).toNumber(),
-            this.data.termLength.getAmortizationUnit(),
+            this.data.termLength.getAmortizationUnitType(),
             this.data.termLength.amount,
             this.data.collateralTokenIndex,
             0 // grace period in days
