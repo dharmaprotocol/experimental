@@ -3,12 +3,15 @@ import * as Web3 from "web3";
 import * as singleLineString from "single-line-string";
 import * as addressBook from "dharma-address-book";
 
+// Artifacts
+const TokenRegistry = artifacts.require("./TokenRegistry.sol");
+
+// Types
 import { ecSign, ECDSASignature } from "../../../types/ECDSASignature";
-
 import { InterestRate, TimeInterval, TokenAmount } from "../";
-
 import { LTVParams, Price } from "../../../types/LTVTypes";
 
+// Utils
 import { BigNumber, getTokenRegistryIndex, NETWORK_ID_TO_NAME, TOKEN_REGISTRY_TRACKED_TOKENS } from "../../utils";
 
 // Configure BigNumber
@@ -112,16 +115,25 @@ export class MaxLTVLoanOffer {
 
         const addresses = addressBook.latest[NETWORK_ID_TO_NAME[networkId]];
 
+        const tokenRegistryContract = new web3.eth.Contract(TokenRegistry.abi, addresses.TokenRegistry);
+
         const kernelVersion = addresses.DebtKernel;
         const issuanceVersion = addresses.RepaymentRouter;
         const termsContract = addresses.CollateralizedSimpleInterestTermsContract;
 
-        // TODO: use token registry to get token addresses and indices
-        const principalTokenAddress = "";
-        const collateralTokenAddress = "";
+        const principalTokenAddress = await tokenRegistryContract.methods
+            .getTokenAddressBySymbol(params.principalToken)
+            .call();
+        const collateralTokenAddress = await tokenRegistryContract.methods
+            .getTokenAddressBySymbol(params.collateralToken)
+            .call();
 
-        const principalTokenIndex = new BigNumber(0);
-        const collateralTokenIndex = new BigNumber(0);
+        const principalTokenIndex = new BigNumber(
+            await tokenRegistryContract.methods.getTokenIndexBySymbol(params.principalToken).call()
+        );
+        const collateralTokenIndex = new BigNumber(
+            await tokenRegistryContract.methods.getTokenIndexBySymbol(params.collateralToken).call()
+        );
 
         let relayer = NULL_ADDRESS;
         let relayerFee = new TokenAmount(0, principalToken);
