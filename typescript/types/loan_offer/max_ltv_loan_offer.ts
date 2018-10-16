@@ -429,12 +429,11 @@ export class MaxLTVLoanOffer {
     }
 
     public async acceptAsDebtor(): Promise<void> {
-        // TODO: calculate raw collateral amount
-        const rawCollateralAmount = 0;
+        const collateral = new TokenAmount(this.collateralAmount, this.data.collateralTokenSymbol);
 
         // Pack terms contract parameters
         const collateralizedContractTerms: CollateralizedContractTerms = {
-            collateralAmount: rawCollateralAmount,
+            collateralAmount: collateral.rawAmount.toNumber(),
             collateralTokenIndex: this.data.collateralTokenIndex.toNumber(),
             gracePeriodInDays: 0
         };
@@ -457,7 +456,7 @@ export class MaxLTVLoanOffer {
                 creditor: this.creditor,
                 principalToken: this.data.principalTokenAddress,
                 principalAmount: this.data.principal.rawAmount.toNumber(),
-                collateralAmount: this.collateralAmount,
+                collateralAmount: collateral.rawAmount.toNumber(),
                 collateralToken: this.data.collateralTokenAddress,
                 debtor: this.debtor,
                 debtorFee: this.data.debtorFee.toNumber(),
