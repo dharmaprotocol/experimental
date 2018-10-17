@@ -1,25 +1,27 @@
+import BigNumber from "bignumber.js";
+
 import { ECDSASignature } from "./ECDSASignature";
 
 export interface DebtOrder {
     kernelVersion: string;
     issuanceVersion: string;
-    principalAmount: number;
+    principalAmount: number | string;
     principalToken: string;
-    collateralAmount: number;
+    collateralAmount: number | string;
     collateralToken: string;
     debtor: string;
-    debtorFee: number;
+    debtorFee: number | string;
     creditor: string;
-    creditorFee: number;
+    creditorFee: number | string;
     relayer: string;
-    relayerFee: number;
+    relayerFee: number | string;
     underwriter: string;
-    underwriterFee: number;
-    underwriterRiskRating: number;
+    underwriterFee: number | string;
+    underwriterRiskRating: number | string;
     termsContract: string;
     termsContractParameters: string;
-    expirationTimestampInSec: number;
-    salt: number;
+    expirationTimestampInSec: number | string;
+    salt: number | string;
     debtorSignature: ECDSASignature;
     creditorSignature: ECDSASignature;
     underwriterSignature: ECDSASignature;

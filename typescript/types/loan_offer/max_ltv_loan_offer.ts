@@ -1,14 +1,25 @@
 // External libraries
 import * as Web3 from "web3";
 import * as singleLineString from "single-line-string";
+import * as addressBook from "dharma-address-book";
 
+// Artifacts
+const DebtToken = artifacts.require("./DebtTokenInterface.sol");
+const LTVCreditorProxy = artifacts.require("./LTVCreditorProxy.sol");
+const TokenRegistry = artifacts.require("./TokenRegistry.sol");
+
+// Types
 import { ecSign, ECDSASignature } from "../../../types/ECDSASignature";
-
+import {
+    CollateralizedContractTerms,
+    CollateralizedSimpleInterestTermsParameters,
+    SimpleInterestContractTerms
+} from "../../../types/TermsContractParameters";
 import { InterestRate, TimeInterval, TokenAmount } from "../";
-
 import { LTVParams, Price } from "../../../types/LTVTypes";
 
-import { BigNumber, getTokenRegistryIndex, TOKEN_REGISTRY_TRACKED_TOKENS } from "../../utils";
+// Utils
+import { BigNumber, getTokenRegistryIndex, NETWORK_ID_TO_NAME, TOKEN_REGISTRY_TRACKED_TOKENS } from "../../utils";
 
 // Configure BigNumber
 BigNumber.config({
@@ -17,11 +28,11 @@ BigNumber.config({
 
 const MAX_INTEREST_RATE_PRECISION = 4;
 const FIXED_POINT_SCALING_FACTOR = 10 ** MAX_INTEREST_RATE_PRECISION;
-const SALT_DECIMALS = 20;
+const SALT_DECIMALS = 10;
 const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 const NULL_ECDSA_SIGNATURE = {
-    r: "",
-    s: "",
+    r: "0x0",
+    s: "0x0",
     v: 0
 };
 
@@ -86,9 +97,6 @@ export interface MaxLTVParams extends DebtOrderParams {
 }
 
 export class MaxLTVLoanOffer {
-    // TODO: replace with decision engine address (async function?)
-    public static decisionEngineAddress = "test";
-
     public static async create(web3: Web3, params: MaxLTVParams): Promise<MaxLTVLoanOffer> {
         const {
             collateralToken,
@@ -107,15 +115,29 @@ export class MaxLTVLoanOffer {
             termUnit
         } = params;
 
-        // TODO: use address book to get appropriate addresses
-        const kernelVersion = "";
-        const issuanceVersion = "";
-        const termsContract = "";
-        const principalTokenAddress = "";
-        const collateralTokenAddress = "";
+        const networkId = await web3.eth.net.getId();
 
-        const principalTokenIndex = getTokenRegistryIndex(principalToken);
-        const collateralTokenIndex = getTokenRegistryIndex(collateralToken);
+        const addresses = addressBook.latest[NETWORK_ID_TO_NAME[networkId]];
+
+        const tokenRegistryContract = new web3.eth.Contract(TokenRegistry.abi, addresses.TokenRegistry);
+
+        const kernelVersion = addresses.DebtKernel;
+        const issuanceVersion = addresses.RepaymentRouter;
+        const termsContract = addresses.CollateralizedSimpleInterestTermsContract;
+
+        const principalTokenAddress = await tokenRegistryContract.methods
+            .getTokenAddressBySymbol(params.principalToken)
+            .call();
+        const collateralTokenAddress = await tokenRegistryContract.methods
+            .getTokenAddressBySymbol(params.collateralToken)
+            .call();
+
+        const principalTokenIndex = new BigNumber(
+            await tokenRegistryContract.methods.getTokenIndexBySymbol(params.principalToken).call()
+        );
+        const collateralTokenIndex = new BigNumber(
+            await tokenRegistryContract.methods.getTokenIndexBySymbol(params.collateralToken).call()
+        );
 
         let relayer = NULL_ADDRESS;
         let relayerFee = new TokenAmount(0, principalToken);
@@ -186,6 +208,7 @@ export class MaxLTVLoanOffer {
     private debtorSignature?: ECDSASignature;
     private expirationTimestampInSec?: BigNumber;
     private principalPrice?: Price;
+    private termsContractParameters?: string;
 
     constructor(private readonly web3: Web3, private readonly data: MaxLTVData) {}
 
@@ -256,7 +279,7 @@ export class MaxLTVLoanOffer {
             );
         }
 
-        // TODO: assert signed time is within some delta of current time (?)
+        // TODO: assert signed time is within some delta of current time
 
         this.principalPrice = principalPrice;
     }
@@ -292,7 +315,7 @@ export class MaxLTVLoanOffer {
             );
         }
 
-        // TODO: assert signed time is within some delta of current time (?)
+        // TODO: assert signed time is within some delta of current time
 
         this.collateralPrice = collateralPrice;
     }
@@ -329,6 +352,9 @@ export class MaxLTVLoanOffer {
         }
 
         this.collateralAmount = collateralAmount;
+
+        // calculate the terms contract parameters, since the collateral amount has been set
+        this.termsContractParameters = this.getTermsContractParameters();
     }
 
     /**
@@ -408,99 +434,96 @@ export class MaxLTVLoanOffer {
     }
 
     public async acceptAsDebtor(): Promise<void> {
+        const collateral = new TokenAmount(this.collateralAmount, this.data.collateralTokenSymbol);
+
+        // We convert BigNumbers into strings because of an issue with Web3 taking larger BigNumbers
         const lTVParams: LTVParams = {
             order: {
                 creditor: this.creditor,
                 principalToken: this.data.principalTokenAddress,
-                principalAmount: this.data.principal.rawAmount.toNumber(),
-                collateralAmount: this.collateralAmount,
+                principalAmount: this.data.principal.rawAmount.toString(),
+                collateralAmount: collateral.rawAmount.toString(),
                 collateralToken: this.data.collateralTokenAddress,
                 debtor: this.debtor,
-                debtorFee: this.data.debtorFee.toNumber(),
+                debtorFee: this.data.debtorFee.toString(),
                 relayer: this.data.relayer,
-                relayerFee: this.data.relayerFee.rawAmount.toNumber(),
+                relayerFee: this.data.relayerFee.rawAmount.toString(),
                 underwriterFee: 0,
                 debtorSignature: this.debtorSignature,
                 underwriterSignature: NULL_ECDSA_SIGNATURE,
-                // This stays a blank signature forever.
                 creditorSignature: this.creditorSignature,
                 // Order params
                 issuanceVersion: this.data.issuanceVersion,
                 kernelVersion: this.data.kernelVersion,
-                creditorFee: this.data.creditorFee.toNumber(),
+                creditorFee: this.data.creditorFee.toString(),
                 underwriter: NULL_ADDRESS,
                 underwriterRiskRating: 0,
                 termsContract: this.data.termsContract,
-                termsContractParameters: "",
-                expirationTimestampInSec: this.expirationTimestampInSec.toNumber(),
-                salt: this.data.salt.toNumber()
+                termsContractParameters: this.termsContractParameters,
+                expirationTimestampInSec: this.expirationTimestampInSec.toString(),
+                salt: this.data.salt.toString()
             },
-            priceFeedOperator: "",
-            collateralPrice: {
-                value: this.collateralPrice.value,
-                timestamp: this.collateralPrice.timestamp,
-                tokenAddress: this.collateralPrice.tokenAddress,
-                signature: this.collateralPrice.signature
-            },
-            principalPrice: {
-                value: this.principalPrice.value,
-                timestamp: this.principalPrice.timestamp,
-                tokenAddress: this.data.collateralTokenAddress,
-                signature: this.principalPrice.signature
-            },
+            priceFeedOperator: this.data.priceProvider,
+            collateralPrice: this.collateralPrice,
+            principalPrice: this.principalPrice,
             creditorCommitment: {
                 values: {
-                    maxLTV: this.data.maxLTV.toNumber()
+                    maxLTV: this.data.maxLTV.toString()
                 },
                 signature: this.creditorSignature
             },
             creditor: this.creditor
         };
 
-        const ltvCreditorProxyABI = "";
-        const ltvCreditorProxyAddress = "";
+        const networkId = await this.web3.eth.net.getId();
 
-        const proxy = new this.web3.eth.Contract(ltvCreditorProxyABI, ltvCreditorProxyAddress);
+        const addresses = addressBook.latest[NETWORK_ID_TO_NAME[networkId]];
 
-        return proxy.methods.fillDebtOffer(lTVParams).send({
+        const lTVCreditorProxyContract = new this.web3.eth.Contract(LTVCreditorProxy.abi, LTVCreditorProxy.address);
+
+        return lTVCreditorProxyContract.methods.fillDebtOffer(lTVParams).send({
             from: this.creditor,
             gas: 6712390
         });
     }
 
-    private getCreditorCommitmentTermsHash(): string {
+    public async isAccepted(): Promise<boolean> {
+        const networkId = await this.web3.eth.net.getId();
+
+        const addresses = addressBook.latest[NETWORK_ID_TO_NAME[networkId]];
+
+        const debtTokenContract = new this.web3.eth.Contract(DebtToken.abi, addresses.DebtToken);
+
+        const issuanceCommitmentHash = this.getIssuanceCommitmentHash();
+
+        return debtTokenContract.methods.exists(issuanceCommitmentHash).call();
+    }
+
+    private getTermsContractCommitmentHash(): string {
         return this.web3.utils.soliditySha3(
-            this.data.kernelVersion,
-            this.data.issuanceVersion,
-            this.data.termsContract,
+            this.data.principalTokenIndex,
             this.data.principal.rawAmount,
-            this.data.principalTokenAddress,
-            this.data.collateralTokenAddress,
-            this.data.maxLTV,
-            this.data.interestRate.raw.mul(FIXED_POINT_SCALING_FACTOR),
-            this.data.debtorFee,
-            this.data.creditorFee,
-            this.data.relayer,
-            this.data.relayerFee.rawAmount,
-            this.expirationTimestampInSec,
-            this.data.salt
+            this.data.interestRate.raw.times(FIXED_POINT_SCALING_FACTOR).toNumber(),
+            this.data.termLength.getAmortizationUnitType(),
+            this.data.termLength.amount,
+            this.data.collateralTokenIndex,
+            0 // grace period in days
         );
     }
 
     private getCreditorCommitmentHash(): string {
         return this.web3.utils.soliditySha3(
-            this.data.maxLTV,
-            this.data.principalTokenAddress,
-            this.data.principal.rawAmount,
             this.creditor,
-            this.data.issuanceVersion,
             this.data.kernelVersion,
-            this.data.creditorFee,
-            NULL_ADDRESS, // underwriter
-            new BigNumber(0), // underwriter risk rating
+            this.data.issuanceVersion,
             this.data.termsContract,
+            this.data.principalTokenAddress,
+            this.data.salt,
+            this.data.principal.rawAmount,
+            this.data.creditorFee,
             this.expirationTimestampInSec,
-            this.data.salt
+            this.data.maxLTV,
+            this.getTermsContractCommitmentHash()
         );
     }
 
@@ -513,11 +536,12 @@ export class MaxLTVLoanOffer {
         // underwriter risk rating.
 
         return this.web3.utils.soliditySha3(
-            this.data.issuanceVersion,
+            this.data.kernelVersion,
             this.debtor,
             NULL_ADDRESS, // underwriter
-            new BigNumber(0), // undwriter risk rating
+            0, // undwriter risk rating
             this.data.termsContract,
+            this.termsContractParameters,
             this.data.salt
         );
     }
@@ -529,7 +553,7 @@ export class MaxLTVLoanOffer {
         return this.web3.utils.soliditySha3(
             this.data.kernelVersion,
             this.getIssuanceCommitmentHash(),
-            new BigNumber(0), // underwriter fee
+            0, // underwriter fee
             this.data.principal.rawAmount,
             this.data.principalTokenAddress,
             this.data.debtorFee,
@@ -537,6 +561,30 @@ export class MaxLTVLoanOffer {
             this.data.relayer,
             this.data.relayerFee.rawAmount,
             this.expirationTimestampInSec
+        );
+    }
+
+    private getTermsContractParameters(): string {
+        const collateral = new TokenAmount(this.collateralAmount, this.data.collateralTokenSymbol);
+
+        // Pack terms contract parameters
+        const collateralizedContractTerms: CollateralizedContractTerms = {
+            collateralAmount: collateral.rawAmount.toNumber(),
+            collateralTokenIndex: this.data.collateralTokenIndex.toNumber(),
+            gracePeriodInDays: 0
+        };
+
+        const simpleInterestContractTerms: SimpleInterestContractTerms = {
+            principalTokenIndex: this.data.principalTokenIndex.toNumber(),
+            principalAmount: this.data.principal.rawAmount.toNumber(),
+            interestRateFixedPoint: this.data.interestRate.raw.times(FIXED_POINT_SCALING_FACTOR).toNumber(),
+            amortizationUnitType: this.data.termLength.getAmortizationUnitType(),
+            termLengthUnits: this.data.termLength.amount
+        };
+
+        return CollateralizedSimpleInterestTermsParameters.pack(
+            collateralizedContractTerms,
+            simpleInterestContractTerms
         );
     }
 

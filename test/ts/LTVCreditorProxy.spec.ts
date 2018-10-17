@@ -3,6 +3,7 @@ import * as chai from "chai";
 import * as Web3 from "web3";
 import * as ABIDecoder from "abi-decoder";
 import * as _ from "lodash";
+
 // Types
 import { DebtOrderFixtures } from "./fixtures/DebtOrders";
 import { CommitmentValues, CreditorCommitment, LTVParams, Price } from "../../types/LTVTypes";
@@ -44,7 +45,7 @@ let creditor: string;
 let debtor: string;
 
 contract("LTVCreditorProxy", (accounts) => {
-    describe.only("implementation", () => {
+    describe("implementation", () => {
         before(async () => {
             // To keep things simple, they're just the same for now.
             creditor = accounts[0];

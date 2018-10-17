@@ -12,6 +12,14 @@ export type AmortizationUnit = "hours" | "days" | "weeks" | "months" | "years";
  */
 export type DurationUnit = "hour" | "hours" | "day" | "days" | "week" | "weeks" | "month" | "months" | "year" | "years";
 
+enum AmortizationUnitType {
+    "hours",
+    "days",
+    "weeks",
+    "months",
+    "years"
+}
+
 const DURATION_TO_AMORTIZATION_UNIT = {
     hour: "hours",
     day: "days",
@@ -69,5 +77,9 @@ export class TimeInterval {
 
     public getAmortizationUnit(): AmortizationUnit {
         return DURATION_TO_AMORTIZATION_UNIT[this.unit] || this.unit;
+    }
+
+    public getAmortizationUnitType(): AmortizationUnitType {
+        return AmortizationUnitType[this.getAmortizationUnit()];
     }
 }
