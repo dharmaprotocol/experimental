@@ -4,6 +4,7 @@ import * as singleLineString from "single-line-string";
 import * as addressBook from "dharma-address-book";
 
 // Artifacts
+const DebtToken = artifacts.require("./DebtTokenInterface.sol");
 const LTVCreditorProxy = artifacts.require("./LTVCreditorProxy.sol");
 const TokenRegistry = artifacts.require("./TokenRegistry.sol");
 
@@ -483,6 +484,18 @@ export class MaxLTVLoanOffer {
             from: this.creditor,
             gas: 6712390
         });
+    }
+
+    public async isAccepted(): Promise<boolean> {
+        const networkId = await this.web3.eth.net.getId();
+
+        const addresses = addressBook.latest[NETWORK_ID_TO_NAME[networkId]];
+
+        const debtTokenContract = new this.web3.eth.Contract(DebtToken.abi, addresses.DebtToken);
+
+        const issuanceCommitmentHash = this.getIssuanceCommitmentHash();
+
+        return debtTokenContract.methods.exists(issuanceCommitmentHash).call();
     }
 
     private getTermsContractCommitmentHash(): string {
