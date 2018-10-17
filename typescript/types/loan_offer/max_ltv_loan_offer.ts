@@ -535,11 +535,12 @@ export class MaxLTVLoanOffer {
         // underwriter risk rating.
 
         return this.web3.utils.soliditySha3(
-            this.data.issuanceVersion,
+            this.data.kernelVersion,
             this.debtor,
             NULL_ADDRESS, // underwriter
-            new BigNumber(0), // undwriter risk rating
+            0, // undwriter risk rating
             this.data.termsContract,
+            this.termsContractParameters,
             this.data.salt
         );
     }
@@ -551,7 +552,7 @@ export class MaxLTVLoanOffer {
         return this.web3.utils.soliditySha3(
             this.data.kernelVersion,
             this.getIssuanceCommitmentHash(),
-            new BigNumber(0), // underwriter fee
+            0, // underwriter fee
             this.data.principal.rawAmount,
             this.data.principalTokenAddress,
             this.data.debtorFee,
