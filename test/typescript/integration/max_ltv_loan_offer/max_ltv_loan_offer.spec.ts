@@ -27,7 +27,7 @@ describe("Max LTV Loan Offer (Integration)", () => {
         await testSignAsDebtor(web3, VALID_MAX_LTV_LOAN_ORDER_PARAMS);
     });
 
-    describe.only("acceptAsDebtor", async () => {
+    describe("acceptAsDebtor", async () => {
         await testAcceptAsDebtor(web3, VALID_MAX_LTV_LOAN_ORDER_PARAMS);
     });
 });
