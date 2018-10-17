@@ -279,7 +279,7 @@ export class MaxLTVLoanOffer {
             );
         }
 
-        // TODO: assert signed time is within some delta of current time (?)
+        // TODO: assert signed time is within some delta of current time
 
         this.principalPrice = principalPrice;
     }
@@ -315,7 +315,7 @@ export class MaxLTVLoanOffer {
             );
         }
 
-        // TODO: assert signed time is within some delta of current time (?)
+        // TODO: assert signed time is within some delta of current time
 
         this.collateralPrice = collateralPrice;
     }
