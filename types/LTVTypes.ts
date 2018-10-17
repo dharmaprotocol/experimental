@@ -4,12 +4,12 @@ import { ECDSASignature } from "./ECDSASignature";
 
 // The set of values that the creditor signs.
 export interface CommitmentValues {
-    maxLTV: number;
+    maxLTV: number | string;
 }
 
 // The combination of signed values and signature .
 export interface CreditorCommitment {
-    values: CommitmentValues ;
+    values: CommitmentValues;
     signature: ECDSASignature;
 }
 
