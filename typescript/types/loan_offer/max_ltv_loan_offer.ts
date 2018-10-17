@@ -351,6 +351,9 @@ export class MaxLTVLoanOffer {
         }
 
         this.collateralAmount = collateralAmount;
+
+        // calculate the terms contract parameters, since the collateral amount has been set
+        this.termsContractParameters = this.getTermsContractParameters();
     }
 
     /**
@@ -432,26 +435,6 @@ export class MaxLTVLoanOffer {
     public async acceptAsDebtor(): Promise<void> {
         const collateral = new TokenAmount(this.collateralAmount, this.data.collateralTokenSymbol);
 
-        // Pack terms contract parameters
-        const collateralizedContractTerms: CollateralizedContractTerms = {
-            collateralAmount: collateral.rawAmount.toNumber(),
-            collateralTokenIndex: this.data.collateralTokenIndex.toNumber(),
-            gracePeriodInDays: 0
-        };
-
-        const simpleInterestContractTerms: SimpleInterestContractTerms = {
-            principalTokenIndex: this.data.principalTokenIndex.toNumber(),
-            principalAmount: this.data.principal.rawAmount.toNumber(), // principal of 1
-            interestRateFixedPoint: this.data.interestRate.raw.times(FIXED_POINT_SCALING_FACTOR).toNumber(),
-            amortizationUnitType: this.data.termLength.getAmortizationUnitType(),
-            termLengthUnits: this.data.termLength.amount
-        };
-
-        const termsContractParameters = CollateralizedSimpleInterestTermsParameters.pack(
-            collateralizedContractTerms,
-            simpleInterestContractTerms
-        );
-
         const lTVParams: LTVParams = {
             order: {
                 creditor: this.creditor,
@@ -474,9 +457,9 @@ export class MaxLTVLoanOffer {
                 underwriter: NULL_ADDRESS,
                 underwriterRiskRating: 0,
                 termsContract: this.data.termsContract,
-                termsContractParameters,
                 expirationTimestampInSec: this.expirationTimestampInSec.toNumber(),
                 salt: this.data.salt.toNumber()
+                termsContractParameters: this.termsContractParameters,
             },
             priceFeedOperator: this.data.priceProvider,
             collateralPrice: this.collateralPrice,
@@ -563,6 +546,30 @@ export class MaxLTVLoanOffer {
             this.data.relayer,
             this.data.relayerFee.rawAmount,
             this.expirationTimestampInSec
+        );
+    }
+
+    private getTermsContractParameters(): string {
+        const collateral = new TokenAmount(this.collateralAmount, this.data.collateralTokenSymbol);
+
+        // Pack terms contract parameters
+        const collateralizedContractTerms: CollateralizedContractTerms = {
+            collateralAmount: collateral.rawAmount.toNumber(),
+            collateralTokenIndex: this.data.collateralTokenIndex.toNumber(),
+            gracePeriodInDays: 0
+        };
+
+        const simpleInterestContractTerms: SimpleInterestContractTerms = {
+            principalTokenIndex: this.data.principalTokenIndex.toNumber(),
+            principalAmount: this.data.principal.rawAmount.toNumber(),
+            interestRateFixedPoint: this.data.interestRate.raw.times(FIXED_POINT_SCALING_FACTOR).toNumber(),
+            amortizationUnitType: this.data.termLength.getAmortizationUnitType(),
+            termLengthUnits: this.data.termLength.amount
+        };
+
+        return CollateralizedSimpleInterestTermsParameters.pack(
+            collateralizedContractTerms,
+            simpleInterestContractTerms
         );
     }
 
