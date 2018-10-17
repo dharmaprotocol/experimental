@@ -6,6 +6,7 @@ import { testConstructor } from "./runners/constructor";
 import { testCreateAndSignAsCreditor } from "./runners/create_and_sign_as_creditor";
 import { testSignAsCreditor } from "./runners/sign_as_creditor";
 import { testSignAsDebtor } from "./runners/sign_as_debtor";
+import { testAcceptAsDebtor } from "./runners/accept_as_debtor";
 
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
@@ -25,6 +26,8 @@ describe("Max LTV Loan Offer (Integration)", () => {
     describe("signAsDebtor", async () => {
         await testSignAsDebtor(web3, VALID_MAX_LTV_LOAN_ORDER_PARAMS);
     });
-    //
-    // describe("acceptAsDebtor", () => {});
+
+    describe.only("acceptAsDebtor", async () => {
+        await testAcceptAsDebtor(web3, VALID_MAX_LTV_LOAN_ORDER_PARAMS);
+    });
 });
