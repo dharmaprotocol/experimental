@@ -436,17 +436,18 @@ export class MaxLTVLoanOffer {
     public async acceptAsDebtor(): Promise<void> {
         const collateral = new TokenAmount(this.collateralAmount, this.data.collateralTokenSymbol);
 
+        // We convert BigNumbers into strings because of an issue with Web3 taking larger BigNumbers
         const lTVParams: LTVParams = {
             order: {
                 creditor: this.creditor,
                 principalToken: this.data.principalTokenAddress,
-                principalAmount: this.data.principal.rawAmount.toNumber(),
-                collateralAmount: collateral.rawAmount.toNumber(),
+                principalAmount: this.data.principal.rawAmount.toString(),
+                collateralAmount: collateral.rawAmount.toString(),
                 collateralToken: this.data.collateralTokenAddress,
                 debtor: this.debtor,
-                debtorFee: this.data.debtorFee.toNumber(),
+                debtorFee: this.data.debtorFee.toString(),
                 relayer: this.data.relayer,
-                relayerFee: this.data.relayerFee.rawAmount.toNumber(),
+                relayerFee: this.data.relayerFee.rawAmount.toString(),
                 underwriterFee: 0,
                 debtorSignature: this.debtorSignature,
                 underwriterSignature: NULL_ECDSA_SIGNATURE,
@@ -454,20 +455,20 @@ export class MaxLTVLoanOffer {
                 // Order params
                 issuanceVersion: this.data.issuanceVersion,
                 kernelVersion: this.data.kernelVersion,
-                creditorFee: this.data.creditorFee.toNumber(),
+                creditorFee: this.data.creditorFee.toString(),
                 underwriter: NULL_ADDRESS,
                 underwriterRiskRating: 0,
                 termsContract: this.data.termsContract,
-                expirationTimestampInSec: this.expirationTimestampInSec.toNumber(),
-                salt: this.data.salt.toNumber()
                 termsContractParameters: this.termsContractParameters,
+                expirationTimestampInSec: this.expirationTimestampInSec.toString(),
+                salt: this.data.salt.toString()
             },
             priceFeedOperator: this.data.priceProvider,
             collateralPrice: this.collateralPrice,
             principalPrice: this.principalPrice,
             creditorCommitment: {
                 values: {
-                    maxLTV: this.data.maxLTV.toNumber()
+                    maxLTV: this.data.maxLTV.toString()
                 },
                 signature: this.creditorSignature
             },
