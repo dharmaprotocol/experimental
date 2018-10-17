@@ -86,7 +86,7 @@ export async function testSignAsDebtor(web3: Web3, params: MaxLTVParams) {
 
             await setPrices();
 
-            loanOffer.setCollateralAmount(160);
+            loanOffer.setCollateralAmount(210);
 
             await loanOffer.signAsDebtor(debtor);
 
@@ -103,7 +103,7 @@ export async function testSignAsDebtor(web3: Web3, params: MaxLTVParams) {
 
                 await setPrices();
 
-                loanOffer.setCollateralAmount(160);
+                loanOffer.setCollateralAmount(210);
 
                 await loanOffer.signAsDebtor(debtor);
 
@@ -118,7 +118,7 @@ export async function testSignAsDebtor(web3: Web3, params: MaxLTVParams) {
 
                 await loanOffer.signAsCreditor(creditor);
 
-                loanOffer.setCollateralAmount(160);
+                loanOffer.setCollateralAmount(210);
 
                 expect(loanOffer.signAsDebtor(debtor)).to.eventually.be.rejectedWith(
                     MAX_LTV_LOAN_OFFER_ERRORS.PRICES_NOT_SET()
