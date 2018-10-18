@@ -48,7 +48,7 @@ export class DebtOrderFixtures {
         private readonly contracts: Contracts
     ) {}
 
-    async unsignedOrder(customOrder: any = {}): Promise<DebtOrder> {
+    async unsignedOrder(customOrder: DebtOrder = {}): Promise<DebtOrder> {
         // The signatures will all be empty ECDSA signatures.
         const debtorSignature = this.blankSignature;
         const underwriterSignature = this.blankSignature;
@@ -106,7 +106,7 @@ export class DebtOrderFixtures {
         return result;
     }
 
-    async signedOrder(customOrder: any = {}): Promise<DebtOrder> {
+    async signedOrder(customOrder: DebtOrder = {}): Promise<DebtOrder> {
         const unsignedOrder = await this.unsignedOrder(customOrder);
 
         const commitmentHash = this.creditorHashForOrder(unsignedOrder);
