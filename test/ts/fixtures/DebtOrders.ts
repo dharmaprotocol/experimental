@@ -48,7 +48,7 @@ export class DebtOrderFixtures {
         private readonly contracts: Contracts
     ) {}
 
-    async unsignedOrder(): Promise<DebtOrder> {
+    async unsignedOrder(customOrder: any = {}): Promise<DebtOrder> {
         // The signatures will all be empty ECDSA signatures.
         const debtorSignature = this.blankSignature;
         const underwriterSignature = this.blankSignature;
@@ -76,12 +76,12 @@ export class DebtOrderFixtures {
             simpleInterestContractTerms
         );
 
-        return {
+        const result = {
             kernelVersion: this.contracts.debtKernelAddress,
             issuanceVersion: this.contracts.repaymentRouterAddress,
-            principalAmount: 1,
+            principalAmount: 10,
             principalToken: this.tokens.principalAddress,
-            collateralAmount: 1,
+            collateralAmount: 10,
             collateralToken: this.tokens.collateralAddress,
             debtor: this.participants.debtor,
             debtorFee: 0,
@@ -100,10 +100,14 @@ export class DebtOrderFixtures {
             creditorSignature,
             underwriterSignature
         };
+
+        Object.assign(result, customOrder)
+
+        return result;
     }
 
-    async signedOrder(): Promise<DebtOrder> {
-        const unsignedOrder = await this.unsignedOrder();
+    async signedOrder(customOrder: any = {}): Promise<DebtOrder> {
+        const unsignedOrder = await this.unsignedOrder(customOrder);
 
         const commitmentHash = this.creditorHashForOrder(unsignedOrder);
 

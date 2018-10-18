@@ -40,10 +40,10 @@ export class LTVFixtures {
         this.debtOrderFixtures = new DebtOrderFixtures(web3, accounts, tokens, participants, contracts);
     }
 
-    async signedParams(): Promise<LTVParams> {
-        const params = await this.unsignedParams();
+    async signedParams(customOrder: any = {}): Promise<LTVParams> {
+        const params = await this.unsignedParams(customOrder);
 
-        params.order = await this.debtOrderFixtures.signedOrder();
+        params.order = await this.debtOrderFixtures.signedOrder(customOrder);
 
         const commitmentHash = this.commitmentHash(params.creditorCommitment.values, params.order);
 
@@ -61,12 +61,12 @@ export class LTVFixtures {
         return params;
     }
 
-    async unsignedParams(): Promise<LTVParams> {
-        const order = await this.debtOrderFixtures.unsignedOrder();
+    async unsignedParams(customOrder: any = {}): Promise<LTVParams> {
+        const order = await this.debtOrderFixtures.unsignedOrder(customOrder);
 
         const values = {
             principalToken: order.principalToken,
-            principalAmount: 1,
+            principalAmount: order.principalAmount,
             maxLTV: 100
         };
 
