@@ -97,7 +97,6 @@ contract LTVDecisionEngine is LTVDecisionEngineTypes, SignaturesLibrary, OrderLi
 			order.termsContract,
 			order.principalToken,
 			order.salt,
-			order.principalAmount,
 			order.creditorFee,
 			order.expirationTimestampInSec,
 			// commitment values
@@ -120,7 +119,6 @@ contract LTVDecisionEngine is LTVDecisionEngineTypes, SignaturesLibrary, OrderLi
 		return keccak256(
 			// unpacked termsContractParameters
 			simpleInterestParameters.principalTokenIndex,
-			simpleInterestParameters.principalAmount,
 			simpleInterestParameters.interestRate,
 			simpleInterestParameters.amortizationUnitType,
 			simpleInterestParameters.termLengthInAmortizationUnits,

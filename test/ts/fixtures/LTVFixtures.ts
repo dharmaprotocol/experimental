@@ -85,7 +85,7 @@ export class LTVFixtures {
         };
 
         const collateralPrice: Price = {
-            value: 20,
+            value: 2,
             tokenAddress: this.tokens.collateralAddress,
             timestamp: await this.currentBlockTimestamp(),
             signature: this.blankSignature
@@ -113,14 +113,14 @@ export class LTVFixtures {
             order.termsContract,
             order.principalToken,
             order.salt,
-            order.principalAmount,
+            //order.principalAmount,
             order.creditorFee,
             order.expirationTimestampInSec,
             commitmentValues.maxLTV,
             // unpacked termsContractParameters
             this.web3.utils.soliditySha3(
                 this.debtOrderFixtures.principalTokenIndex,
-                this.debtOrderFixtures.principalAmount,
+                //this.debtOrderFixtures.principalAmount,
                 this.debtOrderFixtures.interestRateFixedPoint,
                 this.debtOrderFixtures.amortizationUnitType,
                 this.debtOrderFixtures.termLengthUnits,
