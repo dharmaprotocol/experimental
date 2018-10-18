@@ -95,7 +95,7 @@ export class DebtOrderFixtures {
             termsContract: this.contracts.termsContractAddress,
             termsContractParameters,
             expirationTimestampInSec,
-            salt: 0,
+            salt: Math.floor(Math.random() * 10001),
             debtorSignature,
             creditorSignature,
             underwriterSignature
