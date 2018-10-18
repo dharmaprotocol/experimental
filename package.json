@@ -27,7 +27,7 @@
     "zeppelin-solidity": "^1.12.0"
   },
   "scripts": {
-    "compile": "truffle compile",
+    "compile": "truffle compile --reset",
     "chain": "dharma-chain",
     "test": "tsc && truffle test"
   }
