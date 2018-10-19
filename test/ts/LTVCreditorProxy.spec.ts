@@ -418,7 +418,6 @@ contract("LTVCreditorProxy", (accounts) => {
                 it("emits a 'CreditorProxyError' event from the LTVCreditorProxy", async () => {
                     const receipt = await web3.eth.getTransactionReceipt(txReceipt.transactionHash);
                     const logs = _.compact(ABIDecoder.decodeLogs(receipt.logs));
-                    console.log(JSON.stringify(logs));
                     const successLog = logs[0];
 
                     expect(successLog.name).to.eq('CreditorProxyError');
@@ -466,7 +465,6 @@ contract("LTVCreditorProxy", (accounts) => {
                 it("emits a 'CreditorProxyError' event from the LTVCreditorProxy", async () => {
                     const receipt = await web3.eth.getTransactionReceipt(txReceipt.transactionHash);
                     const logs = _.compact(ABIDecoder.decodeLogs(receipt.logs));
-                    console.log(JSON.stringify(logs));
                     const successLog = logs[0];
 
                     expect(successLog.name).to.eq('CreditorProxyError');
