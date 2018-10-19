@@ -101,6 +101,7 @@ contract LTVDecisionEngine is LTVDecisionEngineTypes, SignaturesLibrary, OrderLi
 			order.expirationTimestampInSec,
 			// commitment values
 			commitmentValues.maxLTV,
+			commitmentValues.maxPrincipalAmount,
 			// hashed terms contract commitments
 			termsContractCommitmentHash
 		);

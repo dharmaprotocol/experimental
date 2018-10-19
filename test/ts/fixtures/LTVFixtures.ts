@@ -65,9 +65,8 @@ export class LTVFixtures {
         const order = await this.debtOrderFixtures.unsignedOrder(customOrder);
 
         const values = {
-            principalToken: order.principalToken,
-            principalAmount: order.principalAmount,
-            maxLTV: 100
+            maxLTV: 100,
+            maxPrincipalAmount: order.principalAmount
         };
 
         Object.assign(values, customCommitmentValues)
@@ -116,6 +115,7 @@ export class LTVFixtures {
             order.creditorFee,
             order.expirationTimestampInSec,
             commitmentValues.maxLTV,
+            commitmentValues.maxPrincipalAmount,
             // unpacked termsContractParameters
             this.web3.utils.soliditySha3(
                 this.debtOrderFixtures.principalTokenIndex,

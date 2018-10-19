@@ -34,6 +34,7 @@ contract LTVDecisionEngineTypes
 
 	struct CommitmentValues {
 		uint maxLTV;
+		uint maxPrincipalAmount;
 	}
 
 	struct SimpleInterestParameters {
