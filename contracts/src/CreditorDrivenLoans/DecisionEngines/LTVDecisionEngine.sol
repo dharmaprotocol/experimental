@@ -59,6 +59,7 @@ contract LTVDecisionEngine is LTVDecisionEngineTypes, SignaturesLibrary, OrderLi
 		LTVDecisionEngineTypes.Price memory collateralTokenPrice = params.collateralPrice;
 
 		uint maxLTV = params.creditorCommitment.values.maxLTV;
+		uint maxPrincipalAmount = params.creditorCommitment.values.maxPrincipalAmount;
 		OrderLibrary.DebtOrder memory order = params.order;
 
 		uint collateralValue = collateralTokenPrice.value;
@@ -80,7 +81,15 @@ contract LTVDecisionEngine is LTVDecisionEngineTypes, SignaturesLibrary, OrderLi
 
 		uint maxLTVWithPrecision = maxLTV.mul(10 ** (PRECISION.sub(2)));
 
-		return ltv <= maxLTVWithPrecision;
+		if (ltv > maxLTVWithPrecision) {
+			return false;
+		}
+
+		if (order.principalAmount > maxPrincipalAmount) {
+			return false;
+		}
+
+		return true;
 	}
 
 	function hashCreditorCommitmentForOrder(CommitmentValues commitmentValues, OrderLibrary.DebtOrder order)
