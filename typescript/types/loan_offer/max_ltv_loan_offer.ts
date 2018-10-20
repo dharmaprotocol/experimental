@@ -60,6 +60,7 @@ export interface MaxLTVData {
     issuanceVersion: string;
     kernelVersion: string;
     maxLTV: BigNumber;
+    maxPrincipal: TokenAmount;
     priceProvider: string;
     principal: TokenAmount;
     principalTokenAddress: string;
@@ -92,6 +93,7 @@ export interface DebtOrderParams {
 
 export interface MaxLTVParams extends DebtOrderParams {
     maxLTV: number;
+    maxPrincipalAmount: number;
     collateralToken: string;
     priceProvider: string;
 }
@@ -106,6 +108,7 @@ export class MaxLTVLoanOffer {
             expiresInUnit,
             interestRate,
             maxLTV,
+            maxPrincipalAmount,
             priceProvider,
             principalAmount,
             principalToken,
@@ -170,6 +173,7 @@ export class MaxLTVLoanOffer {
             issuanceVersion,
             kernelVersion,
             maxLTV: new BigNumber(maxLTV),
+            maxPrincipal: new TokenAmount(maxPrincipalAmount, principalToken),
             priceProvider,
             principal: new TokenAmount(principalAmount, principalToken),
             principalTokenAddress,
@@ -468,7 +472,8 @@ export class MaxLTVLoanOffer {
             principalPrice: this.principalPrice,
             creditorCommitment: {
                 values: {
-                    maxLTV: this.data.maxLTV.toString()
+                    maxLTV: this.data.maxLTV.toString(),
+                    maxPrincipalAmount: this.data.maxPrincipal.rawAmount.toString()
                 },
                 signature: this.creditorSignature
             },
@@ -502,7 +507,6 @@ export class MaxLTVLoanOffer {
     private getTermsContractCommitmentHash(): string {
         return this.web3.utils.soliditySha3(
             this.data.principalTokenIndex,
-            this.data.principal.rawAmount,
             this.data.interestRate.raw.times(FIXED_POINT_SCALING_FACTOR).toNumber(),
             this.data.termLength.getAmortizationUnitType(),
             this.data.termLength.amount,
@@ -519,10 +523,10 @@ export class MaxLTVLoanOffer {
             this.data.termsContract,
             this.data.principalTokenAddress,
             this.data.salt,
-            this.data.principal.rawAmount,
             this.data.creditorFee,
             this.expirationTimestampInSec,
             this.data.maxLTV,
+            this.data.maxPrincipal.rawAmount,
             this.getTermsContractCommitmentHash()
         );
     }
