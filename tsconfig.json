@@ -4,13 +4,29 @@
         "moduleResolution": "node",
         "target": "es6",
         "module": "commonjs",
-        "lib": ["es2015", "es2016", "es2017", "es6"],
+        "lib": [
+            "es2015",
+            "es2016",
+            "es2017",
+            "es6"
+        ],
         "strict": false,
         "sourceMap": true,
         "declaration": true,
-        "declarationDir": "test/js/types",
-        "outDir": "test/js",
-        "typeRoots": ["node_modules/@types"]
+        "declarationDir": "dist/js/types",
+        "outDir": "dist/js",
+        "typeRoots": [
+            "node_modules/@types"
+        ]
     },
-    "include": ["test/ts/*.ts", "test/typescript/**/*.ts", "types/*.ts", "typescript/**/*.ts"]
+    "include": [
+        "test/ts/*.ts",
+        "test/typescript/**/*.ts",
+        "types/*.ts",
+        "typescript/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
 }
