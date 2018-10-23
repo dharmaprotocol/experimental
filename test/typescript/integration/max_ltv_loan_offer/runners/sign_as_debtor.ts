@@ -6,6 +6,7 @@ import * as addressBook from "dharma-address-book";
 
 // Artifacts
 const TokenRegistry = artifacts.require("./TokenRegistry.sol");
+const ltvCreditorProxyAddress = artifacts.require("./LTVCreditorProxy.sol").address;
 
 // Types
 import { Price } from "../../../../../types/LTVTypes";
@@ -75,7 +76,7 @@ export async function testSignAsDebtor(web3: Web3, params: MaxLTVParams) {
             creditor = accounts[0];
             debtor = accounts[1];
 
-            loanOffer = await MaxLTVLoanOffer.create(web3, params);
+            loanOffer = await MaxLTVLoanOffer.create(ltvCreditorProxyAddress, web3, params);
         });
 
         it("signs the offer as the debtor if all prerequisites are met", async () => {

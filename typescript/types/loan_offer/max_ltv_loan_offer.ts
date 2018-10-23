@@ -7,9 +7,6 @@ import * as contractArtifacts from "dharma-contract-artifacts";
 // Artifacts
 const { DebtToken, TokenRegistry, LTVCreditorProxy } = contractArtifacts.latest;
 
-// NOTE: This is coming from truffle inside this repo, but can be replaced with the address
-// where the contract is deployed on the current network.
-const ltvCreditorProxyAddress = artifacts.require("./LTVCreditorProxy.sol").address;
 
 // Types
 import { ecSign, ECDSASignature } from "../../../types/ECDSASignature";
@@ -100,7 +97,7 @@ export interface MaxLTVParams extends DebtOrderParams {
 }
 
 export class MaxLTVLoanOffer {
-    public static async create(web3: Web3, params: MaxLTVParams): Promise<MaxLTVLoanOffer> {
+    public static async create(ltvProxyAddress: string, web3: Web3, params: MaxLTVParams): Promise<MaxLTVLoanOffer> {
         const {
             collateralToken,
             creditorFeeAmount,
@@ -184,15 +181,16 @@ export class MaxLTVLoanOffer {
             termsContract
         };
 
-        return new MaxLTVLoanOffer(web3, data);
+        return new MaxLTVLoanOffer(ltvProxyAddress, web3, data);
     }
 
     public static async createAndSignAsCreditor(
+        ltvProxyAddress: string,
         web3: Web3,
         params: MaxLTVParams,
         creditor?: string
     ): Promise<MaxLTVLoanOffer> {
-        const offer = await MaxLTVLoanOffer.create(web3, params);
+        const offer = await MaxLTVLoanOffer.create(ltvProxyAddress, web3, params);
 
         await offer.signAsCreditor(creditor);
 
@@ -213,7 +211,7 @@ export class MaxLTVLoanOffer {
     private principalPrice?: Price;
     private termsContractParameters?: string;
 
-    constructor(private readonly web3: Web3, private readonly data: MaxLTVData) {}
+    constructor(private readonly ltvProxyAddress: string, private readonly web3: Web3, private readonly data: MaxLTVData) {}
 
     /**
      * Eventually signs the loan offer as the creditor.
@@ -478,7 +476,10 @@ export class MaxLTVLoanOffer {
             creditor: this.creditor
         };
 
-        const lTVCreditorProxyContract = new this.web3.eth.Contract(LTVCreditorProxy, ltvCreditorProxyAddress);
+        const lTVCreditorProxyContract = new this.web3.eth.Contract(
+            LTVCreditorProxy,
+            this.ltvProxyAddress
+        );
 
         return lTVCreditorProxyContract.methods.fillDebtOffer(lTVParams).send({
             from: this.creditor,

@@ -9,15 +9,16 @@ import BigNumber from "bignumber.js";
 const LTVCreditorProxy = artifacts.require("./lTVCreditorProxy.sol");
 const TokenRegistry = artifacts.require("./TokenRegistry.sol");
 const DummyToken = artifacts.require("./DummyToken.sol");
-const DebtKernel = artifacts.require("./DebtKernelInterface.sol");
 
 // Types
 import { Price } from "../../../../../types/LTVTypes";
-import { ecSign, ECDSASignature } from "../../../../../types/ECDSASignature";
-import { MAX_LTV_LOAN_OFFER_ERRORS, MaxLTVLoanOffer, MaxLTVParams } from "../../../../../typescript/types";
+import { ecSign } from "../../../../../types/ECDSASignature";
+import { MaxLTVLoanOffer, MaxLTVParams } from "../../../../../typescript/types";
 
 // Utils
 import SnapshotManager from "../../../../ts/helpers/SnapshotManager";
+
+const ltvCreditorProxyAddress = artifacts.require("./LTVCreditorProxy.sol").address;
 
 // Configuration
 chai.use(chaiAsPromised);
@@ -123,7 +124,7 @@ export async function testAcceptAsDebtor(web3: Web3, params: MaxLTVParams) {
 
             await setupBalancesAndAllowances();
 
-            loanOffer = await MaxLTVLoanOffer.create(web3, params);
+            loanOffer = await MaxLTVLoanOffer.create(ltvCreditorProxyAddress, web3, params);
         });
 
         it("accepts the offer as the debtor if all prerequisites are met", async () => {
