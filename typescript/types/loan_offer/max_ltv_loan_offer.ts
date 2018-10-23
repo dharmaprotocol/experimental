@@ -2,11 +2,14 @@
 import * as Web3 from "web3";
 import * as singleLineString from "single-line-string";
 import * as addressBook from "dharma-address-book";
+import * as contractArtifacts from "dharma-contract-artifacts";
 
 // Artifacts
-const DebtToken = artifacts.require("./DebtTokenInterface.sol");
-const LTVCreditorProxy = artifacts.require("./LTVCreditorProxy.sol");
-const TokenRegistry = artifacts.require("./TokenRegistry.sol");
+const { DebtToken, TokenRegistry, LTVCreditorProxy } = contractArtifacts.latest;
+
+// NOTE: This is coming from truffle inside this repo, but can be replaced with the address
+// where the contract is deployed on the current network.
+const ltvCreditorProxyAddress = artifacts.require("./LTVCreditorProxy.sol").address;
 
 // Types
 import { ecSign, ECDSASignature } from "../../../types/ECDSASignature";
@@ -119,7 +122,7 @@ export class MaxLTVLoanOffer {
 
         const addresses = addressBook.latest[NETWORK_ID_TO_NAME[networkId]];
 
-        const tokenRegistryContract = new web3.eth.Contract(TokenRegistry.abi, addresses.TokenRegistry);
+        const tokenRegistryContract = new web3.eth.Contract(TokenRegistry, addresses.TokenRegistry);
 
         const kernelVersion = addresses.DebtKernel;
         const issuanceVersion = addresses.RepaymentRouter;
@@ -475,11 +478,7 @@ export class MaxLTVLoanOffer {
             creditor: this.creditor
         };
 
-        const networkId = await this.web3.eth.net.getId();
-
-        const addresses = addressBook.latest[NETWORK_ID_TO_NAME[networkId]];
-
-        const lTVCreditorProxyContract = new this.web3.eth.Contract(LTVCreditorProxy.abi, LTVCreditorProxy.address);
+        const lTVCreditorProxyContract = new this.web3.eth.Contract(LTVCreditorProxy, ltvCreditorProxyAddress);
 
         return lTVCreditorProxyContract.methods.fillDebtOffer(lTVParams).send({
             from: this.creditor,
@@ -492,7 +491,7 @@ export class MaxLTVLoanOffer {
 
         const addresses = addressBook.latest[NETWORK_ID_TO_NAME[networkId]];
 
-        const debtTokenContract = new this.web3.eth.Contract(DebtToken.abi, addresses.DebtToken);
+        const debtTokenContract = new this.web3.eth.Contract(DebtToken, addresses.DebtToken);
 
         const issuanceCommitmentHash = this.getIssuanceCommitmentHash();
 
