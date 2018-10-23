@@ -29,6 +29,7 @@
   "scripts": {
     "compile": "truffle compile",
     "chain": "dharma-chain",
+    "build": "tsc",
     "test": "tsc && truffle test"
   }
 }
