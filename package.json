@@ -1,10 +1,10 @@
 {
-  "name": "experimental",
+  "name": "dharma-max-ltv",
   "version": "1.0.0",
-  "description": "Experimental smart contracts that extend Dharma Protocol ",
+  "description": "Extends Dharma Protocol with contracts for Max-LTV loans",
   "main": "index.js",
   "repository": "https://github.com/dharmaprotocol/experimental.git",
-  "author": "Kayvon Tehranian <ktehranian@gmail.com>",
+  "author": "Dharma Labs",
   "license": "MIT",
   "dependencies": {
     "@types/bignumber.js": "^5.0.0",

@@ -1,0 +1,1413 @@
+{
+  "contractName": "LTVDecisionEngineTypes",
+  "abi": [],
+  "bytecode": "0x6080604052348015600f57600080fd5b50604380601d6000396000f3006080604052600080fd00a265627a7a7230582073df5c920a04282616a4cb5a460481c3789d041c28d070a94e5f64d1125336806c6578706572696d656e74616cf50037",
+  "deployedBytecode": "0x6080604052600080fd00a265627a7a7230582073df5c920a04282616a4cb5a460481c3789d041c28d070a94e5f64d1125336806c6578706572696d656e74616cf50037",
+  "sourceMap": "173:1044:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;173:1044:1;;;;;;;",
+  "deployedSourceMap": "173:1044:1:-;;;;;",
+  "source": "pragma solidity ^0.4.24;\npragma experimental ABIEncoderV2;\n\nimport \"../../../shared/libraries/SignaturesLibrary.sol\";\nimport \"../../../shared/libraries/OrderLibrary.sol\";\n\n\ncontract LTVDecisionEngineTypes\n{\n\t// The parameters used during the consent and decision evaluations.\n\tstruct Params {\n\t\taddress creditor;\n\t\taddress priceFeedOperator;\n\t\t// The values and signature for the creditor commitment hash.\n\t\tCreditorCommitment creditorCommitment;\n\t\t// Price feed data.\n\t\tPrice principalPrice;\n\t\tPrice collateralPrice;\n\t\t// A DebtOrderData is required to confirm parity with the submitted order.\n\t\tOrderLibrary.DebtOrder order;\n\t}\n\n\tstruct Price {\n\t\tuint value;\n\t\tuint timestamp;\n\t\taddress tokenAddress;\n\t\tSignaturesLibrary.ECDSASignature signature;\n\t}\n\n\tstruct CreditorCommitment {\n\t\tCommitmentValues values;\n\t\tSignaturesLibrary.ECDSASignature signature;\n\t}\n\n\tstruct CommitmentValues {\n\t\tuint maxLTV;\n\t}\n\n\tstruct SimpleInterestParameters {\n\t\tuint principalTokenIndex;\n\t\tuint principalAmount;\n        uint interestRate;\n        uint amortizationUnitType;\n        uint termLengthInAmortizationUnits;\n\t}\n\n\tstruct CollateralParameters {\n\t\tuint collateralTokenIndex;\n\t\tuint collateralAmount;\n\t\tuint gracePeriodInDays;\n\t}\n}\n",
+  "sourcePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/DecisionEngines/libraries/LTVDecisionEngineTypes.sol",
+  "ast": {
+    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/DecisionEngines/libraries/LTVDecisionEngineTypes.sol",
+    "exportedSymbols": {
+      "LTVDecisionEngineTypes": [
+        491
+      ]
+    },
+    "id": 492,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 439,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:1"
+      },
+      {
+        "id": 440,
+        "literals": [
+          "experimental",
+          "ABIEncoderV2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "25:33:1"
+      },
+      {
+        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/libraries/SignaturesLibrary.sol",
+        "file": "../../../shared/libraries/SignaturesLibrary.sol",
+        "id": 441,
+        "nodeType": "ImportDirective",
+        "scope": 492,
+        "sourceUnit": 1211,
+        "src": "60:57:1",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/libraries/OrderLibrary.sol",
+        "file": "../../../shared/libraries/OrderLibrary.sol",
+        "id": 442,
+        "nodeType": "ImportDirective",
+        "scope": 492,
+        "sourceUnit": 1166,
+        "src": "118:52:1",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 491,
+        "linearizedBaseContracts": [
+          491
+        ],
+        "name": "LTVDecisionEngineTypes",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "LTVDecisionEngineTypes.Params",
+            "id": 455,
+            "members": [
+              {
+                "constant": false,
+                "id": 444,
+                "name": "creditor",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "295:16:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 443,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "295:7:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 446,
+                "name": "priceFeedOperator",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "315:25:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 445,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "315:7:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 448,
+                "name": "creditorCommitment",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "408:37:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_CreditorCommitment_$469_storage_ptr",
+                  "typeString": "struct LTVDecisionEngineTypes.CreditorCommitment"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 447,
+                  "name": "CreditorCommitment",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 469,
+                  "src": "408:18:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_CreditorCommitment_$469_storage_ptr",
+                    "typeString": "struct LTVDecisionEngineTypes.CreditorCommitment"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 450,
+                "name": "principalPrice",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "471:20:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Price_$464_storage_ptr",
+                  "typeString": "struct LTVDecisionEngineTypes.Price"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 449,
+                  "name": "Price",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 464,
+                  "src": "471:5:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Price_$464_storage_ptr",
+                    "typeString": "struct LTVDecisionEngineTypes.Price"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 452,
+                "name": "collateralPrice",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "495:21:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Price_$464_storage_ptr",
+                  "typeString": "struct LTVDecisionEngineTypes.Price"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 451,
+                  "name": "Price",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 464,
+                  "src": "495:5:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Price_$464_storage_ptr",
+                    "typeString": "struct LTVDecisionEngineTypes.Price"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 454,
+                "name": "order",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "597:28:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_DebtOrder_$1069_storage_ptr",
+                  "typeString": "struct OrderLibrary.DebtOrder"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 453,
+                  "name": "OrderLibrary.DebtOrder",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 1069,
+                  "src": "597:22:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_DebtOrder_$1069_storage_ptr",
+                    "typeString": "struct OrderLibrary.DebtOrder"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Params",
+            "nodeType": "StructDefinition",
+            "scope": 491,
+            "src": "277:352:1",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "LTVDecisionEngineTypes.Price",
+            "id": 464,
+            "members": [
+              {
+                "constant": false,
+                "id": 457,
+                "name": "value",
+                "nodeType": "VariableDeclaration",
+                "scope": 464,
+                "src": "649:10:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 456,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "649:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 459,
+                "name": "timestamp",
+                "nodeType": "VariableDeclaration",
+                "scope": 464,
+                "src": "663:14:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 458,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "663:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 461,
+                "name": "tokenAddress",
+                "nodeType": "VariableDeclaration",
+                "scope": 464,
+                "src": "681:20:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 460,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "681:7:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 463,
+                "name": "signature",
+                "nodeType": "VariableDeclaration",
+                "scope": 464,
+                "src": "705:42:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_ECDSASignature_$1178_storage_ptr",
+                  "typeString": "struct SignaturesLibrary.ECDSASignature"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 462,
+                  "name": "SignaturesLibrary.ECDSASignature",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 1178,
+                  "src": "705:32:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ECDSASignature_$1178_storage_ptr",
+                    "typeString": "struct SignaturesLibrary.ECDSASignature"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Price",
+            "nodeType": "StructDefinition",
+            "scope": 491,
+            "src": "632:119:1",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "LTVDecisionEngineTypes.CreditorCommitment",
+            "id": 469,
+            "members": [
+              {
+                "constant": false,
+                "id": 466,
+                "name": "values",
+                "nodeType": "VariableDeclaration",
+                "scope": 469,
+                "src": "784:23:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_CommitmentValues_$472_storage_ptr",
+                  "typeString": "struct LTVDecisionEngineTypes.CommitmentValues"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 465,
+                  "name": "CommitmentValues",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 472,
+                  "src": "784:16:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_CommitmentValues_$472_storage_ptr",
+                    "typeString": "struct LTVDecisionEngineTypes.CommitmentValues"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 468,
+                "name": "signature",
+                "nodeType": "VariableDeclaration",
+                "scope": 469,
+                "src": "811:42:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_ECDSASignature_$1178_storage_ptr",
+                  "typeString": "struct SignaturesLibrary.ECDSASignature"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 467,
+                  "name": "SignaturesLibrary.ECDSASignature",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 1178,
+                  "src": "811:32:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ECDSASignature_$1178_storage_ptr",
+                    "typeString": "struct SignaturesLibrary.ECDSASignature"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "CreditorCommitment",
+            "nodeType": "StructDefinition",
+            "scope": 491,
+            "src": "754:103:1",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "LTVDecisionEngineTypes.CommitmentValues",
+            "id": 472,
+            "members": [
+              {
+                "constant": false,
+                "id": 471,
+                "name": "maxLTV",
+                "nodeType": "VariableDeclaration",
+                "scope": 472,
+                "src": "888:11:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 470,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "888:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "CommitmentValues",
+            "nodeType": "StructDefinition",
+            "scope": 491,
+            "src": "860:43:1",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "LTVDecisionEngineTypes.SimpleInterestParameters",
+            "id": 483,
+            "members": [
+              {
+                "constant": false,
+                "id": 474,
+                "name": "principalTokenIndex",
+                "nodeType": "VariableDeclaration",
+                "scope": 483,
+                "src": "942:24:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 473,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "942:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 476,
+                "name": "principalAmount",
+                "nodeType": "VariableDeclaration",
+                "scope": 483,
+                "src": "970:20:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 475,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "970:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 478,
+                "name": "interestRate",
+                "nodeType": "VariableDeclaration",
+                "scope": 483,
+                "src": "1000:17:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 477,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1000:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 480,
+                "name": "amortizationUnitType",
+                "nodeType": "VariableDeclaration",
+                "scope": 483,
+                "src": "1027:25:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 479,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1027:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 482,
+                "name": "termLengthInAmortizationUnits",
+                "nodeType": "VariableDeclaration",
+                "scope": 483,
+                "src": "1062:34:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 481,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1062:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "SimpleInterestParameters",
+            "nodeType": "StructDefinition",
+            "scope": 491,
+            "src": "906:194:1",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "LTVDecisionEngineTypes.CollateralParameters",
+            "id": 490,
+            "members": [
+              {
+                "constant": false,
+                "id": 485,
+                "name": "collateralTokenIndex",
+                "nodeType": "VariableDeclaration",
+                "scope": 490,
+                "src": "1135:25:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 484,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1135:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 487,
+                "name": "collateralAmount",
+                "nodeType": "VariableDeclaration",
+                "scope": 490,
+                "src": "1164:21:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 486,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1164:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 489,
+                "name": "gracePeriodInDays",
+                "nodeType": "VariableDeclaration",
+                "scope": 490,
+                "src": "1189:22:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 488,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1189:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "CollateralParameters",
+            "nodeType": "StructDefinition",
+            "scope": 491,
+            "src": "1103:112:1",
+            "visibility": "public"
+          }
+        ],
+        "scope": 492,
+        "src": "173:1044:1"
+      }
+    ],
+    "src": "0:1218:1"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/DecisionEngines/libraries/LTVDecisionEngineTypes.sol",
+    "exportedSymbols": {
+      "LTVDecisionEngineTypes": [
+        491
+      ]
+    },
+    "id": 492,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 439,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:1"
+      },
+      {
+        "id": 440,
+        "literals": [
+          "experimental",
+          "ABIEncoderV2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "25:33:1"
+      },
+      {
+        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/libraries/SignaturesLibrary.sol",
+        "file": "../../../shared/libraries/SignaturesLibrary.sol",
+        "id": 441,
+        "nodeType": "ImportDirective",
+        "scope": 492,
+        "sourceUnit": 1211,
+        "src": "60:57:1",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/libraries/OrderLibrary.sol",
+        "file": "../../../shared/libraries/OrderLibrary.sol",
+        "id": 442,
+        "nodeType": "ImportDirective",
+        "scope": 492,
+        "sourceUnit": 1166,
+        "src": "118:52:1",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 491,
+        "linearizedBaseContracts": [
+          491
+        ],
+        "name": "LTVDecisionEngineTypes",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "LTVDecisionEngineTypes.Params",
+            "id": 455,
+            "members": [
+              {
+                "constant": false,
+                "id": 444,
+                "name": "creditor",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "295:16:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 443,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "295:7:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 446,
+                "name": "priceFeedOperator",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "315:25:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 445,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "315:7:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 448,
+                "name": "creditorCommitment",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "408:37:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_CreditorCommitment_$469_storage_ptr",
+                  "typeString": "struct LTVDecisionEngineTypes.CreditorCommitment"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 447,
+                  "name": "CreditorCommitment",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 469,
+                  "src": "408:18:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_CreditorCommitment_$469_storage_ptr",
+                    "typeString": "struct LTVDecisionEngineTypes.CreditorCommitment"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 450,
+                "name": "principalPrice",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "471:20:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Price_$464_storage_ptr",
+                  "typeString": "struct LTVDecisionEngineTypes.Price"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 449,
+                  "name": "Price",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 464,
+                  "src": "471:5:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Price_$464_storage_ptr",
+                    "typeString": "struct LTVDecisionEngineTypes.Price"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 452,
+                "name": "collateralPrice",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "495:21:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Price_$464_storage_ptr",
+                  "typeString": "struct LTVDecisionEngineTypes.Price"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 451,
+                  "name": "Price",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 464,
+                  "src": "495:5:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Price_$464_storage_ptr",
+                    "typeString": "struct LTVDecisionEngineTypes.Price"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 454,
+                "name": "order",
+                "nodeType": "VariableDeclaration",
+                "scope": 455,
+                "src": "597:28:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_DebtOrder_$1069_storage_ptr",
+                  "typeString": "struct OrderLibrary.DebtOrder"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 453,
+                  "name": "OrderLibrary.DebtOrder",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 1069,
+                  "src": "597:22:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_DebtOrder_$1069_storage_ptr",
+                    "typeString": "struct OrderLibrary.DebtOrder"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Params",
+            "nodeType": "StructDefinition",
+            "scope": 491,
+            "src": "277:352:1",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "LTVDecisionEngineTypes.Price",
+            "id": 464,
+            "members": [
+              {
+                "constant": false,
+                "id": 457,
+                "name": "value",
+                "nodeType": "VariableDeclaration",
+                "scope": 464,
+                "src": "649:10:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 456,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "649:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 459,
+                "name": "timestamp",
+                "nodeType": "VariableDeclaration",
+                "scope": 464,
+                "src": "663:14:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 458,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "663:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 461,
+                "name": "tokenAddress",
+                "nodeType": "VariableDeclaration",
+                "scope": 464,
+                "src": "681:20:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 460,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "681:7:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 463,
+                "name": "signature",
+                "nodeType": "VariableDeclaration",
+                "scope": 464,
+                "src": "705:42:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_ECDSASignature_$1178_storage_ptr",
+                  "typeString": "struct SignaturesLibrary.ECDSASignature"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 462,
+                  "name": "SignaturesLibrary.ECDSASignature",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 1178,
+                  "src": "705:32:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ECDSASignature_$1178_storage_ptr",
+                    "typeString": "struct SignaturesLibrary.ECDSASignature"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Price",
+            "nodeType": "StructDefinition",
+            "scope": 491,
+            "src": "632:119:1",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "LTVDecisionEngineTypes.CreditorCommitment",
+            "id": 469,
+            "members": [
+              {
+                "constant": false,
+                "id": 466,
+                "name": "values",
+                "nodeType": "VariableDeclaration",
+                "scope": 469,
+                "src": "784:23:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_CommitmentValues_$472_storage_ptr",
+                  "typeString": "struct LTVDecisionEngineTypes.CommitmentValues"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 465,
+                  "name": "CommitmentValues",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 472,
+                  "src": "784:16:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_CommitmentValues_$472_storage_ptr",
+                    "typeString": "struct LTVDecisionEngineTypes.CommitmentValues"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 468,
+                "name": "signature",
+                "nodeType": "VariableDeclaration",
+                "scope": 469,
+                "src": "811:42:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_ECDSASignature_$1178_storage_ptr",
+                  "typeString": "struct SignaturesLibrary.ECDSASignature"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 467,
+                  "name": "SignaturesLibrary.ECDSASignature",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 1178,
+                  "src": "811:32:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ECDSASignature_$1178_storage_ptr",
+                    "typeString": "struct SignaturesLibrary.ECDSASignature"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "CreditorCommitment",
+            "nodeType": "StructDefinition",
+            "scope": 491,
+            "src": "754:103:1",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "LTVDecisionEngineTypes.CommitmentValues",
+            "id": 472,
+            "members": [
+              {
+                "constant": false,
+                "id": 471,
+                "name": "maxLTV",
+                "nodeType": "VariableDeclaration",
+                "scope": 472,
+                "src": "888:11:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 470,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "888:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "CommitmentValues",
+            "nodeType": "StructDefinition",
+            "scope": 491,
+            "src": "860:43:1",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "LTVDecisionEngineTypes.SimpleInterestParameters",
+            "id": 483,
+            "members": [
+              {
+                "constant": false,
+                "id": 474,
+                "name": "principalTokenIndex",
+                "nodeType": "VariableDeclaration",
+                "scope": 483,
+                "src": "942:24:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 473,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "942:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 476,
+                "name": "principalAmount",
+                "nodeType": "VariableDeclaration",
+                "scope": 483,
+                "src": "970:20:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 475,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "970:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 478,
+                "name": "interestRate",
+                "nodeType": "VariableDeclaration",
+                "scope": 483,
+                "src": "1000:17:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 477,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1000:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 480,
+                "name": "amortizationUnitType",
+                "nodeType": "VariableDeclaration",
+                "scope": 483,
+                "src": "1027:25:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 479,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1027:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 482,
+                "name": "termLengthInAmortizationUnits",
+                "nodeType": "VariableDeclaration",
+                "scope": 483,
+                "src": "1062:34:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 481,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1062:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "SimpleInterestParameters",
+            "nodeType": "StructDefinition",
+            "scope": 491,
+            "src": "906:194:1",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "LTVDecisionEngineTypes.CollateralParameters",
+            "id": 490,
+            "members": [
+              {
+                "constant": false,
+                "id": 485,
+                "name": "collateralTokenIndex",
+                "nodeType": "VariableDeclaration",
+                "scope": 490,
+                "src": "1135:25:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 484,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1135:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 487,
+                "name": "collateralAmount",
+                "nodeType": "VariableDeclaration",
+                "scope": 490,
+                "src": "1164:21:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 486,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1164:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 489,
+                "name": "gracePeriodInDays",
+                "nodeType": "VariableDeclaration",
+                "scope": 490,
+                "src": "1189:22:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 488,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1189:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "CollateralParameters",
+            "nodeType": "StructDefinition",
+            "scope": 491,
+            "src": "1103:112:1",
+            "visibility": "public"
+          }
+        ],
+        "scope": 492,
+        "src": "173:1044:1"
+      }
+    ],
+    "src": "0:1218:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2018-10-16T21:20:58.392Z"
+}

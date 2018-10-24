@@ -1,0 +1,298 @@
+{
+  "contractName": "DebtTokenInterface",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "name": "_tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "transfer",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity 0.4.24;\npragma experimental ABIEncoderV2;\n\ncontract DebtTokenInterface {\n\n    function transfer(address _to, uint _tokenId) public;\n\n}\n",
+  "sourcePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/DebtTokenInterface.sol",
+  "ast": {
+    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/DebtTokenInterface.sol",
+    "exportedSymbols": {
+      "DebtTokenInterface": [
+        943
+      ]
+    },
+    "id": 944,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 934,
+        "literals": [
+          "solidity",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:9"
+      },
+      {
+        "id": 935,
+        "literals": [
+          "experimental",
+          "ABIEncoderV2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "24:33:9"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 943,
+        "linearizedBaseContracts": [
+          943
+        ],
+        "name": "DebtTokenInterface",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 942,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "transfer",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 940,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 937,
+                  "name": "_to",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 942,
+                  "src": "112:11:9",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 936,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "112:7:9",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 939,
+                  "name": "_tokenId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 942,
+                  "src": "125:13:9",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 938,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "125:4:9",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "111:28:9"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 941,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "146:0:9"
+            },
+            "scope": 943,
+            "src": "94:53:9",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 944,
+        "src": "59:91:9"
+      }
+    ],
+    "src": "0:151:9"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/DebtTokenInterface.sol",
+    "exportedSymbols": {
+      "DebtTokenInterface": [
+        943
+      ]
+    },
+    "id": 944,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 934,
+        "literals": [
+          "solidity",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:9"
+      },
+      {
+        "id": 935,
+        "literals": [
+          "experimental",
+          "ABIEncoderV2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "24:33:9"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 943,
+        "linearizedBaseContracts": [
+          943
+        ],
+        "name": "DebtTokenInterface",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 942,
+            "implemented": false,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "transfer",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 940,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 937,
+                  "name": "_to",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 942,
+                  "src": "112:11:9",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 936,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "112:7:9",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 939,
+                  "name": "_tokenId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 942,
+                  "src": "125:13:9",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 938,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "125:4:9",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "111:28:9"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 941,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "146:0:9"
+            },
+            "scope": 943,
+            "src": "94:53:9",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 944,
+        "src": "59:91:9"
+      }
+    ],
+    "src": "0:151:9"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2018-10-16T21:20:58.388Z"
+}

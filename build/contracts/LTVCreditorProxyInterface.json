@@ -1,0 +1,535 @@
+{
+  "contractName": "LTVCreditorProxyInterface",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "components": [
+            {
+              "name": "kernelVersion",
+              "type": "address"
+            },
+            {
+              "name": "issuanceVersion",
+              "type": "address"
+            },
+            {
+              "name": "principalAmount",
+              "type": "uint256"
+            },
+            {
+              "name": "principalToken",
+              "type": "address"
+            },
+            {
+              "name": "collateralAmount",
+              "type": "uint256"
+            },
+            {
+              "name": "collateralToken",
+              "type": "address"
+            },
+            {
+              "name": "debtor",
+              "type": "address"
+            },
+            {
+              "name": "debtorFee",
+              "type": "uint256"
+            },
+            {
+              "name": "creditor",
+              "type": "address"
+            },
+            {
+              "name": "creditorFee",
+              "type": "uint256"
+            },
+            {
+              "name": "relayer",
+              "type": "address"
+            },
+            {
+              "name": "relayerFee",
+              "type": "uint256"
+            },
+            {
+              "name": "underwriter",
+              "type": "address"
+            },
+            {
+              "name": "underwriterFee",
+              "type": "uint256"
+            },
+            {
+              "name": "underwriterRiskRating",
+              "type": "uint256"
+            },
+            {
+              "name": "termsContract",
+              "type": "address"
+            },
+            {
+              "name": "termsContractParameters",
+              "type": "bytes32"
+            },
+            {
+              "name": "expirationTimestampInSec",
+              "type": "uint256"
+            },
+            {
+              "name": "salt",
+              "type": "uint256"
+            },
+            {
+              "components": [
+                {
+                  "name": "v",
+                  "type": "uint8"
+                },
+                {
+                  "name": "r",
+                  "type": "bytes32"
+                },
+                {
+                  "name": "s",
+                  "type": "bytes32"
+                }
+              ],
+              "name": "debtorSignature",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "name": "v",
+                  "type": "uint8"
+                },
+                {
+                  "name": "r",
+                  "type": "bytes32"
+                },
+                {
+                  "name": "s",
+                  "type": "bytes32"
+                }
+              ],
+              "name": "creditorSignature",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "name": "v",
+                  "type": "uint8"
+                },
+                {
+                  "name": "r",
+                  "type": "bytes32"
+                },
+                {
+                  "name": "s",
+                  "type": "bytes32"
+                }
+              ],
+              "name": "underwriterSignature",
+              "type": "tuple"
+            }
+          ],
+          "name": "order",
+          "type": "tuple"
+        }
+      ],
+      "name": "cancelDebtOffer",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "components": [
+            {
+              "name": "kernelVersion",
+              "type": "address"
+            },
+            {
+              "name": "issuanceVersion",
+              "type": "address"
+            },
+            {
+              "name": "principalAmount",
+              "type": "uint256"
+            },
+            {
+              "name": "principalToken",
+              "type": "address"
+            },
+            {
+              "name": "collateralAmount",
+              "type": "uint256"
+            },
+            {
+              "name": "collateralToken",
+              "type": "address"
+            },
+            {
+              "name": "debtor",
+              "type": "address"
+            },
+            {
+              "name": "debtorFee",
+              "type": "uint256"
+            },
+            {
+              "name": "creditor",
+              "type": "address"
+            },
+            {
+              "name": "creditorFee",
+              "type": "uint256"
+            },
+            {
+              "name": "relayer",
+              "type": "address"
+            },
+            {
+              "name": "relayerFee",
+              "type": "uint256"
+            },
+            {
+              "name": "underwriter",
+              "type": "address"
+            },
+            {
+              "name": "underwriterFee",
+              "type": "uint256"
+            },
+            {
+              "name": "underwriterRiskRating",
+              "type": "uint256"
+            },
+            {
+              "name": "termsContract",
+              "type": "address"
+            },
+            {
+              "name": "termsContractParameters",
+              "type": "bytes32"
+            },
+            {
+              "name": "expirationTimestampInSec",
+              "type": "uint256"
+            },
+            {
+              "name": "salt",
+              "type": "uint256"
+            },
+            {
+              "components": [
+                {
+                  "name": "v",
+                  "type": "uint8"
+                },
+                {
+                  "name": "r",
+                  "type": "bytes32"
+                },
+                {
+                  "name": "s",
+                  "type": "bytes32"
+                }
+              ],
+              "name": "debtorSignature",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "name": "v",
+                  "type": "uint8"
+                },
+                {
+                  "name": "r",
+                  "type": "bytes32"
+                },
+                {
+                  "name": "s",
+                  "type": "bytes32"
+                }
+              ],
+              "name": "creditorSignature",
+              "type": "tuple"
+            },
+            {
+              "components": [
+                {
+                  "name": "v",
+                  "type": "uint8"
+                },
+                {
+                  "name": "r",
+                  "type": "bytes32"
+                },
+                {
+                  "name": "s",
+                  "type": "bytes32"
+                }
+              ],
+              "name": "underwriterSignature",
+              "type": "tuple"
+            }
+          ],
+          "name": "order",
+          "type": "tuple"
+        }
+      ],
+      "name": "fillDebtOffer",
+      "outputs": [
+        {
+          "name": "agreementId",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_creditor",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_creditorCommitmentHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "DebtOfferCancelled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_creditor",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_creditorCommitmentHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "name": "_agreementId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "DebtOfferFilled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_errorId",
+          "type": "uint8"
+        },
+        {
+          "indexed": true,
+          "name": "_creditor",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_creditorCommitmentHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "CreditorProxyError",
+      "type": "event"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.4.24;\n\nimport \"./CreditorProxyCoreInterface.sol\";\n\n\n// solhint-disable no-empty-blocks\ncontract LTVCreditorProxyInterface is\n\tCreditorProxyCoreInterface\n{}\n",
+  "sourcePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/interfaces/CreditorProxyInterface.sol",
+  "ast": {
+    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/interfaces/CreditorProxyInterface.sol",
+    "exportedSymbols": {
+      "LTVCreditorProxyInterface": [
+        935
+      ]
+    },
+    "id": 936,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 931,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:7"
+      },
+      {
+        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/interfaces/CreditorProxyCoreInterface.sol",
+        "file": "./CreditorProxyCoreInterface.sol",
+        "id": 932,
+        "nodeType": "ImportDirective",
+        "scope": 936,
+        "sourceUnit": 930,
+        "src": "26:42:7",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 933,
+              "name": "CreditorProxyCoreInterface",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 929,
+              "src": "145:26:7",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_CreditorProxyCoreInterface_$929",
+                "typeString": "contract CreditorProxyCoreInterface"
+              }
+            },
+            "id": 934,
+            "nodeType": "InheritanceSpecifier",
+            "src": "145:26:7"
+          }
+        ],
+        "contractDependencies": [
+          929,
+          972,
+          990
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 935,
+        "linearizedBaseContracts": [
+          935,
+          929,
+          990,
+          972
+        ],
+        "name": "LTVCreditorProxyInterface",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 936,
+        "src": "106:68:7"
+      }
+    ],
+    "src": "0:175:7"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/interfaces/CreditorProxyInterface.sol",
+    "exportedSymbols": {
+      "LTVCreditorProxyInterface": [
+        935
+      ]
+    },
+    "id": 936,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 931,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:7"
+      },
+      {
+        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/interfaces/CreditorProxyCoreInterface.sol",
+        "file": "./CreditorProxyCoreInterface.sol",
+        "id": 932,
+        "nodeType": "ImportDirective",
+        "scope": 936,
+        "sourceUnit": 930,
+        "src": "26:42:7",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 933,
+              "name": "CreditorProxyCoreInterface",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 929,
+              "src": "145:26:7",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_CreditorProxyCoreInterface_$929",
+                "typeString": "contract CreditorProxyCoreInterface"
+              }
+            },
+            "id": 934,
+            "nodeType": "InheritanceSpecifier",
+            "src": "145:26:7"
+          }
+        ],
+        "contractDependencies": [
+          929,
+          972,
+          990
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 935,
+        "linearizedBaseContracts": [
+          935,
+          929,
+          990,
+          972
+        ],
+        "name": "LTVCreditorProxyInterface",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 936,
+        "src": "106:68:7"
+      }
+    ],
+    "src": "0:175:7"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2018-10-15T20:00:34.896Z"
+}

@@ -1,0 +1,113 @@
+{
+  "contractName": "TokenTransferProxyInterface",
+  "abi": [],
+  "bytecode": "0x6080604052348015600f57600080fd5b50604380601d6000396000f3006080604052600080fd00a265627a7a723058208d923e92bd7a6d5d0816b0272ed11f0d9b624246ef7ea924fd73c611e269f8b86c6578706572696d656e74616cf50037",
+  "deployedBytecode": "0x6080604052600080fd00a265627a7a723058208d923e92bd7a6d5d0816b0272ed11f0d9b624246ef7ea924fd73c611e269f8b86c6578706572696d656e74616cf50037",
+  "sourceMap": "59:39:12:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;59:39:12;;;;;;;",
+  "deployedSourceMap": "59:39:12:-;;;;;",
+  "source": "pragma solidity 0.4.24;\npragma experimental ABIEncoderV2;\n\ncontract TokenTransferProxyInterface {}\n",
+  "sourcePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/TokenTransferProxyInterface.sol",
+  "ast": {
+    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/TokenTransferProxyInterface.sol",
+    "exportedSymbols": {
+      "TokenTransferProxyInterface": [
+        1020
+      ]
+    },
+    "id": 1021,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1018,
+        "literals": [
+          "solidity",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:12"
+      },
+      {
+        "id": 1019,
+        "literals": [
+          "experimental",
+          "ABIEncoderV2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "24:33:12"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1020,
+        "linearizedBaseContracts": [
+          1020
+        ],
+        "name": "TokenTransferProxyInterface",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 1021,
+        "src": "59:39:12"
+      }
+    ],
+    "src": "0:99:12"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/TokenTransferProxyInterface.sol",
+    "exportedSymbols": {
+      "TokenTransferProxyInterface": [
+        1020
+      ]
+    },
+    "id": 1021,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1018,
+        "literals": [
+          "solidity",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:12"
+      },
+      {
+        "id": 1019,
+        "literals": [
+          "experimental",
+          "ABIEncoderV2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "24:33:12"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1020,
+        "linearizedBaseContracts": [
+          1020
+        ],
+        "name": "TokenTransferProxyInterface",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 1021,
+        "src": "59:39:12"
+      }
+    ],
+    "src": "0:99:12"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2018-10-16T21:20:58.386Z"
+}

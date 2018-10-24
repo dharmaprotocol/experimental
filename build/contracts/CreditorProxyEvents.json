@@ -1,0 +1,487 @@
+{
+  "contractName": "CreditorProxyEvents",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_creditor",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_creditorCommitmentHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "DebtOfferCancelled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_creditor",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_creditorCommitmentHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "name": "_agreementId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "DebtOfferFilled",
+      "type": "event"
+    }
+  ],
+  "bytecode": "0x6080604052348015600f57600080fd5b50604380601d6000396000f3006080604052600080fd00a265627a7a7230582055871fd30b65b7e6960073670f5dc6961a4015ff98f00b7af4cfbc24b5f5b5cb6c6578706572696d656e74616cf50037",
+  "deployedBytecode": "0x6080604052600080fd00a265627a7a7230582055871fd30b65b7e6960073670f5dc6961a4015ff98f00b7af4cfbc24b5f5b5cb6c6578706572696d656e74616cf50037",
+  "sourceMap": "60:309:5:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;60:309:5;;;;;;;",
+  "deployedSourceMap": "60:309:5:-;;;;;",
+  "source": "pragma solidity ^0.4.24;\npragma experimental ABIEncoderV2;\n\ncontract CreditorProxyEvents {\n\n    event DebtOfferCancelled(\n        address indexed _creditor,\n        bytes32 indexed _creditorCommitmentHash\n    );\n\n    event DebtOfferFilled(\n        address indexed _creditor,\n        bytes32 indexed _creditorCommitmentHash,\n        bytes32 indexed _agreementId\n    );\n}\n",
+  "sourcePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyEvents.sol",
+  "ast": {
+    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyEvents.sol",
+    "exportedSymbols": {
+      "CreditorProxyEvents": [
+        730
+      ]
+    },
+    "id": 731,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 714,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:5"
+      },
+      {
+        "id": 715,
+        "literals": [
+          "experimental",
+          "ABIEncoderV2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "25:33:5"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 730,
+        "linearizedBaseContracts": [
+          730
+        ],
+        "name": "CreditorProxyEvents",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 721,
+            "name": "DebtOfferCancelled",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 720,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 717,
+                  "indexed": true,
+                  "name": "_creditor",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 721,
+                  "src": "130:25:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 716,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "130:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 719,
+                  "indexed": true,
+                  "name": "_creditorCommitmentHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 721,
+                  "src": "165:39:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 718,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "165:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "120:90:5"
+            },
+            "src": "96:115:5"
+          },
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 729,
+            "name": "DebtOfferFilled",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 728,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 723,
+                  "indexed": true,
+                  "name": "_creditor",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 729,
+                  "src": "248:25:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 722,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "248:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 725,
+                  "indexed": true,
+                  "name": "_creditorCommitmentHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 729,
+                  "src": "283:39:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 724,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "283:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 727,
+                  "indexed": true,
+                  "name": "_agreementId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 729,
+                  "src": "332:28:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 726,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "332:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "238:128:5"
+            },
+            "src": "217:150:5"
+          }
+        ],
+        "scope": 731,
+        "src": "60:309:5"
+      }
+    ],
+    "src": "0:370:5"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyEvents.sol",
+    "exportedSymbols": {
+      "CreditorProxyEvents": [
+        730
+      ]
+    },
+    "id": 731,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 714,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".24"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:5"
+      },
+      {
+        "id": 715,
+        "literals": [
+          "experimental",
+          "ABIEncoderV2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "25:33:5"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 730,
+        "linearizedBaseContracts": [
+          730
+        ],
+        "name": "CreditorProxyEvents",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 721,
+            "name": "DebtOfferCancelled",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 720,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 717,
+                  "indexed": true,
+                  "name": "_creditor",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 721,
+                  "src": "130:25:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 716,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "130:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 719,
+                  "indexed": true,
+                  "name": "_creditorCommitmentHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 721,
+                  "src": "165:39:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 718,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "165:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "120:90:5"
+            },
+            "src": "96:115:5"
+          },
+          {
+            "anonymous": false,
+            "documentation": null,
+            "id": 729,
+            "name": "DebtOfferFilled",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 728,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 723,
+                  "indexed": true,
+                  "name": "_creditor",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 729,
+                  "src": "248:25:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 722,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "248:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 725,
+                  "indexed": true,
+                  "name": "_creditorCommitmentHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 729,
+                  "src": "283:39:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 724,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "283:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 727,
+                  "indexed": true,
+                  "name": "_agreementId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 729,
+                  "src": "332:28:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 726,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "332:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "238:128:5"
+            },
+            "src": "217:150:5"
+          }
+        ],
+        "scope": 731,
+        "src": "60:309:5"
+      }
+    ],
+    "src": "0:370:5"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2018-10-16T21:20:58.387Z"
+}
