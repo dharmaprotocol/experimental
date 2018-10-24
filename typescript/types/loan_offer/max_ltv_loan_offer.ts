@@ -19,7 +19,7 @@ import { InterestRate, TimeInterval, TokenAmount } from "../";
 import { LTVParams, Price } from "../../../types/LTVTypes";
 
 // Utils
-import { BigNumber, getTokenRegistryIndex, NETWORK_ID_TO_NAME, TOKEN_REGISTRY_TRACKED_TOKENS } from "../../utils";
+import { BigNumber, NETWORK_ID_TO_NAME } from "../../utils";
 
 // Configure BigNumber
 BigNumber.config({
@@ -482,7 +482,7 @@ export class MaxLTVLoanOffer {
         );
 
         return lTVCreditorProxyContract.methods.fillDebtOffer(lTVParams).send({
-            from: this.creditor,
+            from: this.debtor,
             gas: 6712390
         });
     }
