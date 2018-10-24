@@ -1,6 +1,6 @@
 {
   "name": "dharma-max-ltv",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Extends Dharma Protocol with contracts for Max-LTV loans",
   "main": "index.js",
   "repository": "https://github.com/dharmaprotocol/experimental.git",
