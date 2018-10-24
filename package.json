@@ -15,7 +15,7 @@
     "bignumber.js": "^5.0.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "dharma-address-book": "^1.0.1",
+    "dharma-address-book": "^1.0.6",
     "dharma-chain": "^1.0.19",
     "dharma-contract-artifacts": "^1.0.1",
     "lodash": "^4.17.11",

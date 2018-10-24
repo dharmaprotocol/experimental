@@ -676,10 +676,10 @@ destroy@~1.0.4:
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
   integrity sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
 
-dharma-address-book@^1.0.1:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/dharma-address-book/-/dharma-address-book-1.0.4.tgz#c6ef9b4d4c153db42b39bfc0a652e116e192eb18"
-  integrity sha512-YyjRBLBUrWZke1J62ucy2OkAwoCbKFKQ5Ea9SkGHDstMUNQ9bAKsQz+7/ViSLKSpEFyjg7bic8O9ZhcPt4B8CQ==
+dharma-address-book@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/dharma-address-book/-/dharma-address-book-1.0.6.tgz#e7d34cb9113f5a86928f3bbbf9f00ee1976d781e"
+  integrity sha512-2Upbt5zD15oywhwtrxOwJ+ixfd0fELPlkyID3IHFdX50aLZvvQHmrk+DMBmynMxjTToVl9WsbcIiA6rEi4j6lA==
 
 dharma-chain@^1.0.19:
   version "1.0.19"
