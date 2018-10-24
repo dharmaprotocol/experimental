@@ -3,6 +3,8 @@ import * as Web3 from "web3";
 
 import { MaxLTVLoanOffer, MaxLTVParams } from "../../../../../typescript/types";
 
+const ltvCreditorProxyAddress = artifacts.require("./LTVCreditorProxy.sol").address;
+
 // Configuration
 const expect = chai.expect;
 
@@ -14,7 +16,12 @@ export async function testCreateAndSignAsCreditor(web3: Web3, params: MaxLTVPara
             const accounts = await web3.eth.getAccounts();
             const creditor = accounts[0];
 
-            loanOffer = await MaxLTVLoanOffer.createAndSignAsCreditor(web3, params, creditor);
+            loanOffer = await MaxLTVLoanOffer.createAndSignAsCreditor(
+                ltvCreditorProxyAddress,
+                web3,
+                params,
+                creditor
+            );
         });
 
         it("returns a MaxLTVLoanOffer", () => {

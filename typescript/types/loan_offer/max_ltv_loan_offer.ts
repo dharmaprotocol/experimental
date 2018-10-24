@@ -2,11 +2,11 @@
 import * as Web3 from "web3";
 import * as singleLineString from "single-line-string";
 import * as addressBook from "dharma-address-book";
+import * as contractArtifacts from "dharma-contract-artifacts";
 
 // Artifacts
-const DebtToken = artifacts.require("./DebtTokenInterface.sol");
-const LTVCreditorProxy = artifacts.require("./LTVCreditorProxy.sol");
-const TokenRegistry = artifacts.require("./TokenRegistry.sol");
+const { DebtToken, TokenRegistry, LTVCreditorProxy } = contractArtifacts.latest;
+
 
 // Types
 import { ecSign, ECDSASignature } from "../../../types/ECDSASignature";
@@ -97,7 +97,7 @@ export interface MaxLTVParams extends DebtOrderParams {
 }
 
 export class MaxLTVLoanOffer {
-    public static async create(web3: Web3, params: MaxLTVParams): Promise<MaxLTVLoanOffer> {
+    public static async create(ltvProxyAddress: string, web3: Web3, params: MaxLTVParams): Promise<MaxLTVLoanOffer> {
         const {
             collateralToken,
             creditorFeeAmount,
@@ -119,7 +119,7 @@ export class MaxLTVLoanOffer {
 
         const addresses = addressBook.latest[NETWORK_ID_TO_NAME[networkId]];
 
-        const tokenRegistryContract = new web3.eth.Contract(TokenRegistry.abi, addresses.TokenRegistry);
+        const tokenRegistryContract = new web3.eth.Contract(TokenRegistry, addresses.TokenRegistry);
 
         const kernelVersion = addresses.DebtKernel;
         const issuanceVersion = addresses.RepaymentRouter;
@@ -181,15 +181,16 @@ export class MaxLTVLoanOffer {
             termsContract
         };
 
-        return new MaxLTVLoanOffer(web3, data);
+        return new MaxLTVLoanOffer(ltvProxyAddress, web3, data);
     }
 
     public static async createAndSignAsCreditor(
+        ltvProxyAddress: string,
         web3: Web3,
         params: MaxLTVParams,
         creditor?: string
     ): Promise<MaxLTVLoanOffer> {
-        const offer = await MaxLTVLoanOffer.create(web3, params);
+        const offer = await MaxLTVLoanOffer.create(ltvProxyAddress, web3, params);
 
         await offer.signAsCreditor(creditor);
 
@@ -210,7 +211,7 @@ export class MaxLTVLoanOffer {
     private principalPrice?: Price;
     private termsContractParameters?: string;
 
-    constructor(private readonly web3: Web3, private readonly data: MaxLTVData) {}
+    constructor(private readonly ltvProxyAddress: string, private readonly web3: Web3, private readonly data: MaxLTVData) {}
 
     /**
      * Eventually signs the loan offer as the creditor.
@@ -475,11 +476,10 @@ export class MaxLTVLoanOffer {
             creditor: this.creditor
         };
 
-        const networkId = await this.web3.eth.net.getId();
-
-        const addresses = addressBook.latest[NETWORK_ID_TO_NAME[networkId]];
-
-        const lTVCreditorProxyContract = new this.web3.eth.Contract(LTVCreditorProxy.abi, LTVCreditorProxy.address);
+        const lTVCreditorProxyContract = new this.web3.eth.Contract(
+            LTVCreditorProxy,
+            this.ltvProxyAddress
+        );
 
         return lTVCreditorProxyContract.methods.fillDebtOffer(lTVParams).send({
             from: this.creditor,
@@ -492,7 +492,7 @@ export class MaxLTVLoanOffer {
 
         const addresses = addressBook.latest[NETWORK_ID_TO_NAME[networkId]];
 
-        const debtTokenContract = new this.web3.eth.Contract(DebtToken.abi, addresses.DebtToken);
+        const debtTokenContract = new this.web3.eth.Contract(DebtToken, addresses.DebtToken);
 
         const issuanceCommitmentHash = this.getIssuanceCommitmentHash();
 
