@@ -686,10 +686,10 @@ dharma-chain@^1.0.19:
   resolved "https://registry.yarnpkg.com/dharma-chain/-/dharma-chain-1.0.19.tgz#d332857d676f7a741a5228a2c0102e3bf28148c1"
   integrity sha512-VU4dow4Qe1w6hmAHtIQ0VNJLoDcincsn7ZWX+NDpiioaz5nUYjKiDUEWWEgTaD5dC2MtS2fKz8PZoRVwJ7/v9A==
 
-dharma-contract-artifacts@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/dharma-contract-artifacts/-/dharma-contract-artifacts-1.0.1.tgz#46b878b1c8d31181392dc1788a40e6614d449855"
-  integrity sha512-/qst86SUD3ybGLgaJDcivgsIInQsDP+oIpLIR8+OVgpP5KX3TAaiWbBZ/QLuQhM1u4KM4EOQaRfjs2oMTx5X7w==
+dharma-contract-artifacts@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/dharma-contract-artifacts/-/dharma-contract-artifacts-1.0.2.tgz#b344ddc612cc65ca866c06066cb889a12ba39a25"
+  integrity sha512-5trcxeR8lyUp13sO8V/m5Ei9j3l7suQuCI58T1wsFCys+H60THXgYA4hdpB9efn6OewZr3uIy1euIVbIiIwk8w==
 
 diff@3.3.1:
   version "3.3.1"
