@@ -9,7 +9,7 @@
         "sourceMap": true,
         "declaration": true,
         "declarationDir": "test/js/types",
-        "outDir": "test/js",
+        "outDir": "build/js",
         "typeRoots": ["node_modules/@types"]
     },
     "include": ["test/ts/*.ts", "test/typescript/**/*.ts", "types/*.ts", "typescript/**/*.ts"]
