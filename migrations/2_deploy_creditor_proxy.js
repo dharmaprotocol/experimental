@@ -1,7 +1,8 @@
 const addressBook = require("dharma-address-book");
 
-// TODO: Update this to allow for kovan, etc.
-const addresses = addressBook.latest.development;
+const env = process.env.NODE_ENV || "development";
+
+const addresses = addressBook.latest[env];
 
 const contractRegistryAddress = addresses.ContractRegistry;
 
