@@ -1,6 +1,8 @@
 const addressBook = require("dharma-address-book");
 
-const env = process.env.NODE_ENV || "development";
+const env = process.env.NETWORK || "development";
+
+console.log("deploying to", env);
 
 const addresses = addressBook.latest[env];
 
