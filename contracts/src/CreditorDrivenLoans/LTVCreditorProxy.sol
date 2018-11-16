@@ -130,6 +130,8 @@ contract LTVCreditorProxy is CreditorProxyCore, LTVDecisionEngine {
 
 		debtOfferCancelled[creditorCommitmentHash] = true;
 
+		emit DebtOfferCancelled(order.creditor, creditorCommitmentHash);
+
 		return true;
 	}
 
