@@ -117,11 +117,11 @@ contract LTVCreditorProxy is CreditorProxyCore, LTVDecisionEngine {
 	}
 
 	function cancelDebtOffer(LTVDecisionEngineTypes.Params params) public returns (bool) {
-		// sender must be the creditor.
-		require(msg.sender == order.creditor);
-
 		LTVDecisionEngineTypes.CommitmentValues memory commitmentValues = params.creditorCommitment.values;
 		OrderLibrary.DebtOrder memory order = params.order;
+
+		// sender must be the creditor.
+		require(msg.sender == order.creditor);
 
 		bytes32 creditorCommitmentHash = hashCreditorCommitmentForOrder(commitmentValues, order);
 
