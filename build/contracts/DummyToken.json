@@ -384,55 +384,55 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity 0.4.24;\npragma experimental ABIEncoderV2;\n\nimport \"zeppelin-solidity/contracts/token/ERC20/MintableToken.sol\";\nimport \"zeppelin-solidity/contracts/math/SafeMath.sol\";\n\n\ncontract DummyToken is MintableToken {\n\tfunction setBalance(address _target, uint _value) public;\n}\n",
-  "sourcePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/DummyTokenInterface.sol",
+  "sourcePath": "/Users/chrismin/Documents/dev/dharma/experimental/contracts/src/shared/interfaces/DummyTokenInterface.sol",
   "ast": {
-    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/DummyTokenInterface.sol",
+    "absolutePath": "/Users/chrismin/Documents/dev/dharma/experimental/contracts/src/shared/interfaces/DummyTokenInterface.sol",
     "exportedSymbols": {
       "DummyToken": [
-        14
+        2045
       ]
     },
-    "id": 15,
+    "id": 2046,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1,
+        "id": 2032,
         "literals": [
           "solidity",
           "0.4",
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:0"
+        "src": "0:23:17"
       },
       {
-        "id": 2,
+        "id": 2033,
         "literals": [
           "experimental",
           "ABIEncoderV2"
         ],
         "nodeType": "PragmaDirective",
-        "src": "24:33:0"
+        "src": "24:33:17"
       },
       {
         "absolutePath": "zeppelin-solidity/contracts/token/ERC20/MintableToken.sol",
         "file": "zeppelin-solidity/contracts/token/ERC20/MintableToken.sol",
-        "id": 3,
+        "id": 2034,
         "nodeType": "ImportDirective",
-        "scope": 15,
-        "sourceUnit": 581,
-        "src": "59:67:0",
+        "scope": 2046,
+        "sourceUnit": 3870,
+        "src": "59:67:17",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
         "absolutePath": "zeppelin-solidity/contracts/math/SafeMath.sol",
         "file": "zeppelin-solidity/contracts/math/SafeMath.sol",
-        "id": 4,
+        "id": 2035,
         "nodeType": "ImportDirective",
-        "scope": 15,
-        "sourceUnit": 218,
-        "src": "127:55:0",
+        "scope": 2046,
+        "sourceUnit": 3507,
+        "src": "127:55:17",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -442,41 +442,41 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 5,
+              "id": 2036,
               "name": "MintableToken",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 580,
-              "src": "208:13:0",
+              "referencedDeclaration": 3869,
+              "src": "208:13:17",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_MintableToken_$580",
+                "typeIdentifier": "t_contract$_MintableToken_$3869",
                 "typeString": "contract MintableToken"
               }
             },
-            "id": 6,
+            "id": 2037,
             "nodeType": "InheritanceSpecifier",
-            "src": "208:13:0"
+            "src": "208:13:17"
           }
         ],
         "contractDependencies": [
-          303,
-          399,
-          442,
-          474,
-          580,
-          827
+          3592,
+          3688,
+          3731,
+          3763,
+          3869,
+          4116
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 14,
+        "id": 2045,
         "linearizedBaseContracts": [
-          14,
-          580,
-          303,
-          827,
-          399,
-          442,
-          474
+          2045,
+          3869,
+          3592,
+          4116,
+          3688,
+          3731,
+          3763
         ],
         "name": "DummyToken",
         "nodeType": "ContractDefinition",
@@ -484,7 +484,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 13,
+            "id": 2044,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -492,16 +492,16 @@
             "name": "setBalance",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11,
+              "id": 2042,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8,
+                  "id": 2039,
                   "name": "_target",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13,
-                  "src": "245:15:0",
+                  "scope": 2044,
+                  "src": "245:15:17",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -509,10 +509,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 7,
+                    "id": 2038,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "245:7:0",
+                    "src": "245:7:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -523,11 +523,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 10,
+                  "id": 2041,
                   "name": "_value",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13,
-                  "src": "262:11:0",
+                  "scope": 2044,
+                  "src": "262:11:17",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -535,10 +535,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 9,
+                    "id": 2040,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "262:4:0",
+                    "src": "262:4:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -548,76 +548,76 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "244:30:0"
+              "src": "244:30:17"
             },
             "payable": false,
             "returnParameters": {
-              "id": 12,
+              "id": 2043,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "281:0:0"
+              "src": "281:0:17"
             },
-            "scope": 14,
-            "src": "225:57:0",
+            "scope": 2045,
+            "src": "225:57:17",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 15,
-        "src": "185:99:0"
+        "scope": 2046,
+        "src": "185:99:17"
       }
     ],
-    "src": "0:285:0"
+    "src": "0:285:17"
   },
   "legacyAST": {
-    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/DummyTokenInterface.sol",
+    "absolutePath": "/Users/chrismin/Documents/dev/dharma/experimental/contracts/src/shared/interfaces/DummyTokenInterface.sol",
     "exportedSymbols": {
       "DummyToken": [
-        14
+        2045
       ]
     },
-    "id": 15,
+    "id": 2046,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1,
+        "id": 2032,
         "literals": [
           "solidity",
           "0.4",
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:0"
+        "src": "0:23:17"
       },
       {
-        "id": 2,
+        "id": 2033,
         "literals": [
           "experimental",
           "ABIEncoderV2"
         ],
         "nodeType": "PragmaDirective",
-        "src": "24:33:0"
+        "src": "24:33:17"
       },
       {
         "absolutePath": "zeppelin-solidity/contracts/token/ERC20/MintableToken.sol",
         "file": "zeppelin-solidity/contracts/token/ERC20/MintableToken.sol",
-        "id": 3,
+        "id": 2034,
         "nodeType": "ImportDirective",
-        "scope": 15,
-        "sourceUnit": 581,
-        "src": "59:67:0",
+        "scope": 2046,
+        "sourceUnit": 3870,
+        "src": "59:67:17",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
         "absolutePath": "zeppelin-solidity/contracts/math/SafeMath.sol",
         "file": "zeppelin-solidity/contracts/math/SafeMath.sol",
-        "id": 4,
+        "id": 2035,
         "nodeType": "ImportDirective",
-        "scope": 15,
-        "sourceUnit": 218,
-        "src": "127:55:0",
+        "scope": 2046,
+        "sourceUnit": 3507,
+        "src": "127:55:17",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -627,41 +627,41 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 5,
+              "id": 2036,
               "name": "MintableToken",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 580,
-              "src": "208:13:0",
+              "referencedDeclaration": 3869,
+              "src": "208:13:17",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_MintableToken_$580",
+                "typeIdentifier": "t_contract$_MintableToken_$3869",
                 "typeString": "contract MintableToken"
               }
             },
-            "id": 6,
+            "id": 2037,
             "nodeType": "InheritanceSpecifier",
-            "src": "208:13:0"
+            "src": "208:13:17"
           }
         ],
         "contractDependencies": [
-          303,
-          399,
-          442,
-          474,
-          580,
-          827
+          3592,
+          3688,
+          3731,
+          3763,
+          3869,
+          4116
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 14,
+        "id": 2045,
         "linearizedBaseContracts": [
-          14,
-          580,
-          303,
-          827,
-          399,
-          442,
-          474
+          2045,
+          3869,
+          3592,
+          4116,
+          3688,
+          3731,
+          3763
         ],
         "name": "DummyToken",
         "nodeType": "ContractDefinition",
@@ -669,7 +669,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 13,
+            "id": 2044,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -677,16 +677,16 @@
             "name": "setBalance",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 11,
+              "id": 2042,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8,
+                  "id": 2039,
                   "name": "_target",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13,
-                  "src": "245:15:0",
+                  "scope": 2044,
+                  "src": "245:15:17",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -694,10 +694,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 7,
+                    "id": 2038,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "245:7:0",
+                    "src": "245:7:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -708,11 +708,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 10,
+                  "id": 2041,
                   "name": "_value",
                   "nodeType": "VariableDeclaration",
-                  "scope": 13,
-                  "src": "262:11:0",
+                  "scope": 2044,
+                  "src": "262:11:17",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -720,10 +720,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 9,
+                    "id": 2040,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "262:4:0",
+                    "src": "262:4:17",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -733,27 +733,27 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "244:30:0"
+              "src": "244:30:17"
             },
             "payable": false,
             "returnParameters": {
-              "id": 12,
+              "id": 2043,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "281:0:0"
+              "src": "281:0:17"
             },
-            "scope": 14,
-            "src": "225:57:0",
+            "scope": 2045,
+            "src": "225:57:17",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 15,
-        "src": "185:99:0"
+        "scope": 2046,
+        "src": "185:99:17"
       }
     ],
-    "src": "0:285:0"
+    "src": "0:285:17"
   },
   "compiler": {
     "name": "solc",
@@ -761,5 +761,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-15T23:58:33.893Z"
+  "updatedAt": "2018-11-20T21:37:03.973Z"
 }

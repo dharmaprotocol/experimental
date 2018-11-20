@@ -2,6 +2,7 @@ import { DebtOrder } from "./DebtOrder";
 import { ECDSASignature } from "./ECDSASignature";
 export interface CommitmentValues {
     maxLTV: number | string;
+    priceFeedOperator: string;
 }
 export interface CreditorCommitment {
     values: CommitmentValues;
@@ -15,7 +16,6 @@ export interface Price {
 }
 export interface LTVParams {
     creditor: string;
-    priceFeedOperator: string;
     creditorCommitment: CreditorCommitment;
     principalPrice: Price;
     collateralPrice: Price;
