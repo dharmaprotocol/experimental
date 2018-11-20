@@ -2,7 +2,12 @@ import * as Web3 from "web3";
 // Types
 import { DebtOrder } from "../../../types/DebtOrder";
 import { ECDSASignature, ecSign } from "../../../types/ECDSASignature";
-import { CommitmentValues, CreditorCommitment, LTVParams, Price } from "../../../types/LTVTypes";
+import {
+    CommitmentValues,
+    CreditorCommitment,
+    LTVParams,
+    Price,
+} from "../../../types/LTVTypes";
 import { DebtOrderFixtures } from "./DebtOrders";
 
 interface Tokens {
@@ -27,7 +32,7 @@ export class LTVFixtures {
     readonly blankSignature: ECDSASignature = {
         r: this.web3.utils.fromAscii(""),
         s: this.web3.utils.fromAscii(""),
-        v: 0
+        v: 0,
     };
 
     constructor(
@@ -35,9 +40,15 @@ export class LTVFixtures {
         private readonly accounts: string[],
         private readonly tokens: Tokens,
         private readonly participants: Participants,
-        private readonly contracts: Contracts,
+        private readonly contracts: Contracts
     ) {
-        this.debtOrderFixtures = new DebtOrderFixtures(web3, accounts, tokens, participants, contracts);
+        this.debtOrderFixtures = new DebtOrderFixtures(
+            web3,
+            accounts,
+            tokens,
+            participants,
+            contracts
+        );
     }
 
     async signedParams(): Promise<LTVParams> {
@@ -45,18 +56,31 @@ export class LTVFixtures {
 
         params.order = await this.debtOrderFixtures.signedOrder();
 
-        const commitmentHash = this.commitmentHash(params.creditorCommitment.values, params.order);
+        const commitmentHash = this.commitmentHash(
+            params.creditorCommitment.values,
+            params.order
+        );
 
-        params.creditorCommitment.signature = await ecSign(this.web3, commitmentHash, params.creditor);
+        params.creditorCommitment.signature = await ecSign(
+            this.web3,
+            commitmentHash,
+            params.creditor
+        );
 
         const principalPriceHash = this.priceHash(params.principalPrice);
         const collateralPriceHash = this.priceHash(params.collateralPrice);
 
-        params.priceFeedOperator = this.accounts[2];
+        params.collateralPrice.signature = await ecSign(
+            this.web3,
+            collateralPriceHash,
+            params.creditorCommitment.values.priceFeedOperator
+        );
 
-        params.collateralPrice.signature = await ecSign(this.web3, collateralPriceHash, params.priceFeedOperator);
-
-        params.principalPrice.signature = await ecSign(this.web3, principalPriceHash, params.priceFeedOperator);
+        params.principalPrice.signature = await ecSign(
+            this.web3,
+            principalPriceHash,
+            params.creditorCommitment.values.priceFeedOperator
+        );
 
         return params;
     }
@@ -67,43 +91,50 @@ export class LTVFixtures {
         const values = {
             principalToken: order.principalToken,
             principalAmount: 1,
-            maxLTV: 100
+            maxLTV: 100,
+            priceFeedOperator: this.accounts[2],
         };
 
         const creditorCommitment: CreditorCommitment = {
             values,
-            signature: this.blankSignature
+            signature: this.blankSignature,
         };
 
         const principalPrice: Price = {
             value: 1,
             tokenAddress: this.tokens.principalAddress,
             timestamp: await this.currentBlockTimestamp(),
-            signature: this.blankSignature
+            signature: this.blankSignature,
         };
 
         const collateralPrice: Price = {
             value: 20,
             tokenAddress: this.tokens.collateralAddress,
             timestamp: await this.currentBlockTimestamp(),
-            signature: this.blankSignature
+            signature: this.blankSignature,
         };
 
         return {
             creditorCommitment,
             creditor: this.accounts[0],
-            priceFeedOperator: this.accounts[1],
             principalPrice,
             collateralPrice,
-            order
+            order,
         };
     }
 
     priceHash(price: Price): string {
-        return this.web3.utils.soliditySha3(price.value, price.tokenAddress, price.timestamp);
+        return this.web3.utils.soliditySha3(
+            price.value,
+            price.tokenAddress,
+            price.timestamp
+        );
     }
 
-    commitmentHash(commitmentValues: CommitmentValues, order: DebtOrder): string {
+    commitmentHash(
+        commitmentValues: CommitmentValues,
+        order: DebtOrder
+    ): string {
         return this.web3.utils.soliditySha3(
             order.creditor,
             order.kernelVersion,
@@ -115,6 +146,7 @@ export class LTVFixtures {
             order.creditorFee,
             order.expirationTimestampInSec,
             commitmentValues.maxLTV,
+            commitmentValues.priceFeedOperator,
             // unpacked termsContractParameters
             this.web3.utils.soliditySha3(
                 this.debtOrderFixtures.principalTokenIndex,
