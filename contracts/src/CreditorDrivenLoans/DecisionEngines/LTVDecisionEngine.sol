@@ -44,7 +44,7 @@ contract LTVDecisionEngine is LTVDecisionEngineTypes, SignaturesLibrary, OrderLi
 		// Checks that the given price feed data was signed by the price feed operator.
 		return (
 			verifyPrices(
-				params.priceFeedOperator,
+				params.creditorCommitment.values.priceFeedOperator,
 				params.principalPrice,
 				params.collateralPrice
 			)
@@ -102,6 +102,7 @@ contract LTVDecisionEngine is LTVDecisionEngineTypes, SignaturesLibrary, OrderLi
 			order.expirationTimestampInSec,
 			// commitment values
 			commitmentValues.maxLTV,
+			commitmentValues.priceFeedOperator,
 			// hashed terms contract commitments
 			termsContractCommitmentHash
 		);

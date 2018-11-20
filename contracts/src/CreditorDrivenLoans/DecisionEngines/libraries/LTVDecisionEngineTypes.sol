@@ -10,7 +10,6 @@ contract LTVDecisionEngineTypes
 	// The parameters used during the consent and decision evaluations.
 	struct Params {
 		address creditor;
-		address priceFeedOperator;
 		// The values and signature for the creditor commitment hash.
 		CreditorCommitment creditorCommitment;
 		// Price feed data.
@@ -34,6 +33,7 @@ contract LTVDecisionEngineTypes
 
 	struct CommitmentValues {
 		uint maxLTV;
+		address priceFeedOperator;
 	}
 
 	struct SimpleInterestParameters {
