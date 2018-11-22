@@ -120,9 +120,9 @@ contract("LTVCreditorProxy", (accounts) => {
             });
         });
 
-        describe("when given params that are signed by the creditor but not the price feed operator", () => {
-            // STUB.
-        });
+        // describe("when given params that are signed by the creditor but not the price feed operator", () => {
+        //     // STUB.
+        // });
 
         describe("#fillDebtOffer", () => {
             let snapshotId: number;
@@ -157,7 +157,7 @@ contract("LTVCreditorProxy", (accounts) => {
                 });
 
                 it("returns a transaction receipt", async () => {
-                    const values: CommitmentValues = { maxLTV: 100 };
+                    const values: CommitmentValues = { maxLTV: 100, maxPrincipalAmount: 100 };
 
                     const creditorCommitment: CreditorCommitment = {
                         values,
@@ -245,6 +245,235 @@ contract("LTVCreditorProxy", (accounts) => {
                     expect(successLog.address.toUpperCase()).to.eq(
                         addresses.DebtKernel.toUpperCase(),
                     );
+                });
+            });
+
+            describe("when actual PRINCIPAL is LESS than specified in the offer to lend", () => {
+                let order: DebtOrder;
+                let commitmentHash: string;
+                let params: LTVParams;
+                let txReceipt: any;
+
+                before(async () => {
+                    params = await lTVFixtures.signedParams({ principalAmount: 2 }, { maxPrincipalAmount: 3 });
+                    order = params.order;
+
+                    commitmentHash = await proxy.methods.hashCreditorCommitmentForOrder(
+                        params.creditorCommitment.values,
+                        order,
+                    ).call();
+                });
+
+                it("returns a transaction receipt", async () => {
+                    txReceipt = await proxy.methods.fillDebtOffer(params).send({
+                        from: params.creditor,
+                        gas: 6712390
+                    });
+
+                    const txHash = txReceipt.transactionHash;
+
+                    // The transaction receipt is valid if it has a string transaction hash.
+                    expect(txHash).to.be.a("string");
+                });
+
+                it("adds a mapping in the debtOfferFilled field", async () => {
+                    const result = await proxy.methods.debtOfferFilled(commitmentHash).call();
+
+                    expect(result).to.eq(true);
+                });
+
+                it("emits a 'LogDebtOrderFilled' event from the DebtKernel", async () => {
+                    const receipt = await web3.eth.getTransactionReceipt(txReceipt.transactionHash);
+                    const logs = _.compact(ABIDecoder.decodeLogs(receipt.logs));
+                    const successLog = logs[0];
+
+                    expect(successLog.name).to.eq("LogDebtOrderFilled");
+                    expect(successLog.address.toUpperCase()).to.eq(
+                        addresses.DebtKernel.toUpperCase(),
+                    );
+                });
+            });
+
+            describe("when actual PRINCIPAL is MORE than specified in the offer to lend", () => {
+                let order: DebtOrder;
+                let commitmentHash: string;
+                let params: LTVParams;
+                let txReceipt: any;
+
+                before(async () => {
+                    params = await lTVFixtures.signedParams({ principalAmount: 4 }, { maxPrincipalAmount: 3 });
+                    order = params.order;
+
+                    commitmentHash = await proxy.methods.hashCreditorCommitmentForOrder(
+                        params.creditorCommitment.values,
+                        order,
+                    ).call();
+                });
+
+                it("returns a transaction receipt", async () => {
+                    txReceipt = await proxy.methods.fillDebtOffer(params).send({
+                        from: params.creditor,
+                        gas: 6712390
+                    });
+
+                    const txHash = txReceipt.transactionHash;
+
+                    // The transaction receipt is valid if it has a string transaction hash.
+                    expect(txHash).to.be.a("string");
+                });
+
+                it("emits a 'Error' event from the DebtKernel", async () => {
+                    const receipt = await web3.eth.getTransactionReceipt(txReceipt.transactionHash);
+                    const logs = _.compact(ABIDecoder.decodeLogs(receipt.logs));
+                    const successLog = logs[0];
+
+                    expect(successLog.name).to.eq('CreditorProxyError');
+                });
+
+                it("does NOT add a mapping in the debtOfferFilled field", async () => {
+                    const result = await proxy.methods.debtOfferFilled(commitmentHash).call();
+
+                    expect(result).to.eq(false);
+                });
+            });
+
+            describe("when actual LTV is LESS than specified in the offer to lend", () => {
+                let order: DebtOrder;
+                let commitmentHash: string;
+                let params: LTVParams;
+                let txReceipt: any;
+
+                before(async () => {
+                    params = await lTVFixtures.signedParams(
+                        { principalAmount: 10, collateralAmount: 6 },
+                        { maxPrincipalAmount: 10, maxLTV: 100 });
+                    order = params.order;
+
+                    commitmentHash = await proxy.methods.hashCreditorCommitmentForOrder(
+                        params.creditorCommitment.values,
+                        order,
+                    ).call();
+                });
+
+                it("returns a transaction receipt", async () => {
+                    txReceipt = await proxy.methods.fillDebtOffer(params).send({
+                        from: params.creditor,
+                        gas: 6712390
+                    });
+
+                    const txHash = txReceipt.transactionHash;
+
+                    // The transaction receipt is valid if it has a string transaction hash.
+                    expect(txHash).to.be.a("string");
+                });
+
+                it("adds a mapping in the debtOfferFilled field", async () => {
+                    const result = await proxy.methods.debtOfferFilled(commitmentHash).call();
+
+                    expect(result).to.eq(true);
+                });
+
+                it("emits a 'LogDebtOrderFilled' event from the DebtKernel", async () => {
+                    const receipt = await web3.eth.getTransactionReceipt(txReceipt.transactionHash);
+                    const logs = _.compact(ABIDecoder.decodeLogs(receipt.logs));
+                    const successLog = logs[0];
+
+                    expect(successLog.name).to.eq("LogDebtOrderFilled");
+                    expect(successLog.address.toUpperCase()).to.eq(
+                        addresses.DebtKernel.toUpperCase(),
+                    );
+                });
+            });
+
+            describe("when actual LTV is MORE than specified in the offer to lend", () => {
+                let order: DebtOrder;
+                let commitmentHash: string;
+                let params: LTVParams;
+                let txReceipt: any;
+
+                before(async () => {
+                    params = await lTVFixtures.signedParams(
+                        { principalAmount: 10, collateralAmount: 1 },
+                        { maxPrincipalAmount: 10, maxLTV: 100 });
+                    order = params.order;
+
+                    commitmentHash = await proxy.methods.hashCreditorCommitmentForOrder(
+                        params.creditorCommitment.values,
+                        order,
+                    ).call();
+                });
+
+                it("returns a transaction receipt", async () => {
+                    txReceipt = await proxy.methods.fillDebtOffer(params).send({
+                        from: params.creditor,
+                        gas: 6712390
+                    });
+
+                    const txHash = txReceipt.transactionHash;
+
+                    // The transaction receipt is valid if it has a string transaction hash.
+                    expect(txHash).to.be.a("string");
+                });
+
+                it("emits a 'CreditorProxyError' event from the LTVCreditorProxy", async () => {
+                    const receipt = await web3.eth.getTransactionReceipt(txReceipt.transactionHash);
+                    const logs = _.compact(ABIDecoder.decodeLogs(receipt.logs));
+                    const successLog = logs[0];
+
+                    expect(successLog.name).to.eq('CreditorProxyError');
+                });
+
+                it("does NOT add a mapping in the debtOfferFilled field", async () => {
+                    const result = await proxy.methods.debtOfferFilled(commitmentHash).call();
+
+                    expect(result).to.eq(false);
+                });
+            });
+
+            describe("when actual maxLTV is unsigned", () => {
+                let order: DebtOrder;
+                let commitmentHash: string;
+                let params: LTVParams;
+                let txReceipt: any;
+
+                before(async () => {
+                    params = await lTVFixtures.signedParams(
+                        { principalAmount: 10, collateralAmount: 10 },
+                        { maxPrincipalAmount: 10, maxLTV: 100 });
+                    order = params.order;
+
+                    commitmentHash = await proxy.methods.hashCreditorCommitmentForOrder(
+                        params.creditorCommitment.values,
+                        order,
+                    ).call();
+
+                    params.creditorCommitment.values.maxPrincipalAmount = 11
+                });
+
+                it("returns a transaction receipt", async () => {
+                    txReceipt = await proxy.methods.fillDebtOffer(params).send({
+                        from: params.creditor,
+                        gas: 6712390
+                    });
+
+                    const txHash = txReceipt.transactionHash;
+
+                    // The transaction receipt is valid if it has a string transaction hash.
+                    expect(txHash).to.be.a("string");
+                });
+
+                it("emits a 'CreditorProxyError' event from the LTVCreditorProxy", async () => {
+                    const receipt = await web3.eth.getTransactionReceipt(txReceipt.transactionHash);
+                    const logs = _.compact(ABIDecoder.decodeLogs(receipt.logs));
+                    const successLog = logs[0];
+
+                    expect(successLog.name).to.eq('CreditorProxyError');
+                });
+
+                it("does NOT add a mapping in the debtOfferFilled field", async () => {
+                    const result = await proxy.methods.debtOfferFilled(commitmentHash).call();
+
+                    expect(result).to.eq(false);
                 });
             });
         });

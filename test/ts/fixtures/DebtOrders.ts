@@ -32,11 +32,11 @@ export class DebtOrderFixtures {
     };
 
     public amortizationUnitType: number = 1; // The amortization unit type (weekly)
-    public collateralAmount: number = 1;
+    public collateralAmount: number = 10;
     public collateralTokenIndex: number = 1;
     public gracePeriodInDays: number = 0;
     public interestRateFixedPoint: number = 2.5 * 10 ** 4; // interest rate of 2.5%
-    public principalAmount: number = 1; // principal of 1
+    public principalAmount: number = 10; // principal of 1
     public principalTokenIndex: number = 0;
     public termLengthUnits: number = 4; // Term length in amortization units.
 
@@ -48,7 +48,7 @@ export class DebtOrderFixtures {
         private readonly contracts: Contracts
     ) {}
 
-    async unsignedOrder(): Promise<DebtOrder> {
+    async unsignedOrder(customOrder: DebtOrder = {}): Promise<DebtOrder> {
         // The signatures will all be empty ECDSA signatures.
         const debtorSignature = this.blankSignature;
         const underwriterSignature = this.blankSignature;
@@ -59,13 +59,13 @@ export class DebtOrderFixtures {
 
         // Pack terms contract parameters
         const collateralizedContractTerms: CollateralizedContractTerms = {
-            collateralAmount: this.collateralAmount, // collateral of 1
+            collateralAmount: this.collateralAmount, // collateral of 10
             collateralTokenIndex: this.collateralTokenIndex,
             gracePeriodInDays: this.gracePeriodInDays
         };
         const simpleInterestContractTerms: SimpleInterestContractTerms = {
             principalTokenIndex: this.principalTokenIndex,
-            principalAmount: this.principalAmount, // principal of 1
+            principalAmount: this.principalAmount, // principal of 10
             interestRateFixedPoint: this.interestRateFixedPoint, // interest rate of 2.5%
             amortizationUnitType: this.amortizationUnitType, // The amortization unit type (weekly)
             termLengthUnits: this.termLengthUnits // Term length in amortization units.
@@ -76,12 +76,12 @@ export class DebtOrderFixtures {
             simpleInterestContractTerms
         );
 
-        return {
+        const result = {
             kernelVersion: this.contracts.debtKernelAddress,
             issuanceVersion: this.contracts.repaymentRouterAddress,
-            principalAmount: 1,
+            principalAmount: 10,
             principalToken: this.tokens.principalAddress,
-            collateralAmount: 1,
+            collateralAmount: 10,
             collateralToken: this.tokens.collateralAddress,
             debtor: this.participants.debtor,
             debtorFee: 0,
@@ -95,15 +95,19 @@ export class DebtOrderFixtures {
             termsContract: this.contracts.termsContractAddress,
             termsContractParameters,
             expirationTimestampInSec,
-            salt: 0,
+            salt: Math.floor(Math.random() * 10001),
             debtorSignature,
             creditorSignature,
             underwriterSignature
         };
+
+        Object.assign(result, customOrder)
+
+        return result;
     }
 
-    async signedOrder(): Promise<DebtOrder> {
-        const unsignedOrder = await this.unsignedOrder();
+    async signedOrder(customOrder: DebtOrder = {}): Promise<DebtOrder> {
+        const unsignedOrder = await this.unsignedOrder(customOrder);
 
         const commitmentHash = this.creditorHashForOrder(unsignedOrder);
 

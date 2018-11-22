@@ -40,10 +40,10 @@ export class LTVFixtures {
         this.debtOrderFixtures = new DebtOrderFixtures(web3, accounts, tokens, participants, contracts);
     }
 
-    async signedParams(): Promise<LTVParams> {
-        const params = await this.unsignedParams();
+    async signedParams(customOrder: DebtOrder = {}, customCommitmentValues: CommitmentValues = {}): Promise<LTVParams> {
+        const params = await this.unsignedParams(customOrder, customCommitmentValues);
 
-        params.order = await this.debtOrderFixtures.signedOrder();
+        params.order = await this.debtOrderFixtures.signedOrder(customOrder);
 
         const commitmentHash = this.commitmentHash(params.creditorCommitment.values, params.order);
 
@@ -61,14 +61,15 @@ export class LTVFixtures {
         return params;
     }
 
-    async unsignedParams(): Promise<LTVParams> {
-        const order = await this.debtOrderFixtures.unsignedOrder();
+    async unsignedParams(customOrder: DebtOrder = {}, customCommitmentValues: CommitmentValues = {}): Promise<LTVParams> {
+        const order = await this.debtOrderFixtures.unsignedOrder(customOrder);
 
         const values = {
-            principalToken: order.principalToken,
-            principalAmount: 1,
-            maxLTV: 100
+            maxLTV: 100,
+            maxPrincipalAmount: order.principalAmount
         };
+
+        Object.assign(values, customCommitmentValues)
 
         const creditorCommitment: CreditorCommitment = {
             values,
@@ -83,7 +84,7 @@ export class LTVFixtures {
         };
 
         const collateralPrice: Price = {
-            value: 20,
+            value: 2,
             tokenAddress: this.tokens.collateralAddress,
             timestamp: await this.currentBlockTimestamp(),
             signature: this.blankSignature
@@ -111,14 +112,13 @@ export class LTVFixtures {
             order.termsContract,
             order.principalToken,
             order.salt,
-            order.principalAmount,
             order.creditorFee,
             order.expirationTimestampInSec,
             commitmentValues.maxLTV,
+            commitmentValues.maxPrincipalAmount,
             // unpacked termsContractParameters
             this.web3.utils.soliditySha3(
                 this.debtOrderFixtures.principalTokenIndex,
-                this.debtOrderFixtures.principalAmount,
                 this.debtOrderFixtures.interestRateFixedPoint,
                 this.debtOrderFixtures.amortizationUnitType,
                 this.debtOrderFixtures.termLengthUnits,
