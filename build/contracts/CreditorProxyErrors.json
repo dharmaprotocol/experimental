@@ -24,24 +24,24 @@
       "type": "event"
     }
   ],
-  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a723058208f4aaf3485657e84df878613ee9680c8f2dc8fff66ba6900ab42ce54414a155c0029",
-  "deployedBytecode": "0x6080604052600080fd00a165627a7a723058208f4aaf3485657e84df878613ee9680c8f2dc8fff66ba6900ab42ce54414a155c0029",
-  "sourceMap": "26:421:4:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;26:421:4;;;;;;;",
-  "deployedSourceMap": "26:421:4:-;;;;;",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a723058209705a219deed6827adba86cf4e09f764ed199c47e17f75ed1ac46168a7cbbfee0029",
+  "deployedBytecode": "0x6080604052600080fd00a165627a7a723058209705a219deed6827adba86cf4e09f764ed199c47e17f75ed1ac46168a7cbbfee0029",
+  "sourceMap": "26:421:7:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;26:421:7;;;;;;;",
+  "deployedSourceMap": "26:421:7:-;;;;;",
   "source": "pragma solidity ^0.4.24;\n\ncontract CreditorProxyErrors {\n    enum Errors {\n            DEBT_OFFER_CANCELLED,\n            DEBT_OFFER_ALREADY_FILLED,\n            DEBT_OFFER_NON_CONSENSUAL,\n            CREDITOR_BALANCE_OR_ALLOWANCE_INSUFFICIENT,\n            DEBT_OFFER_CRITERIA_NOT_MET\n        }\n\n    event CreditorProxyError(\n        uint8 indexed _errorId,\n        address indexed _creditor,\n        bytes32 indexed _creditorCommitmentHash\n    );\n}\n",
-  "sourcePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyErrors.sol",
+  "sourcePath": "/home/bogdan/Projects/qw/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyErrors.sol",
   "ast": {
-    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyErrors.sol",
+    "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyErrors.sol",
     "exportedSymbols": {
       "CreditorProxyErrors": [
-        712
+        1360
       ]
     },
-    "id": 713,
+    "id": 1361,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 697,
+        "id": 1345,
         "literals": [
           "solidity",
           "^",
@@ -49,7 +49,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:4"
+        "src": "0:24:7"
       },
       {
         "baseContracts": [],
@@ -57,70 +57,70 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 712,
+        "id": 1360,
         "linearizedBaseContracts": [
-          712
+          1360
         ],
         "name": "CreditorProxyErrors",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "CreditorProxyErrors.Errors",
-            "id": 703,
+            "id": 1351,
             "members": [
               {
-                "id": 698,
+                "id": 1346,
                 "name": "DEBT_OFFER_CANCELLED",
                 "nodeType": "EnumValue",
-                "src": "87:20:4"
+                "src": "87:20:7"
               },
               {
-                "id": 699,
+                "id": 1347,
                 "name": "DEBT_OFFER_ALREADY_FILLED",
                 "nodeType": "EnumValue",
-                "src": "121:25:4"
+                "src": "121:25:7"
               },
               {
-                "id": 700,
+                "id": 1348,
                 "name": "DEBT_OFFER_NON_CONSENSUAL",
                 "nodeType": "EnumValue",
-                "src": "160:25:4"
+                "src": "160:25:7"
               },
               {
-                "id": 701,
+                "id": 1349,
                 "name": "CREDITOR_BALANCE_OR_ALLOWANCE_INSUFFICIENT",
                 "nodeType": "EnumValue",
-                "src": "199:42:4"
+                "src": "199:42:7"
               },
               {
-                "id": 702,
+                "id": 1350,
                 "name": "DEBT_OFFER_CRITERIA_NOT_MET",
                 "nodeType": "EnumValue",
-                "src": "255:27:4"
+                "src": "255:27:7"
               }
             ],
             "name": "Errors",
             "nodeType": "EnumDefinition",
-            "src": "61:231:4"
+            "src": "61:231:7"
           },
           {
             "anonymous": false,
             "documentation": null,
-            "id": 711,
+            "id": 1359,
             "name": "CreditorProxyError",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 710,
+              "id": 1358,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 705,
+                  "id": 1353,
                   "indexed": true,
                   "name": "_errorId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 711,
-                  "src": "332:22:4",
+                  "scope": 1359,
+                  "src": "332:22:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -128,10 +128,10 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 704,
+                    "id": 1352,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
-                    "src": "332:5:4",
+                    "src": "332:5:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
@@ -142,12 +142,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 707,
+                  "id": 1355,
                   "indexed": true,
                   "name": "_creditor",
                   "nodeType": "VariableDeclaration",
-                  "scope": 711,
-                  "src": "364:25:4",
+                  "scope": 1359,
+                  "src": "364:25:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -155,10 +155,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 706,
+                    "id": 1354,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "364:7:4",
+                    "src": "364:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -169,12 +169,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 709,
+                  "id": 1357,
                   "indexed": true,
                   "name": "_creditorCommitmentHash",
                   "nodeType": "VariableDeclaration",
-                  "scope": 711,
-                  "src": "399:39:4",
+                  "scope": 1359,
+                  "src": "399:39:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -182,10 +182,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 708,
+                    "id": 1356,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "399:7:4",
+                    "src": "399:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -195,29 +195,29 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "322:122:4"
+              "src": "322:122:7"
             },
-            "src": "298:147:4"
+            "src": "298:147:7"
           }
         ],
-        "scope": 713,
-        "src": "26:421:4"
+        "scope": 1361,
+        "src": "26:421:7"
       }
     ],
-    "src": "0:448:4"
+    "src": "0:448:7"
   },
   "legacyAST": {
-    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyErrors.sol",
+    "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyErrors.sol",
     "exportedSymbols": {
       "CreditorProxyErrors": [
-        712
+        1360
       ]
     },
-    "id": 713,
+    "id": 1361,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 697,
+        "id": 1345,
         "literals": [
           "solidity",
           "^",
@@ -225,7 +225,7 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:4"
+        "src": "0:24:7"
       },
       {
         "baseContracts": [],
@@ -233,70 +233,70 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 712,
+        "id": 1360,
         "linearizedBaseContracts": [
-          712
+          1360
         ],
         "name": "CreditorProxyErrors",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "CreditorProxyErrors.Errors",
-            "id": 703,
+            "id": 1351,
             "members": [
               {
-                "id": 698,
+                "id": 1346,
                 "name": "DEBT_OFFER_CANCELLED",
                 "nodeType": "EnumValue",
-                "src": "87:20:4"
+                "src": "87:20:7"
               },
               {
-                "id": 699,
+                "id": 1347,
                 "name": "DEBT_OFFER_ALREADY_FILLED",
                 "nodeType": "EnumValue",
-                "src": "121:25:4"
+                "src": "121:25:7"
               },
               {
-                "id": 700,
+                "id": 1348,
                 "name": "DEBT_OFFER_NON_CONSENSUAL",
                 "nodeType": "EnumValue",
-                "src": "160:25:4"
+                "src": "160:25:7"
               },
               {
-                "id": 701,
+                "id": 1349,
                 "name": "CREDITOR_BALANCE_OR_ALLOWANCE_INSUFFICIENT",
                 "nodeType": "EnumValue",
-                "src": "199:42:4"
+                "src": "199:42:7"
               },
               {
-                "id": 702,
+                "id": 1350,
                 "name": "DEBT_OFFER_CRITERIA_NOT_MET",
                 "nodeType": "EnumValue",
-                "src": "255:27:4"
+                "src": "255:27:7"
               }
             ],
             "name": "Errors",
             "nodeType": "EnumDefinition",
-            "src": "61:231:4"
+            "src": "61:231:7"
           },
           {
             "anonymous": false,
             "documentation": null,
-            "id": 711,
+            "id": 1359,
             "name": "CreditorProxyError",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 710,
+              "id": 1358,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 705,
+                  "id": 1353,
                   "indexed": true,
                   "name": "_errorId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 711,
-                  "src": "332:22:4",
+                  "scope": 1359,
+                  "src": "332:22:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -304,10 +304,10 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 704,
+                    "id": 1352,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
-                    "src": "332:5:4",
+                    "src": "332:5:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
@@ -318,12 +318,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 707,
+                  "id": 1355,
                   "indexed": true,
                   "name": "_creditor",
                   "nodeType": "VariableDeclaration",
-                  "scope": 711,
-                  "src": "364:25:4",
+                  "scope": 1359,
+                  "src": "364:25:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -331,10 +331,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 706,
+                    "id": 1354,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "364:7:4",
+                    "src": "364:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -345,12 +345,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 709,
+                  "id": 1357,
                   "indexed": true,
                   "name": "_creditorCommitmentHash",
                   "nodeType": "VariableDeclaration",
-                  "scope": 711,
-                  "src": "399:39:4",
+                  "scope": 1359,
+                  "src": "399:39:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -358,10 +358,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 708,
+                    "id": 1356,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "399:7:4",
+                    "src": "399:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -371,16 +371,16 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "322:122:4"
+              "src": "322:122:7"
             },
-            "src": "298:147:4"
+            "src": "298:147:7"
           }
         ],
-        "scope": 713,
-        "src": "26:421:4"
+        "scope": 1361,
+        "src": "26:421:7"
       }
     ],
-    "src": "0:448:4"
+    "src": "0:448:7"
   },
   "compiler": {
     "name": "solc",
@@ -388,5 +388,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-16T21:20:58.387Z"
+  "updatedAt": "2018-11-25T19:53:27.673Z"
 }

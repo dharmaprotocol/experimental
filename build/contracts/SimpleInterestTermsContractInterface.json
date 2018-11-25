@@ -161,19 +161,19 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity ^0.4.24;\npragma experimental ABIEncoderV2;\n\n\nimport \"./TermsContractInterface.sol\";\n\ncontract SimpleInterestTermsContractInterface is TermsContractInterface {\n\n    function unpackParametersFromBytes(\n        bytes32 parameters\n    ) public pure returns (\n        uint _principalTokenIndex,\n        uint _principalAmount,\n        uint _interestRate,\n        uint _amortizationUnitType,\n        uint _termLengthInAmortizationUnits\n    );\n\n}\n",
-  "sourcePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/SimpleInterestTermsContractInterface.sol",
+  "sourcePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/interfaces/SimpleInterestTermsContractInterface.sol",
   "ast": {
-    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/SimpleInterestTermsContractInterface.sol",
+    "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/interfaces/SimpleInterestTermsContractInterface.sol",
     "exportedSymbols": {
       "SimpleInterestTermsContractInterface": [
-        965
+        1620
       ]
     },
-    "id": 966,
+    "id": 1621,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 945,
+        "id": 1600,
         "literals": [
           "solidity",
           "^",
@@ -181,25 +181,25 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:10"
+        "src": "0:24:13"
       },
       {
-        "id": 946,
+        "id": 1601,
         "literals": [
           "experimental",
           "ABIEncoderV2"
         ],
         "nodeType": "PragmaDirective",
-        "src": "25:33:10"
+        "src": "25:33:13"
       },
       {
-        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/TermsContractInterface.sol",
+        "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/interfaces/TermsContractInterface.sol",
         "file": "./TermsContractInterface.sol",
-        "id": 947,
+        "id": 1602,
         "nodeType": "ImportDirective",
-        "scope": 966,
-        "sourceUnit": 1017,
-        "src": "61:38:10",
+        "scope": 1621,
+        "sourceUnit": 1672,
+        "src": "61:38:13",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -209,31 +209,31 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 948,
+              "id": 1603,
               "name": "TermsContractInterface",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1016,
-              "src": "150:22:10",
+              "referencedDeclaration": 1671,
+              "src": "150:22:13",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_TermsContractInterface_$1016",
+                "typeIdentifier": "t_contract$_TermsContractInterface_$1671",
                 "typeString": "contract TermsContractInterface"
               }
             },
-            "id": 949,
+            "id": 1604,
             "nodeType": "InheritanceSpecifier",
-            "src": "150:22:10"
+            "src": "150:22:13"
           }
         ],
         "contractDependencies": [
-          1016
+          1671
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 965,
+        "id": 1620,
         "linearizedBaseContracts": [
-          965,
-          1016
+          1620,
+          1671
         ],
         "name": "SimpleInterestTermsContractInterface",
         "nodeType": "ContractDefinition",
@@ -241,7 +241,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 964,
+            "id": 1619,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -249,16 +249,16 @@
             "name": "unpackParametersFromBytes",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 952,
+              "id": 1607,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 951,
+                  "id": 1606,
                   "name": "parameters",
                   "nodeType": "VariableDeclaration",
-                  "scope": 964,
-                  "src": "224:18:10",
+                  "scope": 1619,
+                  "src": "224:18:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -266,10 +266,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 950,
+                    "id": 1605,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "224:7:10",
+                    "src": "224:7:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -279,20 +279,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "214:34:10"
+              "src": "214:34:13"
             },
             "payable": false,
             "returnParameters": {
-              "id": 963,
+              "id": 1618,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 954,
+                  "id": 1609,
                   "name": "_principalTokenIndex",
                   "nodeType": "VariableDeclaration",
-                  "scope": 964,
-                  "src": "279:25:10",
+                  "scope": 1619,
+                  "src": "279:25:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -300,10 +300,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 953,
+                    "id": 1608,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "279:4:10",
+                    "src": "279:4:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -314,11 +314,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 956,
+                  "id": 1611,
                   "name": "_principalAmount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 964,
-                  "src": "314:21:10",
+                  "scope": 1619,
+                  "src": "314:21:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -326,10 +326,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 955,
+                    "id": 1610,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "314:4:10",
+                    "src": "314:4:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -340,11 +340,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 958,
+                  "id": 1613,
                   "name": "_interestRate",
                   "nodeType": "VariableDeclaration",
-                  "scope": 964,
-                  "src": "345:18:10",
+                  "scope": 1619,
+                  "src": "345:18:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -352,10 +352,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 957,
+                    "id": 1612,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "345:4:10",
+                    "src": "345:4:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -366,11 +366,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 960,
+                  "id": 1615,
                   "name": "_amortizationUnitType",
                   "nodeType": "VariableDeclaration",
-                  "scope": 964,
-                  "src": "373:26:10",
+                  "scope": 1619,
+                  "src": "373:26:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -378,10 +378,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 959,
+                    "id": 1614,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "373:4:10",
+                    "src": "373:4:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -392,11 +392,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 962,
+                  "id": 1617,
                   "name": "_termLengthInAmortizationUnits",
                   "nodeType": "VariableDeclaration",
-                  "scope": 964,
-                  "src": "409:35:10",
+                  "scope": 1619,
+                  "src": "409:35:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -404,10 +404,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 961,
+                    "id": 1616,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "409:4:10",
+                    "src": "409:4:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -417,33 +417,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "269:181:10"
+              "src": "269:181:13"
             },
-            "scope": 965,
-            "src": "180:271:10",
+            "scope": 1620,
+            "src": "180:271:13",
             "stateMutability": "pure",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 966,
-        "src": "101:353:10"
+        "scope": 1621,
+        "src": "101:353:13"
       }
     ],
-    "src": "0:455:10"
+    "src": "0:455:13"
   },
   "legacyAST": {
-    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/SimpleInterestTermsContractInterface.sol",
+    "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/interfaces/SimpleInterestTermsContractInterface.sol",
     "exportedSymbols": {
       "SimpleInterestTermsContractInterface": [
-        965
+        1620
       ]
     },
-    "id": 966,
+    "id": 1621,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 945,
+        "id": 1600,
         "literals": [
           "solidity",
           "^",
@@ -451,25 +451,25 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:10"
+        "src": "0:24:13"
       },
       {
-        "id": 946,
+        "id": 1601,
         "literals": [
           "experimental",
           "ABIEncoderV2"
         ],
         "nodeType": "PragmaDirective",
-        "src": "25:33:10"
+        "src": "25:33:13"
       },
       {
-        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/TermsContractInterface.sol",
+        "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/interfaces/TermsContractInterface.sol",
         "file": "./TermsContractInterface.sol",
-        "id": 947,
+        "id": 1602,
         "nodeType": "ImportDirective",
-        "scope": 966,
-        "sourceUnit": 1017,
-        "src": "61:38:10",
+        "scope": 1621,
+        "sourceUnit": 1672,
+        "src": "61:38:13",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -479,31 +479,31 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 948,
+              "id": 1603,
               "name": "TermsContractInterface",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1016,
-              "src": "150:22:10",
+              "referencedDeclaration": 1671,
+              "src": "150:22:13",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_TermsContractInterface_$1016",
+                "typeIdentifier": "t_contract$_TermsContractInterface_$1671",
                 "typeString": "contract TermsContractInterface"
               }
             },
-            "id": 949,
+            "id": 1604,
             "nodeType": "InheritanceSpecifier",
-            "src": "150:22:10"
+            "src": "150:22:13"
           }
         ],
         "contractDependencies": [
-          1016
+          1671
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 965,
+        "id": 1620,
         "linearizedBaseContracts": [
-          965,
-          1016
+          1620,
+          1671
         ],
         "name": "SimpleInterestTermsContractInterface",
         "nodeType": "ContractDefinition",
@@ -511,7 +511,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 964,
+            "id": 1619,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -519,16 +519,16 @@
             "name": "unpackParametersFromBytes",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 952,
+              "id": 1607,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 951,
+                  "id": 1606,
                   "name": "parameters",
                   "nodeType": "VariableDeclaration",
-                  "scope": 964,
-                  "src": "224:18:10",
+                  "scope": 1619,
+                  "src": "224:18:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -536,10 +536,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 950,
+                    "id": 1605,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "224:7:10",
+                    "src": "224:7:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -549,20 +549,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "214:34:10"
+              "src": "214:34:13"
             },
             "payable": false,
             "returnParameters": {
-              "id": 963,
+              "id": 1618,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 954,
+                  "id": 1609,
                   "name": "_principalTokenIndex",
                   "nodeType": "VariableDeclaration",
-                  "scope": 964,
-                  "src": "279:25:10",
+                  "scope": 1619,
+                  "src": "279:25:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -570,10 +570,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 953,
+                    "id": 1608,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "279:4:10",
+                    "src": "279:4:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -584,11 +584,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 956,
+                  "id": 1611,
                   "name": "_principalAmount",
                   "nodeType": "VariableDeclaration",
-                  "scope": 964,
-                  "src": "314:21:10",
+                  "scope": 1619,
+                  "src": "314:21:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -596,10 +596,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 955,
+                    "id": 1610,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "314:4:10",
+                    "src": "314:4:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -610,11 +610,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 958,
+                  "id": 1613,
                   "name": "_interestRate",
                   "nodeType": "VariableDeclaration",
-                  "scope": 964,
-                  "src": "345:18:10",
+                  "scope": 1619,
+                  "src": "345:18:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -622,10 +622,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 957,
+                    "id": 1612,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "345:4:10",
+                    "src": "345:4:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -636,11 +636,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 960,
+                  "id": 1615,
                   "name": "_amortizationUnitType",
                   "nodeType": "VariableDeclaration",
-                  "scope": 964,
-                  "src": "373:26:10",
+                  "scope": 1619,
+                  "src": "373:26:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -648,10 +648,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 959,
+                    "id": 1614,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "373:4:10",
+                    "src": "373:4:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -662,11 +662,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 962,
+                  "id": 1617,
                   "name": "_termLengthInAmortizationUnits",
                   "nodeType": "VariableDeclaration",
-                  "scope": 964,
-                  "src": "409:35:10",
+                  "scope": 1619,
+                  "src": "409:35:13",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -674,10 +674,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 961,
+                    "id": 1616,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "409:4:10",
+                    "src": "409:4:13",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -687,20 +687,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "269:181:10"
+              "src": "269:181:13"
             },
-            "scope": 965,
-            "src": "180:271:10",
+            "scope": 1620,
+            "src": "180:271:13",
             "stateMutability": "pure",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 966,
-        "src": "101:353:10"
+        "scope": 1621,
+        "src": "101:353:13"
       }
     ],
-    "src": "0:455:10"
+    "src": "0:455:13"
   },
   "compiler": {
     "name": "solc",
@@ -708,5 +708,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-16T21:20:58.389Z"
+  "updatedAt": "2018-11-25T19:53:27.681Z"
 }

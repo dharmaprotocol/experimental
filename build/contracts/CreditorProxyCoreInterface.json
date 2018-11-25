@@ -63,24 +63,24 @@
       "type": "event"
     }
   ],
-  "bytecode": "0x6080604052348015600f57600080fd5b50604380601d6000396000f3006080604052600080fd00a265627a7a7230582020a0f8738a714c0e0d7c8ac806156c00a101a4e24f65f5731cd25e5d34329d736c6578706572696d656e74616cf50037",
-  "deployedBytecode": "0x6080604052600080fd00a265627a7a7230582020a0f8738a714c0e0d7c8ac806156c00a101a4e24f65f5731cd25e5d34329d736c6578706572696d656e74616cf50037",
-  "sourceMap": "205:83:3:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;205:83:3;;;;;;;",
-  "deployedSourceMap": "205:83:3:-;;;;;",
+  "bytecode": "0x6080604052348015600f57600080fd5b50604380601d6000396000f3006080604052600080fd00a265627a7a7230582071a5d7f5fbe67b38c80ce4acadfad90f38b20001f144ffb5fb34f94f750f2a826c6578706572696d656e74616cf50037",
+  "deployedBytecode": "0x6080604052600080fd00a265627a7a7230582071a5d7f5fbe67b38c80ce4acadfad90f38b20001f144ffb5fb34f94f750f2a826c6578706572696d656e74616cf50037",
+  "sourceMap": "205:83:6:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;205:83:6;;;;;;;",
+  "deployedSourceMap": "205:83:6:-;;;;;",
   "source": "pragma solidity ^0.4.24;\npragma experimental ABIEncoderV2;\n\nimport \"../../shared/libraries/OrderLibrary.sol\";\nimport \"../libraries/CreditorProxyErrors.sol\";\nimport \"../libraries/CreditorProxyEvents.sol\";\n\ncontract CreditorProxyCoreInterface is CreditorProxyErrors, CreditorProxyEvents { }\n",
-  "sourcePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/interfaces/CreditorProxyCoreInterface.sol",
+  "sourcePath": "/home/bogdan/Projects/qw/experimental/contracts/src/CreditorDrivenLoans/interfaces/CreditorProxyCoreInterface.sol",
   "ast": {
-    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/interfaces/CreditorProxyCoreInterface.sol",
+    "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/CreditorDrivenLoans/interfaces/CreditorProxyCoreInterface.sol",
     "exportedSymbols": {
       "CreditorProxyCoreInterface": [
-        695
+        1343
       ]
     },
-    "id": 696,
+    "id": 1344,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 686,
+        "id": 1334,
         "literals": [
           "solidity",
           "^",
@@ -88,47 +88,47 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:3"
+        "src": "0:24:6"
       },
       {
-        "id": 687,
+        "id": 1335,
         "literals": [
           "experimental",
           "ABIEncoderV2"
         ],
         "nodeType": "PragmaDirective",
-        "src": "25:33:3"
+        "src": "25:33:6"
       },
       {
-        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/libraries/OrderLibrary.sol",
+        "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/libraries/OrderLibrary.sol",
         "file": "../../shared/libraries/OrderLibrary.sol",
-        "id": 688,
+        "id": 1336,
         "nodeType": "ImportDirective",
-        "scope": 696,
-        "sourceUnit": 1166,
-        "src": "60:49:3",
+        "scope": 1344,
+        "sourceUnit": 1821,
+        "src": "60:49:6",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyErrors.sol",
+        "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyErrors.sol",
         "file": "../libraries/CreditorProxyErrors.sol",
-        "id": 689,
+        "id": 1337,
         "nodeType": "ImportDirective",
-        "scope": 696,
-        "sourceUnit": 713,
-        "src": "110:46:3",
+        "scope": 1344,
+        "sourceUnit": 1361,
+        "src": "110:46:6",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyEvents.sol",
+        "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyEvents.sol",
         "file": "../libraries/CreditorProxyEvents.sol",
-        "id": 690,
+        "id": 1338,
         "nodeType": "ImportDirective",
-        "scope": 696,
-        "sourceUnit": 731,
-        "src": "157:46:3",
+        "scope": 1344,
+        "sourceUnit": 1379,
+        "src": "157:46:6",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -138,73 +138,73 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 691,
+              "id": 1339,
               "name": "CreditorProxyErrors",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 712,
-              "src": "244:19:3",
+              "referencedDeclaration": 1360,
+              "src": "244:19:6",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_CreditorProxyErrors_$712",
+                "typeIdentifier": "t_contract$_CreditorProxyErrors_$1360",
                 "typeString": "contract CreditorProxyErrors"
               }
             },
-            "id": 692,
+            "id": 1340,
             "nodeType": "InheritanceSpecifier",
-            "src": "244:19:3"
+            "src": "244:19:6"
           },
           {
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 693,
+              "id": 1341,
               "name": "CreditorProxyEvents",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 730,
-              "src": "265:19:3",
+              "referencedDeclaration": 1378,
+              "src": "265:19:6",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_CreditorProxyEvents_$730",
+                "typeIdentifier": "t_contract$_CreditorProxyEvents_$1378",
                 "typeString": "contract CreditorProxyEvents"
               }
             },
-            "id": 694,
+            "id": 1342,
             "nodeType": "InheritanceSpecifier",
-            "src": "265:19:3"
+            "src": "265:19:6"
           }
         ],
         "contractDependencies": [
-          712,
-          730
+          1360,
+          1378
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 695,
+        "id": 1343,
         "linearizedBaseContracts": [
-          695,
-          730,
-          712
+          1343,
+          1378,
+          1360
         ],
         "name": "CreditorProxyCoreInterface",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 696,
-        "src": "205:83:3"
+        "scope": 1344,
+        "src": "205:83:6"
       }
     ],
-    "src": "0:289:3"
+    "src": "0:289:6"
   },
   "legacyAST": {
-    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/interfaces/CreditorProxyCoreInterface.sol",
+    "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/CreditorDrivenLoans/interfaces/CreditorProxyCoreInterface.sol",
     "exportedSymbols": {
       "CreditorProxyCoreInterface": [
-        695
+        1343
       ]
     },
-    "id": 696,
+    "id": 1344,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 686,
+        "id": 1334,
         "literals": [
           "solidity",
           "^",
@@ -212,47 +212,47 @@
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:3"
+        "src": "0:24:6"
       },
       {
-        "id": 687,
+        "id": 1335,
         "literals": [
           "experimental",
           "ABIEncoderV2"
         ],
         "nodeType": "PragmaDirective",
-        "src": "25:33:3"
+        "src": "25:33:6"
       },
       {
-        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/libraries/OrderLibrary.sol",
+        "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/libraries/OrderLibrary.sol",
         "file": "../../shared/libraries/OrderLibrary.sol",
-        "id": 688,
+        "id": 1336,
         "nodeType": "ImportDirective",
-        "scope": 696,
-        "sourceUnit": 1166,
-        "src": "60:49:3",
+        "scope": 1344,
+        "sourceUnit": 1821,
+        "src": "60:49:6",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyErrors.sol",
+        "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyErrors.sol",
         "file": "../libraries/CreditorProxyErrors.sol",
-        "id": 689,
+        "id": 1337,
         "nodeType": "ImportDirective",
-        "scope": 696,
-        "sourceUnit": 713,
-        "src": "110:46:3",
+        "scope": 1344,
+        "sourceUnit": 1361,
+        "src": "110:46:6",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyEvents.sol",
+        "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/CreditorDrivenLoans/libraries/CreditorProxyEvents.sol",
         "file": "../libraries/CreditorProxyEvents.sol",
-        "id": 690,
+        "id": 1338,
         "nodeType": "ImportDirective",
-        "scope": 696,
-        "sourceUnit": 731,
-        "src": "157:46:3",
+        "scope": 1344,
+        "sourceUnit": 1379,
+        "src": "157:46:6",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -262,60 +262,60 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 691,
+              "id": 1339,
               "name": "CreditorProxyErrors",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 712,
-              "src": "244:19:3",
+              "referencedDeclaration": 1360,
+              "src": "244:19:6",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_CreditorProxyErrors_$712",
+                "typeIdentifier": "t_contract$_CreditorProxyErrors_$1360",
                 "typeString": "contract CreditorProxyErrors"
               }
             },
-            "id": 692,
+            "id": 1340,
             "nodeType": "InheritanceSpecifier",
-            "src": "244:19:3"
+            "src": "244:19:6"
           },
           {
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 693,
+              "id": 1341,
               "name": "CreditorProxyEvents",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 730,
-              "src": "265:19:3",
+              "referencedDeclaration": 1378,
+              "src": "265:19:6",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_CreditorProxyEvents_$730",
+                "typeIdentifier": "t_contract$_CreditorProxyEvents_$1378",
                 "typeString": "contract CreditorProxyEvents"
               }
             },
-            "id": 694,
+            "id": 1342,
             "nodeType": "InheritanceSpecifier",
-            "src": "265:19:3"
+            "src": "265:19:6"
           }
         ],
         "contractDependencies": [
-          712,
-          730
+          1360,
+          1378
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 695,
+        "id": 1343,
         "linearizedBaseContracts": [
-          695,
-          730,
-          712
+          1343,
+          1378,
+          1360
         ],
         "name": "CreditorProxyCoreInterface",
         "nodeType": "ContractDefinition",
         "nodes": [],
-        "scope": 696,
-        "src": "205:83:3"
+        "scope": 1344,
+        "src": "205:83:6"
       }
     ],
-    "src": "0:289:3"
+    "src": "0:289:6"
   },
   "compiler": {
     "name": "solc",
@@ -323,5 +323,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-16T21:20:58.387Z"
+  "updatedAt": "2018-11-25T19:53:27.668Z"
 }

@@ -150,7 +150,7 @@ export class DebtOrderFixtures {
 
     getAgreementId(order: DebtOrder): string {
         return this.web3.utils.soliditySha3(
-            this.contracts.debtKernelAddress, // version
+            this.contracts.repaymentRouterAddress, // version
             this.participants.debtor, // debtor
             "0x0000000000000000000000000000000000000000", // underwriter
             order.underwriterRiskRating,

@@ -81,82 +81,82 @@
       "type": "constructor"
     }
   ],
-  "bytecode": "0x608060405234801561001057600080fd5b506040516080806104d5833981018060405261002f919081019061014f565b836000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555082600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555081600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555080600360006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550505050506101d2565b600061014782516101b2565b905092915050565b6000806000806080858703121561016557600080fd5b60006101738782880161013b565b94505060206101848782880161013b565b93505060406101958782880161013b565b92505060606101a68782880161013b565b91505092959194509250565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6102f4806101e16000396000f300608060405260043610610062576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063079dd4b7146100675780630eefdbad14610092578063869f0511146100bd578063f8d89898146100e8575b600080fd5b34801561007357600080fd5b5061007c610113565b6040516100899190610201565b60405180910390f35b34801561009e57600080fd5b506100a7610139565b6040516100b49190610237565b60405180910390f35b3480156100c957600080fd5b506100d261015f565b6040516100df91906101e6565b60405180910390f35b3480156100f457600080fd5b506100fd610184565b60405161010a919061021c565b60405180910390f35b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600360009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6101b381610272565b82525050565b6101c281610284565b82525050565b6101d181610296565b82525050565b6101e0816102a8565b82525050565b60006020820190506101fb60008301846101aa565b92915050565b600060208201905061021660008301846101b9565b92915050565b600060208201905061023160008301846101c8565b92915050565b600060208201905061024c60008301846101d7565b92915050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b600061027d82610252565b9050919050565b600061028f82610252565b9050919050565b60006102a182610252565b9050919050565b60006102b382610252565b90509190505600a265627a7a7230582004098fa4f65bdcbaa548ed7e4181239defb107fa545726aeeb8b4a98494724a26c6578706572696d656e74616cf50037",
-  "deployedBytecode": "0x608060405260043610610062576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063079dd4b7146100675780630eefdbad14610092578063869f0511146100bd578063f8d89898146100e8575b600080fd5b34801561007357600080fd5b5061007c610113565b6040516100899190610201565b60405180910390f35b34801561009e57600080fd5b506100a7610139565b6040516100b49190610237565b60405180910390f35b3480156100c957600080fd5b506100d261015f565b6040516100df91906101e6565b60405180910390f35b3480156100f457600080fd5b506100fd610184565b60405161010a919061021c565b60405180910390f35b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600360009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6101b381610272565b82525050565b6101c281610284565b82525050565b6101d181610296565b82525050565b6101e0816102a8565b82525050565b60006020820190506101fb60008301846101aa565b92915050565b600060208201905061021660008301846101b9565b92915050565b600060208201905061023160008301846101c8565b92915050565b600060208201905061024c60008301846101d7565b92915050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b600061027d82610252565b9050919050565b600061028f82610252565b9050919050565b60006102a182610252565b9050919050565b60006102b382610252565b90509190505600a265627a7a7230582004098fa4f65bdcbaa548ed7e4181239defb107fa545726aeeb8b4a98494724a26c6578706572696d656e74616cf50037",
-  "sourceMap": "215:687:7:-;;;452:447;8:9:-1;5:2;;;30:1;27;20:12;5:2;452:447:7;;;;;;;;;;;;;;;;;;;;;;690:15;649:14;;:57;;;;;;;;;;;;;;;;;;749:11;716:10;;:45;;;;;;;;;;;;;;;;;;802:10;771:9;;:42;;;;;;;;;;;;;;;;;;872:19;823:18;;:69;;;;;;;;;;;;;;;;;;452:447;;;;215:687;;5:122:-1;;83:39;114:6;108:13;83:39;;;74:48;;68:59;;;;;134:672;;;;;300:3;288:9;279:7;275:23;271:33;268:2;;;317:1;314;307:12;268:2;352:1;369:64;425:7;416:6;405:9;401:22;369:64;;;359:74;;331:108;470:2;488:64;544:7;535:6;524:9;520:22;488:64;;;478:74;;449:109;589:2;607:64;663:7;654:6;643:9;639:22;607:64;;;597:74;;568:109;708:2;726:64;782:7;773:6;762:9;758:22;726:64;;;716:74;;687:109;262:544;;;;;;;;813:128;;893:42;886:5;882:54;871:65;;865:76;;;;215:687:7;;;;;;;",
-  "deployedSourceMap": "215:687:7:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;308:37;;8:9:-1;5:2;;;30:1;27;20:12;5:2;308:37:7;;;;;;;;;;;;;;;;;;;;392:53;;8:9:-1;5:2;;;30:1;27;20:12;5:2;392:53:7;;;;;;;;;;;;;;;;;;;;257:45;;8:9:-1;5:2;;;30:1;27;20:12;5:2;257:45:7;;;;;;;;;;;;;;;;;;;;351:35;;8:9:-1;5:2;;;30:1;27;20:12;5:2;351:35:7;;;;;;;;;;;;;;;;;;;;308:37;;;;;;;;;;;;;:::o;392:53::-;;;;;;;;;;;;;:::o;257:45::-;;;;;;;;;;;;;:::o;351:35::-;;;;;;;;;;;;;:::o;5:178:-1:-;109:68;171:5;109:68;;;104:3;97:81;91:92;;;190:170;290:64;348:5;290:64;;;285:3;278:77;272:88;;;367:168;466:63;523:5;466:63;;;461:3;454:76;448:87;;;542:188;651:73;718:5;651:73;;;646:3;639:86;633:97;;;737:255;;876:2;865:9;861:18;853:26;;890:92;979:1;968:9;964:17;955:6;890:92;;;847:145;;;;;999:247;;1134:2;1123:9;1119:18;1111:26;;1148:88;1233:1;1222:9;1218:17;1209:6;1148:88;;;1105:141;;;;;1253:245;;1387:2;1376:9;1372:18;1364:26;;1401:87;1485:1;1474:9;1470:17;1461:6;1401:87;;;1358:140;;;;;1505:265;;1649:2;1638:9;1634:18;1626:26;;1663:97;1757:1;1746:9;1742:17;1733:6;1663:97;;;1620:150;;;;;1777:128;;1857:42;1850:5;1846:54;1835:65;;1829:76;;;;1912:146;;2022:31;2047:5;2022:31;;;2009:44;;2003:55;;;;2065:142;;2171:31;2196:5;2171:31;;;2158:44;;2152:55;;;;2214:141;;2319:31;2344:5;2319:31;;;2306:44;;2300:55;;;;2362:151;;2477:31;2502:5;2477:31;;;2464:44;;2458:55;;;",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516080806104d5833981018060405261002f919081019061014f565b836000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555082600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555081600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555080600360006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550505050506101d2565b600061014782516101b2565b905092915050565b6000806000806080858703121561016557600080fd5b60006101738782880161013b565b94505060206101848782880161013b565b93505060406101958782880161013b565b92505060606101a68782880161013b565b91505092959194509250565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6102f4806101e16000396000f300608060405260043610610062576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063079dd4b7146100675780630eefdbad14610092578063869f0511146100bd578063f8d89898146100e8575b600080fd5b34801561007357600080fd5b5061007c610113565b6040516100899190610201565b60405180910390f35b34801561009e57600080fd5b506100a7610139565b6040516100b49190610237565b60405180910390f35b3480156100c957600080fd5b506100d261015f565b6040516100df91906101e6565b60405180910390f35b3480156100f457600080fd5b506100fd610184565b60405161010a919061021c565b60405180910390f35b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600360009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6101b381610272565b82525050565b6101c281610284565b82525050565b6101d181610296565b82525050565b6101e0816102a8565b82525050565b60006020820190506101fb60008301846101aa565b92915050565b600060208201905061021660008301846101b9565b92915050565b600060208201905061023160008301846101c8565b92915050565b600060208201905061024c60008301846101d7565b92915050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b600061027d82610252565b9050919050565b600061028f82610252565b9050919050565b60006102a182610252565b9050919050565b60006102b382610252565b90509190505600a265627a7a7230582035e7bdcfa616b80cf20ac1fae79c59362caa8b7ef52435f54f7d1a886a47490e6c6578706572696d656e74616cf50037",
+  "deployedBytecode": "0x608060405260043610610062576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063079dd4b7146100675780630eefdbad14610092578063869f0511146100bd578063f8d89898146100e8575b600080fd5b34801561007357600080fd5b5061007c610113565b6040516100899190610201565b60405180910390f35b34801561009e57600080fd5b506100a7610139565b6040516100b49190610237565b60405180910390f35b3480156100c957600080fd5b506100d261015f565b6040516100df91906101e6565b60405180910390f35b3480156100f457600080fd5b506100fd610184565b60405161010a919061021c565b60405180910390f35b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600360009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6101b381610272565b82525050565b6101c281610284565b82525050565b6101d181610296565b82525050565b6101e0816102a8565b82525050565b60006020820190506101fb60008301846101aa565b92915050565b600060208201905061021660008301846101b9565b92915050565b600060208201905061023160008301846101c8565b92915050565b600060208201905061024c60008301846101d7565b92915050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b600061027d82610252565b9050919050565b600061028f82610252565b9050919050565b60006102a182610252565b9050919050565b60006102b382610252565b90509190505600a265627a7a7230582035e7bdcfa616b80cf20ac1fae79c59362caa8b7ef52435f54f7d1a886a47490e6c6578706572696d656e74616cf50037",
+  "sourceMap": "215:687:10:-;;;452:447;8:9:-1;5:2;;;30:1;27;20:12;5:2;452:447:10;;;;;;;;;;;;;;;;;;;;;;690:15;649:14;;:57;;;;;;;;;;;;;;;;;;749:11;716:10;;:45;;;;;;;;;;;;;;;;;;802:10;771:9;;:42;;;;;;;;;;;;;;;;;;872:19;823:18;;:69;;;;;;;;;;;;;;;;;;452:447;;;;215:687;;5:122:-1;;83:39;114:6;108:13;83:39;;;74:48;;68:59;;;;;134:672;;;;;300:3;288:9;279:7;275:23;271:33;268:2;;;317:1;314;307:12;268:2;352:1;369:64;425:7;416:6;405:9;401:22;369:64;;;359:74;;331:108;470:2;488:64;544:7;535:6;524:9;520:22;488:64;;;478:74;;449:109;589:2;607:64;663:7;654:6;643:9;639:22;607:64;;;597:74;;568:109;708:2;726:64;782:7;773:6;762:9;758:22;726:64;;;716:74;;687:109;262:544;;;;;;;;813:128;;893:42;886:5;882:54;871:65;;865:76;;;;215:687:10;;;;;;;",
+  "deployedSourceMap": "215:687:10:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;308:37;;8:9:-1;5:2;;;30:1;27;20:12;5:2;308:37:10;;;;;;;;;;;;;;;;;;;;392:53;;8:9:-1;5:2;;;30:1;27;20:12;5:2;392:53:10;;;;;;;;;;;;;;;;;;;;257:45;;8:9:-1;5:2;;;30:1;27;20:12;5:2;257:45:10;;;;;;;;;;;;;;;;;;;;351:35;;8:9:-1;5:2;;;30:1;27;20:12;5:2;351:35:10;;;;;;;;;;;;;;;;;;;;308:37;;;;;;;;;;;;;:::o;392:53::-;;;;;;;;;;;;;:::o;257:45::-;;;;;;;;;;;;;:::o;351:35::-;;;;;;;;;;;;;:::o;5:180:-1:-;110:69;173:5;110:69;;;105:3;98:82;92:93;;;192:172;293:65;352:5;293:65;;;288:3;281:78;275:89;;;371:170;471:64;529:5;471:64;;;466:3;459:77;453:88;;;548:188;657:73;724:5;657:73;;;652:3;645:86;639:97;;;743:257;;883:2;872:9;868:18;860:26;;897:93;987:1;976:9;972:17;963:6;897:93;;;854:146;;;;;1007:249;;1143:2;1132:9;1128:18;1120:26;;1157:89;1243:1;1232:9;1228:17;1219:6;1157:89;;;1114:142;;;;;1263:247;;1398:2;1387:9;1383:18;1375:26;;1412:88;1497:1;1486:9;1482:17;1473:6;1412:88;;;1369:141;;;;;1517:265;;1661:2;1650:9;1646:18;1638:26;;1675:97;1769:1;1758:9;1754:17;1745:6;1675:97;;;1632:150;;;;;1789:128;;1869:42;1862:5;1858:54;1847:65;;1841:76;;;;1924:147;;2035:31;2060:5;2035:31;;;2022:44;;2016:55;;;;2078:143;;2185:31;2210:5;2185:31;;;2172:44;;2166:55;;;;2228:142;;2334:31;2359:5;2334:31;;;2321:44;;2315:55;;;;2377:151;;2492:31;2517:5;2492:31;;;2479:44;;2473:55;;;",
   "source": "pragma solidity 0.4.24;\npragma experimental ABIEncoderV2;\n\nimport \"./CollateralizerInterface.sol\";\nimport \"./DebtKernelInterface.sol\";\nimport \"./DebtTokenInterface.sol\";\nimport \"./TokenTransferProxyInterface.sol\";\n\ncontract ContractRegistryInterface {\n\n    CollateralizerInterface public collateralizer;\n    DebtKernelInterface public debtKernel;\n    DebtTokenInterface public debtToken;\n    TokenTransferProxyInterface public tokenTransferProxy;\n\n    function ContractRegistryInterface(\n        address _collateralizer,\n        address _debtKernel,\n        address _debtToken,\n        address _tokenTransferProxy\n    )\n        public\n    {\n        collateralizer = CollateralizerInterface(_collateralizer);\n        debtKernel = DebtKernelInterface(_debtKernel);\n        debtToken = DebtTokenInterface(_debtToken);\n        tokenTransferProxy = TokenTransferProxyInterface(_tokenTransferProxy);\n    }\n\n}\n",
-  "sourcePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/ContractRegistryInterface.sol",
+  "sourcePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/interfaces/ContractRegistryInterface.sol",
   "ast": {
-    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/ContractRegistryInterface.sol",
+    "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/interfaces/ContractRegistryInterface.sol",
     "exportedSymbols": {
       "ContractRegistryInterface": [
-        797
+        1445
       ]
     },
-    "id": 798,
+    "id": 1446,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 747,
+        "id": 1395,
         "literals": [
           "solidity",
           "0.4",
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:7"
+        "src": "0:23:10"
       },
       {
-        "id": 748,
+        "id": 1396,
         "literals": [
           "experimental",
           "ABIEncoderV2"
         ],
         "nodeType": "PragmaDirective",
-        "src": "24:33:7"
+        "src": "24:33:10"
       },
       {
-        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/CollateralizerInterface.sol",
+        "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/interfaces/CollateralizerInterface.sol",
         "file": "./CollateralizerInterface.sol",
-        "id": 749,
+        "id": 1397,
         "nodeType": "ImportDirective",
-        "scope": 798,
-        "sourceUnit": 746,
-        "src": "59:39:7",
+        "scope": 1446,
+        "sourceUnit": 1394,
+        "src": "59:39:10",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/DebtKernelInterface.sol",
+        "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/interfaces/DebtKernelInterface.sol",
         "file": "./DebtKernelInterface.sol",
-        "id": 750,
+        "id": 1398,
         "nodeType": "ImportDirective",
-        "scope": 798,
-        "sourceUnit": 933,
-        "src": "99:35:7",
+        "scope": 1446,
+        "sourceUnit": 1581,
+        "src": "99:35:10",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/DebtTokenInterface.sol",
+        "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/interfaces/DebtTokenInterface.sol",
         "file": "./DebtTokenInterface.sol",
-        "id": 751,
+        "id": 1399,
         "nodeType": "ImportDirective",
-        "scope": 798,
-        "sourceUnit": 944,
-        "src": "135:34:7",
+        "scope": 1446,
+        "sourceUnit": 1599,
+        "src": "135:34:10",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/TokenTransferProxyInterface.sol",
+        "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/interfaces/TokenTransferProxyInterface.sol",
         "file": "./TokenTransferProxyInterface.sol",
-        "id": 752,
+        "id": 1400,
         "nodeType": "ImportDirective",
-        "scope": 798,
-        "sourceUnit": 1021,
-        "src": "170:43:7",
+        "scope": 1446,
+        "sourceUnit": 1676,
+        "src": "170:43:10",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -166,35 +166,35 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 797,
+        "id": 1445,
         "linearizedBaseContracts": [
-          797
+          1445
         ],
         "name": "ContractRegistryInterface",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 754,
+            "id": 1402,
             "name": "collateralizer",
             "nodeType": "VariableDeclaration",
-            "scope": 797,
-            "src": "257:45:7",
+            "scope": 1445,
+            "src": "257:45:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_CollateralizerInterface_$745",
+              "typeIdentifier": "t_contract$_CollateralizerInterface_$1393",
               "typeString": "contract CollateralizerInterface"
             },
             "typeName": {
               "contractScope": null,
-              "id": 753,
+              "id": 1401,
               "name": "CollateralizerInterface",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 745,
-              "src": "257:23:7",
+              "referencedDeclaration": 1393,
+              "src": "257:23:10",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_CollateralizerInterface_$745",
+                "typeIdentifier": "t_contract$_CollateralizerInterface_$1393",
                 "typeString": "contract CollateralizerInterface"
               }
             },
@@ -203,26 +203,26 @@
           },
           {
             "constant": false,
-            "id": 756,
+            "id": 1404,
             "name": "debtKernel",
             "nodeType": "VariableDeclaration",
-            "scope": 797,
-            "src": "308:37:7",
+            "scope": 1445,
+            "src": "308:37:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_DebtKernelInterface_$932",
+              "typeIdentifier": "t_contract$_DebtKernelInterface_$1580",
               "typeString": "contract DebtKernelInterface"
             },
             "typeName": {
               "contractScope": null,
-              "id": 755,
+              "id": 1403,
               "name": "DebtKernelInterface",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 932,
-              "src": "308:19:7",
+              "referencedDeclaration": 1580,
+              "src": "308:19:10",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_DebtKernelInterface_$932",
+                "typeIdentifier": "t_contract$_DebtKernelInterface_$1580",
                 "typeString": "contract DebtKernelInterface"
               }
             },
@@ -231,26 +231,26 @@
           },
           {
             "constant": false,
-            "id": 758,
+            "id": 1406,
             "name": "debtToken",
             "nodeType": "VariableDeclaration",
-            "scope": 797,
-            "src": "351:35:7",
+            "scope": 1445,
+            "src": "351:35:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_DebtTokenInterface_$943",
+              "typeIdentifier": "t_contract$_DebtTokenInterface_$1598",
               "typeString": "contract DebtTokenInterface"
             },
             "typeName": {
               "contractScope": null,
-              "id": 757,
+              "id": 1405,
               "name": "DebtTokenInterface",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 943,
-              "src": "351:18:7",
+              "referencedDeclaration": 1598,
+              "src": "351:18:10",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_DebtTokenInterface_$943",
+                "typeIdentifier": "t_contract$_DebtTokenInterface_$1598",
                 "typeString": "contract DebtTokenInterface"
               }
             },
@@ -259,26 +259,26 @@
           },
           {
             "constant": false,
-            "id": 760,
+            "id": 1408,
             "name": "tokenTransferProxy",
             "nodeType": "VariableDeclaration",
-            "scope": 797,
-            "src": "392:53:7",
+            "scope": 1445,
+            "src": "392:53:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1020",
+              "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1675",
               "typeString": "contract TokenTransferProxyInterface"
             },
             "typeName": {
               "contractScope": null,
-              "id": 759,
+              "id": 1407,
               "name": "TokenTransferProxyInterface",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1020,
-              "src": "392:27:7",
+              "referencedDeclaration": 1675,
+              "src": "392:27:10",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1020",
+                "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1675",
                 "typeString": "contract TokenTransferProxyInterface"
               }
             },
@@ -287,28 +287,28 @@
           },
           {
             "body": {
-              "id": 795,
+              "id": 1443,
               "nodeType": "Block",
-              "src": "639:260:7",
+              "src": "639:260:10",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 775,
+                    "id": 1423,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 771,
+                      "id": 1419,
                       "name": "collateralizer",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 754,
-                      "src": "649:14:7",
+                      "referencedDeclaration": 1402,
+                      "src": "649:14:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_CollateralizerInterface_$745",
+                        "typeIdentifier": "t_contract$_CollateralizerInterface_$1393",
                         "typeString": "contract CollateralizerInterface"
                       }
                     },
@@ -319,12 +319,12 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 773,
+                          "id": 1421,
                           "name": "_collateralizer",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 762,
-                          "src": "690:15:7",
+                          "referencedDeclaration": 1410,
+                          "src": "690:15:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -338,18 +338,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 772,
+                        "id": 1420,
                         "name": "CollateralizerInterface",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 745,
-                        "src": "666:23:7",
+                        "referencedDeclaration": 1393,
+                        "src": "666:23:10",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_CollateralizerInterface_$745_$",
+                          "typeIdentifier": "t_type$_t_contract$_CollateralizerInterface_$1393_$",
                           "typeString": "type(contract CollateralizerInterface)"
                         }
                       },
-                      "id": 774,
+                      "id": 1422,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -357,40 +357,40 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "666:40:7",
+                      "src": "666:40:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_CollateralizerInterface_$745",
+                        "typeIdentifier": "t_contract$_CollateralizerInterface_$1393",
                         "typeString": "contract CollateralizerInterface"
                       }
                     },
-                    "src": "649:57:7",
+                    "src": "649:57:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_CollateralizerInterface_$745",
+                      "typeIdentifier": "t_contract$_CollateralizerInterface_$1393",
                       "typeString": "contract CollateralizerInterface"
                     }
                   },
-                  "id": 776,
+                  "id": 1424,
                   "nodeType": "ExpressionStatement",
-                  "src": "649:57:7"
+                  "src": "649:57:10"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 781,
+                    "id": 1429,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 777,
+                      "id": 1425,
                       "name": "debtKernel",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 756,
-                      "src": "716:10:7",
+                      "referencedDeclaration": 1404,
+                      "src": "716:10:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_DebtKernelInterface_$932",
+                        "typeIdentifier": "t_contract$_DebtKernelInterface_$1580",
                         "typeString": "contract DebtKernelInterface"
                       }
                     },
@@ -401,12 +401,12 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 779,
+                          "id": 1427,
                           "name": "_debtKernel",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 764,
-                          "src": "749:11:7",
+                          "referencedDeclaration": 1412,
+                          "src": "749:11:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -420,18 +420,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 778,
+                        "id": 1426,
                         "name": "DebtKernelInterface",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 932,
-                        "src": "729:19:7",
+                        "referencedDeclaration": 1580,
+                        "src": "729:19:10",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_DebtKernelInterface_$932_$",
+                          "typeIdentifier": "t_type$_t_contract$_DebtKernelInterface_$1580_$",
                           "typeString": "type(contract DebtKernelInterface)"
                         }
                       },
-                      "id": 780,
+                      "id": 1428,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -439,40 +439,40 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "729:32:7",
+                      "src": "729:32:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_DebtKernelInterface_$932",
+                        "typeIdentifier": "t_contract$_DebtKernelInterface_$1580",
                         "typeString": "contract DebtKernelInterface"
                       }
                     },
-                    "src": "716:45:7",
+                    "src": "716:45:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_DebtKernelInterface_$932",
+                      "typeIdentifier": "t_contract$_DebtKernelInterface_$1580",
                       "typeString": "contract DebtKernelInterface"
                     }
                   },
-                  "id": 782,
+                  "id": 1430,
                   "nodeType": "ExpressionStatement",
-                  "src": "716:45:7"
+                  "src": "716:45:10"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 787,
+                    "id": 1435,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 783,
+                      "id": 1431,
                       "name": "debtToken",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 758,
-                      "src": "771:9:7",
+                      "referencedDeclaration": 1406,
+                      "src": "771:9:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_DebtTokenInterface_$943",
+                        "typeIdentifier": "t_contract$_DebtTokenInterface_$1598",
                         "typeString": "contract DebtTokenInterface"
                       }
                     },
@@ -483,12 +483,12 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 785,
+                          "id": 1433,
                           "name": "_debtToken",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 766,
-                          "src": "802:10:7",
+                          "referencedDeclaration": 1414,
+                          "src": "802:10:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -502,18 +502,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 784,
+                        "id": 1432,
                         "name": "DebtTokenInterface",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 943,
-                        "src": "783:18:7",
+                        "referencedDeclaration": 1598,
+                        "src": "783:18:10",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_DebtTokenInterface_$943_$",
+                          "typeIdentifier": "t_type$_t_contract$_DebtTokenInterface_$1598_$",
                           "typeString": "type(contract DebtTokenInterface)"
                         }
                       },
-                      "id": 786,
+                      "id": 1434,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -521,40 +521,40 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "783:30:7",
+                      "src": "783:30:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_DebtTokenInterface_$943",
+                        "typeIdentifier": "t_contract$_DebtTokenInterface_$1598",
                         "typeString": "contract DebtTokenInterface"
                       }
                     },
-                    "src": "771:42:7",
+                    "src": "771:42:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_DebtTokenInterface_$943",
+                      "typeIdentifier": "t_contract$_DebtTokenInterface_$1598",
                       "typeString": "contract DebtTokenInterface"
                     }
                   },
-                  "id": 788,
+                  "id": 1436,
                   "nodeType": "ExpressionStatement",
-                  "src": "771:42:7"
+                  "src": "771:42:10"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 793,
+                    "id": 1441,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 789,
+                      "id": 1437,
                       "name": "tokenTransferProxy",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 760,
-                      "src": "823:18:7",
+                      "referencedDeclaration": 1408,
+                      "src": "823:18:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1020",
+                        "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1675",
                         "typeString": "contract TokenTransferProxyInterface"
                       }
                     },
@@ -565,12 +565,12 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 791,
+                          "id": 1439,
                           "name": "_tokenTransferProxy",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 768,
-                          "src": "872:19:7",
+                          "referencedDeclaration": 1416,
+                          "src": "872:19:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -584,18 +584,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 790,
+                        "id": 1438,
                         "name": "TokenTransferProxyInterface",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1020,
-                        "src": "844:27:7",
+                        "referencedDeclaration": 1675,
+                        "src": "844:27:10",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_TokenTransferProxyInterface_$1020_$",
+                          "typeIdentifier": "t_type$_t_contract$_TokenTransferProxyInterface_$1675_$",
                           "typeString": "type(contract TokenTransferProxyInterface)"
                         }
                       },
-                      "id": 792,
+                      "id": 1440,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -603,26 +603,26 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "844:48:7",
+                      "src": "844:48:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1020",
+                        "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1675",
                         "typeString": "contract TokenTransferProxyInterface"
                       }
                     },
-                    "src": "823:69:7",
+                    "src": "823:69:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1020",
+                      "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1675",
                       "typeString": "contract TokenTransferProxyInterface"
                     }
                   },
-                  "id": 794,
+                  "id": 1442,
                   "nodeType": "ExpressionStatement",
-                  "src": "823:69:7"
+                  "src": "823:69:10"
                 }
               ]
             },
             "documentation": null,
-            "id": 796,
+            "id": 1444,
             "implemented": true,
             "isConstructor": true,
             "isDeclaredConst": false,
@@ -630,16 +630,16 @@
             "name": "ContractRegistryInterface",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 769,
+              "id": 1417,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 762,
+                  "id": 1410,
                   "name": "_collateralizer",
                   "nodeType": "VariableDeclaration",
-                  "scope": 796,
-                  "src": "496:23:7",
+                  "scope": 1444,
+                  "src": "496:23:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -647,10 +647,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 761,
+                    "id": 1409,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "496:7:7",
+                    "src": "496:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -661,11 +661,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 764,
+                  "id": 1412,
                   "name": "_debtKernel",
                   "nodeType": "VariableDeclaration",
-                  "scope": 796,
-                  "src": "529:19:7",
+                  "scope": 1444,
+                  "src": "529:19:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -673,10 +673,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 763,
+                    "id": 1411,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "529:7:7",
+                    "src": "529:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -687,11 +687,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 766,
+                  "id": 1414,
                   "name": "_debtToken",
                   "nodeType": "VariableDeclaration",
-                  "scope": 796,
-                  "src": "558:18:7",
+                  "scope": 1444,
+                  "src": "558:18:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -699,10 +699,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 765,
+                    "id": 1413,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "558:7:7",
+                    "src": "558:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -713,11 +713,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 768,
+                  "id": 1416,
                   "name": "_tokenTransferProxy",
                   "nodeType": "VariableDeclaration",
-                  "scope": 796,
-                  "src": "586:27:7",
+                  "scope": 1444,
+                  "src": "586:27:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -725,10 +725,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 767,
+                    "id": 1415,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "586:7:7",
+                    "src": "586:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -738,98 +738,98 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "486:133:7"
+              "src": "486:133:10"
             },
             "payable": false,
             "returnParameters": {
-              "id": 770,
+              "id": 1418,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "639:0:7"
+              "src": "639:0:10"
             },
-            "scope": 797,
-            "src": "452:447:7",
+            "scope": 1445,
+            "src": "452:447:10",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 798,
-        "src": "215:687:7"
+        "scope": 1446,
+        "src": "215:687:10"
       }
     ],
-    "src": "0:903:7"
+    "src": "0:903:10"
   },
   "legacyAST": {
-    "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/ContractRegistryInterface.sol",
+    "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/interfaces/ContractRegistryInterface.sol",
     "exportedSymbols": {
       "ContractRegistryInterface": [
-        797
+        1445
       ]
     },
-    "id": 798,
+    "id": 1446,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 747,
+        "id": 1395,
         "literals": [
           "solidity",
           "0.4",
           ".24"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:7"
+        "src": "0:23:10"
       },
       {
-        "id": 748,
+        "id": 1396,
         "literals": [
           "experimental",
           "ABIEncoderV2"
         ],
         "nodeType": "PragmaDirective",
-        "src": "24:33:7"
+        "src": "24:33:10"
       },
       {
-        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/CollateralizerInterface.sol",
+        "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/interfaces/CollateralizerInterface.sol",
         "file": "./CollateralizerInterface.sol",
-        "id": 749,
+        "id": 1397,
         "nodeType": "ImportDirective",
-        "scope": 798,
-        "sourceUnit": 746,
-        "src": "59:39:7",
+        "scope": 1446,
+        "sourceUnit": 1394,
+        "src": "59:39:10",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/DebtKernelInterface.sol",
+        "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/interfaces/DebtKernelInterface.sol",
         "file": "./DebtKernelInterface.sol",
-        "id": 750,
+        "id": 1398,
         "nodeType": "ImportDirective",
-        "scope": 798,
-        "sourceUnit": 933,
-        "src": "99:35:7",
+        "scope": 1446,
+        "sourceUnit": 1581,
+        "src": "99:35:10",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/DebtTokenInterface.sol",
+        "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/interfaces/DebtTokenInterface.sol",
         "file": "./DebtTokenInterface.sol",
-        "id": 751,
+        "id": 1399,
         "nodeType": "ImportDirective",
-        "scope": 798,
-        "sourceUnit": 944,
-        "src": "135:34:7",
+        "scope": 1446,
+        "sourceUnit": 1599,
+        "src": "135:34:10",
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/graemeboy/Dharma/experimental/contracts/src/shared/interfaces/TokenTransferProxyInterface.sol",
+        "absolutePath": "/home/bogdan/Projects/qw/experimental/contracts/src/shared/interfaces/TokenTransferProxyInterface.sol",
         "file": "./TokenTransferProxyInterface.sol",
-        "id": 752,
+        "id": 1400,
         "nodeType": "ImportDirective",
-        "scope": 798,
-        "sourceUnit": 1021,
-        "src": "170:43:7",
+        "scope": 1446,
+        "sourceUnit": 1676,
+        "src": "170:43:10",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -839,35 +839,35 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 797,
+        "id": 1445,
         "linearizedBaseContracts": [
-          797
+          1445
         ],
         "name": "ContractRegistryInterface",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 754,
+            "id": 1402,
             "name": "collateralizer",
             "nodeType": "VariableDeclaration",
-            "scope": 797,
-            "src": "257:45:7",
+            "scope": 1445,
+            "src": "257:45:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_CollateralizerInterface_$745",
+              "typeIdentifier": "t_contract$_CollateralizerInterface_$1393",
               "typeString": "contract CollateralizerInterface"
             },
             "typeName": {
               "contractScope": null,
-              "id": 753,
+              "id": 1401,
               "name": "CollateralizerInterface",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 745,
-              "src": "257:23:7",
+              "referencedDeclaration": 1393,
+              "src": "257:23:10",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_CollateralizerInterface_$745",
+                "typeIdentifier": "t_contract$_CollateralizerInterface_$1393",
                 "typeString": "contract CollateralizerInterface"
               }
             },
@@ -876,26 +876,26 @@
           },
           {
             "constant": false,
-            "id": 756,
+            "id": 1404,
             "name": "debtKernel",
             "nodeType": "VariableDeclaration",
-            "scope": 797,
-            "src": "308:37:7",
+            "scope": 1445,
+            "src": "308:37:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_DebtKernelInterface_$932",
+              "typeIdentifier": "t_contract$_DebtKernelInterface_$1580",
               "typeString": "contract DebtKernelInterface"
             },
             "typeName": {
               "contractScope": null,
-              "id": 755,
+              "id": 1403,
               "name": "DebtKernelInterface",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 932,
-              "src": "308:19:7",
+              "referencedDeclaration": 1580,
+              "src": "308:19:10",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_DebtKernelInterface_$932",
+                "typeIdentifier": "t_contract$_DebtKernelInterface_$1580",
                 "typeString": "contract DebtKernelInterface"
               }
             },
@@ -904,26 +904,26 @@
           },
           {
             "constant": false,
-            "id": 758,
+            "id": 1406,
             "name": "debtToken",
             "nodeType": "VariableDeclaration",
-            "scope": 797,
-            "src": "351:35:7",
+            "scope": 1445,
+            "src": "351:35:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_DebtTokenInterface_$943",
+              "typeIdentifier": "t_contract$_DebtTokenInterface_$1598",
               "typeString": "contract DebtTokenInterface"
             },
             "typeName": {
               "contractScope": null,
-              "id": 757,
+              "id": 1405,
               "name": "DebtTokenInterface",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 943,
-              "src": "351:18:7",
+              "referencedDeclaration": 1598,
+              "src": "351:18:10",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_DebtTokenInterface_$943",
+                "typeIdentifier": "t_contract$_DebtTokenInterface_$1598",
                 "typeString": "contract DebtTokenInterface"
               }
             },
@@ -932,26 +932,26 @@
           },
           {
             "constant": false,
-            "id": 760,
+            "id": 1408,
             "name": "tokenTransferProxy",
             "nodeType": "VariableDeclaration",
-            "scope": 797,
-            "src": "392:53:7",
+            "scope": 1445,
+            "src": "392:53:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1020",
+              "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1675",
               "typeString": "contract TokenTransferProxyInterface"
             },
             "typeName": {
               "contractScope": null,
-              "id": 759,
+              "id": 1407,
               "name": "TokenTransferProxyInterface",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1020,
-              "src": "392:27:7",
+              "referencedDeclaration": 1675,
+              "src": "392:27:10",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1020",
+                "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1675",
                 "typeString": "contract TokenTransferProxyInterface"
               }
             },
@@ -960,28 +960,28 @@
           },
           {
             "body": {
-              "id": 795,
+              "id": 1443,
               "nodeType": "Block",
-              "src": "639:260:7",
+              "src": "639:260:10",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 775,
+                    "id": 1423,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 771,
+                      "id": 1419,
                       "name": "collateralizer",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 754,
-                      "src": "649:14:7",
+                      "referencedDeclaration": 1402,
+                      "src": "649:14:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_CollateralizerInterface_$745",
+                        "typeIdentifier": "t_contract$_CollateralizerInterface_$1393",
                         "typeString": "contract CollateralizerInterface"
                       }
                     },
@@ -992,12 +992,12 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 773,
+                          "id": 1421,
                           "name": "_collateralizer",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 762,
-                          "src": "690:15:7",
+                          "referencedDeclaration": 1410,
+                          "src": "690:15:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -1011,18 +1011,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 772,
+                        "id": 1420,
                         "name": "CollateralizerInterface",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 745,
-                        "src": "666:23:7",
+                        "referencedDeclaration": 1393,
+                        "src": "666:23:10",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_CollateralizerInterface_$745_$",
+                          "typeIdentifier": "t_type$_t_contract$_CollateralizerInterface_$1393_$",
                           "typeString": "type(contract CollateralizerInterface)"
                         }
                       },
-                      "id": 774,
+                      "id": 1422,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1030,40 +1030,40 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "666:40:7",
+                      "src": "666:40:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_CollateralizerInterface_$745",
+                        "typeIdentifier": "t_contract$_CollateralizerInterface_$1393",
                         "typeString": "contract CollateralizerInterface"
                       }
                     },
-                    "src": "649:57:7",
+                    "src": "649:57:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_CollateralizerInterface_$745",
+                      "typeIdentifier": "t_contract$_CollateralizerInterface_$1393",
                       "typeString": "contract CollateralizerInterface"
                     }
                   },
-                  "id": 776,
+                  "id": 1424,
                   "nodeType": "ExpressionStatement",
-                  "src": "649:57:7"
+                  "src": "649:57:10"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 781,
+                    "id": 1429,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 777,
+                      "id": 1425,
                       "name": "debtKernel",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 756,
-                      "src": "716:10:7",
+                      "referencedDeclaration": 1404,
+                      "src": "716:10:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_DebtKernelInterface_$932",
+                        "typeIdentifier": "t_contract$_DebtKernelInterface_$1580",
                         "typeString": "contract DebtKernelInterface"
                       }
                     },
@@ -1074,12 +1074,12 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 779,
+                          "id": 1427,
                           "name": "_debtKernel",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 764,
-                          "src": "749:11:7",
+                          "referencedDeclaration": 1412,
+                          "src": "749:11:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -1093,18 +1093,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 778,
+                        "id": 1426,
                         "name": "DebtKernelInterface",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 932,
-                        "src": "729:19:7",
+                        "referencedDeclaration": 1580,
+                        "src": "729:19:10",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_DebtKernelInterface_$932_$",
+                          "typeIdentifier": "t_type$_t_contract$_DebtKernelInterface_$1580_$",
                           "typeString": "type(contract DebtKernelInterface)"
                         }
                       },
-                      "id": 780,
+                      "id": 1428,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1112,40 +1112,40 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "729:32:7",
+                      "src": "729:32:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_DebtKernelInterface_$932",
+                        "typeIdentifier": "t_contract$_DebtKernelInterface_$1580",
                         "typeString": "contract DebtKernelInterface"
                       }
                     },
-                    "src": "716:45:7",
+                    "src": "716:45:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_DebtKernelInterface_$932",
+                      "typeIdentifier": "t_contract$_DebtKernelInterface_$1580",
                       "typeString": "contract DebtKernelInterface"
                     }
                   },
-                  "id": 782,
+                  "id": 1430,
                   "nodeType": "ExpressionStatement",
-                  "src": "716:45:7"
+                  "src": "716:45:10"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 787,
+                    "id": 1435,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 783,
+                      "id": 1431,
                       "name": "debtToken",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 758,
-                      "src": "771:9:7",
+                      "referencedDeclaration": 1406,
+                      "src": "771:9:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_DebtTokenInterface_$943",
+                        "typeIdentifier": "t_contract$_DebtTokenInterface_$1598",
                         "typeString": "contract DebtTokenInterface"
                       }
                     },
@@ -1156,12 +1156,12 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 785,
+                          "id": 1433,
                           "name": "_debtToken",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 766,
-                          "src": "802:10:7",
+                          "referencedDeclaration": 1414,
+                          "src": "802:10:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -1175,18 +1175,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 784,
+                        "id": 1432,
                         "name": "DebtTokenInterface",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 943,
-                        "src": "783:18:7",
+                        "referencedDeclaration": 1598,
+                        "src": "783:18:10",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_DebtTokenInterface_$943_$",
+                          "typeIdentifier": "t_type$_t_contract$_DebtTokenInterface_$1598_$",
                           "typeString": "type(contract DebtTokenInterface)"
                         }
                       },
-                      "id": 786,
+                      "id": 1434,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1194,40 +1194,40 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "783:30:7",
+                      "src": "783:30:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_DebtTokenInterface_$943",
+                        "typeIdentifier": "t_contract$_DebtTokenInterface_$1598",
                         "typeString": "contract DebtTokenInterface"
                       }
                     },
-                    "src": "771:42:7",
+                    "src": "771:42:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_DebtTokenInterface_$943",
+                      "typeIdentifier": "t_contract$_DebtTokenInterface_$1598",
                       "typeString": "contract DebtTokenInterface"
                     }
                   },
-                  "id": 788,
+                  "id": 1436,
                   "nodeType": "ExpressionStatement",
-                  "src": "771:42:7"
+                  "src": "771:42:10"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 793,
+                    "id": 1441,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 789,
+                      "id": 1437,
                       "name": "tokenTransferProxy",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 760,
-                      "src": "823:18:7",
+                      "referencedDeclaration": 1408,
+                      "src": "823:18:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1020",
+                        "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1675",
                         "typeString": "contract TokenTransferProxyInterface"
                       }
                     },
@@ -1238,12 +1238,12 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 791,
+                          "id": 1439,
                           "name": "_tokenTransferProxy",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 768,
-                          "src": "872:19:7",
+                          "referencedDeclaration": 1416,
+                          "src": "872:19:10",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -1257,18 +1257,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 790,
+                        "id": 1438,
                         "name": "TokenTransferProxyInterface",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1020,
-                        "src": "844:27:7",
+                        "referencedDeclaration": 1675,
+                        "src": "844:27:10",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_TokenTransferProxyInterface_$1020_$",
+                          "typeIdentifier": "t_type$_t_contract$_TokenTransferProxyInterface_$1675_$",
                           "typeString": "type(contract TokenTransferProxyInterface)"
                         }
                       },
-                      "id": 792,
+                      "id": 1440,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1276,26 +1276,26 @@
                       "lValueRequested": false,
                       "names": [],
                       "nodeType": "FunctionCall",
-                      "src": "844:48:7",
+                      "src": "844:48:10",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1020",
+                        "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1675",
                         "typeString": "contract TokenTransferProxyInterface"
                       }
                     },
-                    "src": "823:69:7",
+                    "src": "823:69:10",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1020",
+                      "typeIdentifier": "t_contract$_TokenTransferProxyInterface_$1675",
                       "typeString": "contract TokenTransferProxyInterface"
                     }
                   },
-                  "id": 794,
+                  "id": 1442,
                   "nodeType": "ExpressionStatement",
-                  "src": "823:69:7"
+                  "src": "823:69:10"
                 }
               ]
             },
             "documentation": null,
-            "id": 796,
+            "id": 1444,
             "implemented": true,
             "isConstructor": true,
             "isDeclaredConst": false,
@@ -1303,16 +1303,16 @@
             "name": "ContractRegistryInterface",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 769,
+              "id": 1417,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 762,
+                  "id": 1410,
                   "name": "_collateralizer",
                   "nodeType": "VariableDeclaration",
-                  "scope": 796,
-                  "src": "496:23:7",
+                  "scope": 1444,
+                  "src": "496:23:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1320,10 +1320,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 761,
+                    "id": 1409,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "496:7:7",
+                    "src": "496:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1334,11 +1334,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 764,
+                  "id": 1412,
                   "name": "_debtKernel",
                   "nodeType": "VariableDeclaration",
-                  "scope": 796,
-                  "src": "529:19:7",
+                  "scope": 1444,
+                  "src": "529:19:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1346,10 +1346,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 763,
+                    "id": 1411,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "529:7:7",
+                    "src": "529:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1360,11 +1360,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 766,
+                  "id": 1414,
                   "name": "_debtToken",
                   "nodeType": "VariableDeclaration",
-                  "scope": 796,
-                  "src": "558:18:7",
+                  "scope": 1444,
+                  "src": "558:18:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1372,10 +1372,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 765,
+                    "id": 1413,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "558:7:7",
+                    "src": "558:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1386,11 +1386,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 768,
+                  "id": 1416,
                   "name": "_tokenTransferProxy",
                   "nodeType": "VariableDeclaration",
-                  "scope": 796,
-                  "src": "586:27:7",
+                  "scope": 1444,
+                  "src": "586:27:10",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1398,10 +1398,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 767,
+                    "id": 1415,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "586:7:7",
+                    "src": "586:7:10",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1411,27 +1411,27 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "486:133:7"
+              "src": "486:133:10"
             },
             "payable": false,
             "returnParameters": {
-              "id": 770,
+              "id": 1418,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "639:0:7"
+              "src": "639:0:10"
             },
-            "scope": 797,
-            "src": "452:447:7",
+            "scope": 1445,
+            "src": "452:447:10",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 798,
-        "src": "215:687:7"
+        "scope": 1446,
+        "src": "215:687:10"
       }
     ],
-    "src": "0:903:7"
+    "src": "0:903:10"
   },
   "compiler": {
     "name": "solc",
@@ -1439,5 +1439,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-10-16T21:20:58.394Z"
+  "updatedAt": "2018-11-25T19:53:27.674Z"
 }
