@@ -536,7 +536,7 @@ export class MaxLTVLoanOffer {
         // underwriter risk rating.
 
         return this.web3.utils.soliditySha3(
-            this.data.kernelVersion,
+            this.data.issuanceVersion,
             this.debtor,
             NULL_ADDRESS, // underwriter
             0, // undwriter risk rating
