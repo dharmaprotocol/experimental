@@ -42,7 +42,7 @@ contract OrderLibrary {
 		)
 	{
 		return (
-			[order.kernelVersion, order.debtor, order.underwriter, order.termsContract, order.principalToken, order.relayer],
+			[order.issuanceVersion, order.debtor, order.underwriter, order.termsContract, order.principalToken, order.relayer],
             [order.underwriterRiskRating, order.salt, order.principalAmount, order.underwriterFee, order.relayerFee, order.creditorFee, order.debtorFee, order.expirationTimestampInSec],
 			[order.termsContractParameters],
             [order.debtorSignature.v, order.creditorSignature.v, order.underwriterSignature.v],

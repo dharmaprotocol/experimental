@@ -6,7 +6,7 @@ import * as addressBook from "dharma-address-book";
 import BigNumber from "bignumber.js";
 
 // Artifacts
-const LTVCreditorProxy = artifacts.require("./lTVCreditorProxy.sol");
+const LTVCreditorProxy = artifacts.require("./LTVCreditorProxy.sol");
 const TokenRegistry = artifacts.require("./TokenRegistry.sol");
 const DummyToken = artifacts.require("./DummyToken.sol");
 
