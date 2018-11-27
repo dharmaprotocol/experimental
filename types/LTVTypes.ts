@@ -5,6 +5,8 @@ import { ECDSASignature } from "./ECDSASignature";
 // The set of values that the creditor signs.
 export interface CommitmentValues {
     maxLTV: number | string;
+    // The price feed operator's address .
+    priceFeedOperator: string;
 }
 
 // The combination of signed values and signature .
@@ -25,8 +27,7 @@ export interface Price {
 export interface LTVParams {
     // The creditor's address.
     creditor: string;
-    // The price feed operator's address .
-    priceFeedOperator: string;
+
     // The values and signature for the creditor commitment hash.
     creditorCommitment: CreditorCommitment;
     // Price feed data.

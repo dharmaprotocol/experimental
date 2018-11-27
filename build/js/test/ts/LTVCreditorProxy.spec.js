@@ -39,7 +39,7 @@ let principalToken;
 let collateralToken;
 let creditor;
 let debtor;
-contract("LTVCreditorProxy", (accounts) => {
+contract("LTVCreditorProxy", accounts => {
     describe("implementation", () => {
         before(() => __awaiter(this, void 0, void 0, function* () {
             // To keep things simple, they're just the same for now.
@@ -63,14 +63,26 @@ contract("LTVCreditorProxy", (accounts) => {
             lTVFixtures = new LTVFixtures_1.LTVFixtures(web3, accounts, tokens, participants, contracts);
         }));
         const setupBalancesAndAllowances = () => __awaiter(this, void 0, void 0, function* () {
-            principalTokenAddress = yield registry.methods.getTokenAddressByIndex(0).call();
-            collateralTokenAddress = yield registry.methods.getTokenAddressByIndex(1).call();
+            principalTokenAddress = yield registry.methods
+                .getTokenAddressByIndex(0)
+                .call();
+            collateralTokenAddress = yield registry.methods
+                .getTokenAddressByIndex(1)
+                .call();
             principalToken = new web3.eth.Contract(DummyToken.abi, principalTokenAddress);
             collateralToken = new web3.eth.Contract(DummyToken.abi, collateralTokenAddress);
-            yield principalToken.methods.setBalance(creditor, 1000000000000).send({ from: creditor });
-            yield principalToken.methods.approve(LTVCreditorProxy.address, 1000000000000).send({ from: creditor });
-            yield collateralToken.methods.setBalance(debtor, 100000000).send({ from: creditor });
-            yield collateralToken.methods.approve(addresses.TokenTransferProxy, 100000000).send({ from: debtor });
+            yield principalToken.methods
+                .setBalance(creditor, 1000000000000)
+                .send({ from: creditor });
+            yield principalToken.methods
+                .approve(LTVCreditorProxy.address, 1000000000000)
+                .send({ from: creditor });
+            yield collateralToken.methods
+                .setBalance(debtor, 100000000)
+                .send({ from: creditor });
+            yield collateralToken.methods
+                .approve(addresses.TokenTransferProxy, 100000000)
+                .send({ from: debtor });
         });
         describe("#hashCreditorCommitmentForOrder", () => {
             describe("when given commitment values and a debt order", () => {
@@ -79,7 +91,9 @@ contract("LTVCreditorProxy", (accounts) => {
                     const order = yield debtOrderFixtures.unsignedOrder();
                     const commitmentValues = params.creditorCommitment.values;
                     const expected = yield lTVFixtures.commitmentHash(commitmentValues, order);
-                    const result = yield proxy.methods.hashCreditorCommitmentForOrder(commitmentValues, order).call();
+                    const result = yield proxy.methods
+                        .hashCreditorCommitmentForOrder(commitmentValues, order)
+                        .call();
                     expect(result).to.eq(expected);
                 }));
             });
@@ -105,41 +119,49 @@ contract("LTVCreditorProxy", (accounts) => {
                 before(() => __awaiter(this, void 0, void 0, function* () {
                     const params = yield lTVFixtures.unsignedParams();
                     unsignedOrder = params.order;
-                    commitmentHash = yield proxy.methods.hashCreditorCommitmentForOrder(params.creditorCommitment.values, unsignedOrder).call();
+                    commitmentHash = yield proxy.methods
+                        .hashCreditorCommitmentForOrder(params.creditorCommitment.values, unsignedOrder)
+                        .call();
                 }));
                 it("returns a transaction receipt", () => __awaiter(this, void 0, void 0, function* () {
-                    const values = { maxLTV: 100 };
+                    const values = {
+                        maxLTV: 100,
+                        priceFeedOperator: accounts[2],
+                    };
                     const creditorCommitment = {
                         values,
-                        signature: debtOrderFixtures.blankSignature
+                        signature: debtOrderFixtures.blankSignature,
                     };
                     const principalPrice = {
                         value: 0,
                         tokenAddress: principalTokenAddress,
                         timestamp: 0,
-                        signature: debtOrderFixtures.blankSignature
+                        signature: debtOrderFixtures.blankSignature,
                     };
                     const collateralPrice = {
                         value: 0,
                         tokenAddress: collateralTokenAddress,
                         timestamp: 0,
-                        signature: debtOrderFixtures.blankSignature
+                        signature: debtOrderFixtures.blankSignature,
                     };
                     const params = {
                         creditorCommitment,
                         creditor: accounts[0],
-                        priceFeedOperator: accounts[1],
                         principalPrice,
                         collateralPrice,
-                        order: unsignedOrder
+                        order: unsignedOrder,
                     };
-                    const transactionReceipt = yield proxy.methods.fillDebtOffer(params).send({
-                        from: unsignedOrder.creditor
+                    const transactionReceipt = yield proxy.methods
+                        .fillDebtOffer(params)
+                        .send({
+                        from: unsignedOrder.creditor,
                     });
                     expect(transactionReceipt.transactionHash).to.be.a("string");
                 }));
                 it("does not add a mapping in the debtOfferFilled field", () => __awaiter(this, void 0, void 0, function* () {
-                    const result = yield proxy.methods.debtOfferFilled(commitmentHash).call();
+                    const result = yield proxy.methods
+                        .debtOfferFilled(commitmentHash)
+                        .call();
                     expect(result).to.eq(false);
                 }));
             });
@@ -151,19 +173,23 @@ contract("LTVCreditorProxy", (accounts) => {
                 before(() => __awaiter(this, void 0, void 0, function* () {
                     params = yield lTVFixtures.signedParams();
                     order = params.order;
-                    commitmentHash = yield proxy.methods.hashCreditorCommitmentForOrder(params.creditorCommitment.values, order).call();
+                    commitmentHash = yield proxy.methods
+                        .hashCreditorCommitmentForOrder(params.creditorCommitment.values, order)
+                        .call();
                 }));
                 it("returns a transaction receipt", () => __awaiter(this, void 0, void 0, function* () {
                     txReceipt = yield proxy.methods.fillDebtOffer(params).send({
                         from: params.creditor,
-                        gas: 6712390
+                        gas: 6712390,
                     });
                     const txHash = txReceipt.transactionHash;
                     // The transaction receipt is valid if it has a string transaction hash.
                     expect(txHash).to.be.a("string");
                 }));
                 it("adds a mapping in the debtOfferFilled field", () => __awaiter(this, void 0, void 0, function* () {
-                    const result = yield proxy.methods.debtOfferFilled(commitmentHash).call();
+                    const result = yield proxy.methods
+                        .debtOfferFilled(commitmentHash)
+                        .call();
                     expect(result).to.eq(true);
                 }));
                 it("emits a 'LogDebtOrderFilled' event from the DebtKernel", () => __awaiter(this, void 0, void 0, function* () {

@@ -20,7 +20,7 @@ class LTVFixtures {
         this.blankSignature = {
             r: this.web3.utils.fromAscii(""),
             s: this.web3.utils.fromAscii(""),
-            v: 0
+            v: 0,
         };
         this.debtOrderFixtures = new DebtOrders_1.DebtOrderFixtures(web3, accounts, tokens, participants, contracts);
     }
@@ -32,9 +32,8 @@ class LTVFixtures {
             params.creditorCommitment.signature = yield ECDSASignature_1.ecSign(this.web3, commitmentHash, params.creditor);
             const principalPriceHash = this.priceHash(params.principalPrice);
             const collateralPriceHash = this.priceHash(params.collateralPrice);
-            params.priceFeedOperator = this.accounts[2];
-            params.collateralPrice.signature = yield ECDSASignature_1.ecSign(this.web3, collateralPriceHash, params.priceFeedOperator);
-            params.principalPrice.signature = yield ECDSASignature_1.ecSign(this.web3, principalPriceHash, params.priceFeedOperator);
+            params.collateralPrice.signature = yield ECDSASignature_1.ecSign(this.web3, collateralPriceHash, params.creditorCommitment.values.priceFeedOperator);
+            params.principalPrice.signature = yield ECDSASignature_1.ecSign(this.web3, principalPriceHash, params.creditorCommitment.values.priceFeedOperator);
             return params;
         });
     }
@@ -44,31 +43,31 @@ class LTVFixtures {
             const values = {
                 principalToken: order.principalToken,
                 principalAmount: 1,
-                maxLTV: 100
+                maxLTV: 100,
+                priceFeedOperator: this.accounts[2],
             };
             const creditorCommitment = {
                 values,
-                signature: this.blankSignature
+                signature: this.blankSignature,
             };
             const principalPrice = {
                 value: 1,
                 tokenAddress: this.tokens.principalAddress,
                 timestamp: yield this.currentBlockTimestamp(),
-                signature: this.blankSignature
+                signature: this.blankSignature,
             };
             const collateralPrice = {
                 value: 20,
                 tokenAddress: this.tokens.collateralAddress,
                 timestamp: yield this.currentBlockTimestamp(),
-                signature: this.blankSignature
+                signature: this.blankSignature,
             };
             return {
                 creditorCommitment,
                 creditor: this.accounts[0],
-                priceFeedOperator: this.accounts[1],
                 principalPrice,
                 collateralPrice,
-                order
+                order,
             };
         });
     }
@@ -76,7 +75,7 @@ class LTVFixtures {
         return this.web3.utils.soliditySha3(price.value, price.tokenAddress, price.timestamp);
     }
     commitmentHash(commitmentValues, order) {
-        return this.web3.utils.soliditySha3(order.creditor, order.kernelVersion, order.issuanceVersion, order.termsContract, order.principalToken, order.salt, order.principalAmount, order.creditorFee, order.expirationTimestampInSec, commitmentValues.maxLTV, 
+        return this.web3.utils.soliditySha3(order.creditor, order.kernelVersion, order.issuanceVersion, order.termsContract, order.principalToken, order.salt, order.principalAmount, order.creditorFee, order.expirationTimestampInSec, commitmentValues.maxLTV, commitmentValues.priceFeedOperator, 
         // unpacked termsContractParameters
         this.web3.utils.soliditySha3(this.debtOrderFixtures.principalTokenIndex, this.debtOrderFixtures.principalAmount, this.debtOrderFixtures.interestRateFixedPoint, this.debtOrderFixtures.amortizationUnitType, this.debtOrderFixtures.termLengthUnits, this.debtOrderFixtures.collateralTokenIndex, this.debtOrderFixtures.gracePeriodInDays));
     }

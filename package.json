@@ -17,7 +17,7 @@
     "chai-as-promised": "^7.1.1",
     "dharma-address-book": "^1.0.6",
     "dharma-chain": "^1.0.19",
-    "dharma-contract-artifacts": "^1.0.2",
+    "dharma-contract-artifacts": "^1.0.4",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "single-line-string": "^0.0.2",

@@ -7,13 +7,12 @@ import * as contractArtifacts from "dharma-contract-artifacts";
 // Artifacts
 const { DebtToken, TokenRegistry, LTVCreditorProxy } = contractArtifacts.latest;
 
-
 // Types
 import { ecSign, ECDSASignature } from "../../../types/ECDSASignature";
 import {
     CollateralizedContractTerms,
     CollateralizedSimpleInterestTermsParameters,
-    SimpleInterestContractTerms
+    SimpleInterestContractTerms,
 } from "../../../types/TermsContractParameters";
 import { InterestRate, TimeInterval, TokenAmount } from "../";
 import { LTVParams, Price } from "../../../types/LTVTypes";
@@ -23,7 +22,7 @@ import { BigNumber, NETWORK_ID_TO_NAME } from "../../utils";
 
 // Configure BigNumber
 BigNumber.config({
-    EXPONENTIAL_AT: 1000
+    EXPONENTIAL_AT: 1000,
 });
 
 const MAX_INTEREST_RATE_PRECISION = 4;
@@ -33,20 +32,29 @@ const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 const NULL_ECDSA_SIGNATURE = {
     r: "0x0",
     s: "0x0",
-    v: 0
+    v: 0,
 };
 
 export const MAX_LTV_LOAN_OFFER_ERRORS = {
-    ALREADY_SIGNED_BY_CREDITOR: () => `The creditor has already signed the loan offer.`,
-    ALREADY_SIGNED_BY_DEBTOR: () => `The debtor has already signed the loan offer.`,
+    ALREADY_SIGNED_BY_CREDITOR: () =>
+        `The creditor has already signed the loan offer.`,
+    ALREADY_SIGNED_BY_DEBTOR: () =>
+        `The debtor has already signed the loan offer.`,
     COLLATERAL_AMOUNT_NOT_SET: () => `The collateral amount must be set first`,
-    INSUFFICIENT_COLLATERAL_AMOUNT: (collateralAmount: number, collateralTokenSymbol: string) =>
+    INSUFFICIENT_COLLATERAL_AMOUNT: (
+        collateralAmount: number,
+        collateralTokenSymbol: string
+    ) =>
         singleLineString`Collateral of ${collateralAmount} ${collateralTokenSymbol} is insufficient
             for the maximum loan-to-value.`,
-    PRICE_OF_INCORRECT_TOKEN: (receivedAddress: string, expectedAddress: string) =>
+    PRICE_OF_INCORRECT_TOKEN: (
+        receivedAddress: string,
+        expectedAddress: string
+    ) =>
         singleLineString`Received price of token at address ${receivedAddress},
             but expected price of token at address ${expectedAddress}.`,
-    PRICES_NOT_SET: () => `The prices of the principal and collateral must be set first.`
+    PRICES_NOT_SET: () =>
+        `The prices of the principal and collateral must be set first.`,
 };
 
 export interface MaxLTVData {
@@ -71,7 +79,17 @@ export interface MaxLTVData {
     termsContract: string;
 }
 
-export type DurationUnit = "hour" | "hours" | "day" | "days" | "week" | "weeks" | "month" | "months" | "year" | "years";
+export type DurationUnit =
+    | "hour"
+    | "hours"
+    | "day"
+    | "days"
+    | "week"
+    | "weeks"
+    | "month"
+    | "months"
+    | "year"
+    | "years";
 
 export interface DebtOrderParams {
     principalAmount: number;
@@ -97,7 +115,11 @@ export interface MaxLTVParams extends DebtOrderParams {
 }
 
 export class MaxLTVLoanOffer {
-    public static async create(ltvProxyAddress: string, web3: Web3, params: MaxLTVParams): Promise<MaxLTVLoanOffer> {
+    public static async create(
+        ltvProxyAddress: string,
+        web3: Web3,
+        params: MaxLTVParams
+    ): Promise<MaxLTVLoanOffer> {
         const {
             collateralToken,
             creditorFeeAmount,
@@ -112,18 +134,22 @@ export class MaxLTVLoanOffer {
             relayerAddress,
             relayerFeeAmount,
             termDuration,
-            termUnit
+            termUnit,
         } = params;
 
         const networkId = await web3.eth.net.getId();
 
         const addresses = addressBook.latest[NETWORK_ID_TO_NAME[networkId]];
 
-        const tokenRegistryContract = new web3.eth.Contract(TokenRegistry, addresses.TokenRegistry);
+        const tokenRegistryContract = new web3.eth.Contract(
+            TokenRegistry,
+            addresses.TokenRegistry
+        );
 
         const kernelVersion = addresses.DebtKernel;
         const issuanceVersion = addresses.RepaymentRouter;
-        const termsContract = addresses.CollateralizedSimpleInterestTermsContract;
+        const termsContract =
+            addresses.CollateralizedSimpleInterestTermsContract;
 
         const principalTokenAddress = await tokenRegistryContract.methods
             .getTokenAddressBySymbol(params.principalToken)
@@ -133,10 +159,14 @@ export class MaxLTVLoanOffer {
             .call();
 
         const principalTokenIndex = new BigNumber(
-            await tokenRegistryContract.methods.getTokenIndexBySymbol(params.principalToken).call()
+            await tokenRegistryContract.methods
+                .getTokenIndexBySymbol(params.principalToken)
+                .call()
         );
         const collateralTokenIndex = new BigNumber(
-            await tokenRegistryContract.methods.getTokenIndexBySymbol(params.collateralToken).call()
+            await tokenRegistryContract.methods
+                .getTokenIndexBySymbol(params.collateralToken)
+                .call()
         );
 
         let relayer = NULL_ADDRESS;
@@ -150,12 +180,18 @@ export class MaxLTVLoanOffer {
         }
 
         if (creditorFeeAmount && creditorFeeAmount > 0) {
-            const creditorFeeTokenAmount = new TokenAmount(creditorFeeAmount, principalToken);
+            const creditorFeeTokenAmount = new TokenAmount(
+                creditorFeeAmount,
+                principalToken
+            );
             creditorFee = creditorFeeTokenAmount.rawAmount;
         }
 
         if (debtorFeeAmount && debtorFeeAmount > 0) {
-            const debtorFeeTokenAmount = new TokenAmount(debtorFeeAmount, principalToken);
+            const debtorFeeTokenAmount = new TokenAmount(
+                debtorFeeAmount,
+                principalToken
+            );
             debtorFee = debtorFeeTokenAmount.rawAmount;
         }
 
@@ -178,7 +214,7 @@ export class MaxLTVLoanOffer {
             relayerFee,
             salt: MaxLTVLoanOffer.generateSalt(),
             termLength: new TimeInterval(termDuration, termUnit),
-            termsContract
+            termsContract,
         };
 
         return new MaxLTVLoanOffer(ltvProxyAddress, web3, data);
@@ -190,7 +226,11 @@ export class MaxLTVLoanOffer {
         params: MaxLTVParams,
         creditor?: string
     ): Promise<MaxLTVLoanOffer> {
-        const offer = await MaxLTVLoanOffer.create(ltvProxyAddress, web3, params);
+        const offer = await MaxLTVLoanOffer.create(
+            ltvProxyAddress,
+            web3,
+            params
+        );
 
         await offer.signAsCreditor(creditor);
 
@@ -198,7 +238,9 @@ export class MaxLTVLoanOffer {
     }
 
     public static generateSalt(): BigNumber {
-        return BigNumber.random(SALT_DECIMALS).times(new BigNumber(10).pow(SALT_DECIMALS));
+        return BigNumber.random(SALT_DECIMALS).times(
+            new BigNumber(10).pow(SALT_DECIMALS)
+        );
     }
 
     private collateralAmount?: number;
@@ -211,7 +253,11 @@ export class MaxLTVLoanOffer {
     private principalPrice?: Price;
     private termsContractParameters?: string;
 
-    constructor(private readonly ltvProxyAddress: string, private readonly web3: Web3, private readonly data: MaxLTVData) {}
+    constructor(
+        private readonly ltvProxyAddress: string,
+        private readonly web3: Web3,
+        private readonly data: MaxLTVData
+    ) {}
 
     /**
      * Eventually signs the loan offer as the creditor.
@@ -226,21 +272,31 @@ export class MaxLTVLoanOffer {
      */
     public async signAsCreditor(creditorAddress: string): Promise<void> {
         if (this.isSignedByCreditor()) {
-            throw new Error(MAX_LTV_LOAN_OFFER_ERRORS.ALREADY_SIGNED_BY_CREDITOR());
+            throw new Error(
+                MAX_LTV_LOAN_OFFER_ERRORS.ALREADY_SIGNED_BY_CREDITOR()
+            );
         }
 
         this.creditor = creditorAddress;
 
-        const currentBlocktime = new BigNumber((await this.web3.eth.getBlock("latest")).timestamp);
+        const currentBlocktime = new BigNumber(
+            (await this.web3.eth.getBlock("latest")).timestamp
+        );
 
-        this.expirationTimestampInSec = this.data.expiresIn.fromTimestamp(currentBlocktime);
+        this.expirationTimestampInSec = this.data.expiresIn.fromTimestamp(
+            currentBlocktime
+        );
 
         const loanOfferHash = this.getCreditorCommitmentHash();
 
         const isMetaMask = !!this.web3.currentProvider.isMetaMask;
 
         // TODO: integrate MetaMask prefix
-        this.creditorSignature = await ecSign(this.web3, loanOfferHash, this.creditor);
+        this.creditorSignature = await ecSign(
+            this.web3,
+            loanOfferHash,
+            this.creditor
+        );
     }
 
     /**
@@ -343,7 +399,11 @@ export class MaxLTVLoanOffer {
      *
      */
     public setCollateralAmount(collateralAmount: number) {
-        if (this.principalPrice && this.collateralPrice && !this.collateralAmountIsSufficient(collateralAmount)) {
+        if (
+            this.principalPrice &&
+            this.collateralPrice &&
+            !this.collateralAmountIsSufficient(collateralAmount)
+        ) {
             throw new Error(
                 MAX_LTV_LOAN_OFFER_ERRORS.INSUFFICIENT_COLLATERAL_AMOUNT(
                     collateralAmount,
@@ -386,7 +446,9 @@ export class MaxLTVLoanOffer {
      */
     public async signAsDebtor(debtorAddress: string): Promise<void> {
         if (this.isSignedByDebtor()) {
-            throw new Error(MAX_LTV_LOAN_OFFER_ERRORS.ALREADY_SIGNED_BY_DEBTOR());
+            throw new Error(
+                MAX_LTV_LOAN_OFFER_ERRORS.ALREADY_SIGNED_BY_DEBTOR()
+            );
         }
 
         if (!this.principalPrice || !this.collateralPrice) {
@@ -394,7 +456,9 @@ export class MaxLTVLoanOffer {
         }
 
         if (!this.collateralAmount) {
-            throw new Error(MAX_LTV_LOAN_OFFER_ERRORS.COLLATERAL_AMOUNT_NOT_SET());
+            throw new Error(
+                MAX_LTV_LOAN_OFFER_ERRORS.COLLATERAL_AMOUNT_NOT_SET()
+            );
         }
 
         if (!this.collateralAmountIsSufficient(this.collateralAmount)) {
@@ -413,7 +477,11 @@ export class MaxLTVLoanOffer {
         const debtorCommitmentHash = this.getDebtorCommitmentHash();
 
         // TODO: integrate MetaMask prefix?
-        this.debtorSignature = await ecSign(this.web3, debtorCommitmentHash, this.debtor);
+        this.debtorSignature = await ecSign(
+            this.web3,
+            debtorCommitmentHash,
+            this.debtor
+        );
     }
 
     /**
@@ -435,7 +503,10 @@ export class MaxLTVLoanOffer {
     }
 
     public async acceptAsDebtor(): Promise<void> {
-        const collateral = new TokenAmount(this.collateralAmount, this.data.collateralTokenSymbol);
+        const collateral = new TokenAmount(
+            this.collateralAmount,
+            this.data.collateralTokenSymbol
+        );
 
         // We convert BigNumbers into strings because of an issue with Web3 taking larger BigNumbers
         const lTVParams: LTVParams = {
@@ -462,19 +533,22 @@ export class MaxLTVLoanOffer {
                 termsContract: this.data.termsContract,
                 termsContractParameters: this.termsContractParameters,
                 expirationTimestampInSec: this.expirationTimestampInSec.toString(),
-                salt: this.data.salt.toString()
+                salt: this.data.salt.toString(),
             },
-            priceFeedOperator: this.data.priceProvider,
             collateralPrice: this.collateralPrice,
             principalPrice: this.principalPrice,
             creditorCommitment: {
                 values: {
-                    maxLTV: this.data.maxLTV.toString()
+                    maxLTV: this.data.maxLTV.toString(),
+                    priceFeedOperator: this.data.priceProvider,
                 },
-                signature: this.creditorSignature
+                signature: this.creditorSignature,
             },
-            creditor: this.creditor
+            creditor: this.creditor,
         };
+
+        console.log("creditor: ", this.creditor);
+        console.log("price provider: ", this.data.priceProvider);
 
         const lTVCreditorProxyContract = new this.web3.eth.Contract(
             LTVCreditorProxy,
@@ -483,7 +557,7 @@ export class MaxLTVLoanOffer {
 
         return lTVCreditorProxyContract.methods.fillDebtOffer(lTVParams).send({
             from: this.debtor,
-            gas: 6712390
+            gas: 6712390,
         });
     }
 
@@ -492,7 +566,10 @@ export class MaxLTVLoanOffer {
 
         const addresses = addressBook.latest[NETWORK_ID_TO_NAME[networkId]];
 
-        const debtTokenContract = new this.web3.eth.Contract(DebtToken, addresses.DebtToken);
+        const debtTokenContract = new this.web3.eth.Contract(
+            DebtToken,
+            addresses.DebtToken
+        );
 
         const issuanceCommitmentHash = this.getIssuanceCommitmentHash();
 
@@ -503,7 +580,9 @@ export class MaxLTVLoanOffer {
         return this.web3.utils.soliditySha3(
             this.data.principalTokenIndex,
             this.data.principal.rawAmount,
-            this.data.interestRate.raw.times(FIXED_POINT_SCALING_FACTOR).toNumber(),
+            this.data.interestRate.raw
+                .times(FIXED_POINT_SCALING_FACTOR)
+                .toNumber(),
             this.data.termLength.getAmortizationUnitType(),
             this.data.termLength.amount,
             this.data.collateralTokenIndex,
@@ -523,13 +602,16 @@ export class MaxLTVLoanOffer {
             this.data.creditorFee,
             this.expirationTimestampInSec,
             this.data.maxLTV,
+            this.data.priceProvider,
             this.getTermsContractCommitmentHash()
         );
     }
 
     private getIssuanceCommitmentHash(): string {
         if (!this.collateralAmount) {
-            throw new Error(MAX_LTV_LOAN_OFFER_ERRORS.COLLATERAL_AMOUNT_NOT_SET());
+            throw new Error(
+                MAX_LTV_LOAN_OFFER_ERRORS.COLLATERAL_AMOUNT_NOT_SET()
+            );
         }
 
         // We remove underwriting as a feature, since the creditor has no mechanism to mandate a maximum
@@ -565,21 +647,26 @@ export class MaxLTVLoanOffer {
     }
 
     private getTermsContractParameters(): string {
-        const collateral = new TokenAmount(this.collateralAmount, this.data.collateralTokenSymbol);
+        const collateral = new TokenAmount(
+            this.collateralAmount,
+            this.data.collateralTokenSymbol
+        );
 
         // Pack terms contract parameters
         const collateralizedContractTerms: CollateralizedContractTerms = {
             collateralAmount: collateral.rawAmount.toNumber(),
             collateralTokenIndex: this.data.collateralTokenIndex.toNumber(),
-            gracePeriodInDays: 0
+            gracePeriodInDays: 0,
         };
 
         const simpleInterestContractTerms: SimpleInterestContractTerms = {
             principalTokenIndex: this.data.principalTokenIndex.toNumber(),
             principalAmount: this.data.principal.rawAmount.toNumber(),
-            interestRateFixedPoint: this.data.interestRate.raw.times(FIXED_POINT_SCALING_FACTOR).toNumber(),
+            interestRateFixedPoint: this.data.interestRate.raw
+                .times(FIXED_POINT_SCALING_FACTOR)
+                .toNumber(),
             amortizationUnitType: this.data.termLength.getAmortizationUnitType(),
-            termLengthUnits: this.data.termLength.amount
+            termLengthUnits: this.data.termLength.amount,
         };
 
         return CollateralizedSimpleInterestTermsParameters.pack(
@@ -596,10 +683,16 @@ export class MaxLTVLoanOffer {
         // We do not use the TokenAmount's rawValue here because what matters is the "real world" amount
         // of the principal and collateral, without regard for how many decimals are used in their
         // blockchain representations.
-        const principalValue = new BigNumber(this.data.principal.decimalAmount).times(this.principalPrice.value);
+        const principalValue = new BigNumber(
+            this.data.principal.decimalAmount
+        ).times(this.principalPrice.value);
 
-        const collateralValue = new BigNumber(collateralAmount).times(this.collateralPrice.value);
+        const collateralValue = new BigNumber(collateralAmount).times(
+            this.collateralPrice.value
+        );
 
-        return principalValue.div(collateralValue).lte(this.data.maxLTV.div(100));
+        return principalValue
+            .div(collateralValue)
+            .lte(this.data.maxLTV.div(100));
     }
 }
